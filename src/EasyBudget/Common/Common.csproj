@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>EasyBudget.Common</AssemblyName>
+    <RootNamespace>EasyBudget.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Business\Operations\" />
+    <Folder Include="Business\Services\" />
+    <Folder Include="DataAccess\Commands\" />
+    <Folder Include="DataAccess\Queries\" />
+    <Folder Include="Diagrams\" />
+    <Folder Include="Model\Security\" />
+  </ItemGroup>
+
+</Project>
