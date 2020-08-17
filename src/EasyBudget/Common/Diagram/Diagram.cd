@@ -3,21 +3,24 @@
   <Class Name="EasyBudget.Common.Model.BudgetDescription">
     <Position X="18.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEBAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Model\BudgetDescription.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="EasyBudget.Common.Model.BudgetRequest">
-    <Position X="14.75" Y="2" Width="2" />
+    <Position X="14.75" Y="3.75" Width="2" />
     <TypeIdentifier>
       <HashCode>JAAAAAAASAAAAAUAAAQACAQIECCACAAAAAAIAAAAAAA=</HashCode>
       <FileName>Model\BudgetRequest.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Approver" />
-      <Property Name="Department" />
-      <Property Name="Executor" />
       <Property Name="Requester" />
+      <Property Name="Approver" />
+      <Property Name="Executor" />
+      <Property Name="Department" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="BudgetDescriptions" />
@@ -50,8 +53,8 @@
       <Property Name="Department" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Actions" />
       <Property Name="Users" />
+      <Property Name="Actions" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EasyBudget.Common.Model.Security.User">
