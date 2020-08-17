@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Common.Model.Security;
+using EasyBudget.Common.Model.Security;
 
-namespace Common.Model
+namespace EasyBudget.Common.Model
 {
     public class ChainOfApprovals : Entity
     {

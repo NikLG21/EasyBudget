@@ -1,35 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Common.Model.BudgetDescription" Collapsed="true">
-    <Position X="9.25" Y="2" Width="1.5" />
+  <Class Name="EasyBudget.Common.Model.BudgetDescription">
+    <Position X="18.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEBAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\BudgetDescription.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Common.Model.BudgetRequest" Collapsed="true">
-    <Position X="5.5" Y="2.75" Width="1.5" />
+  <Class Name="EasyBudget.Common.Model.BudgetRequest">
+    <Position X="14.75" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>JAAAAAAASAAAAAUAAAQAAAQIAAAACABAAAAIAAAAAAA=</HashCode>
+      <HashCode>JAAAAAAASAAAAAUAAAQACAQIECCACAAAAAAIAAAAAAA=</HashCode>
       <FileName>Model\BudgetRequest.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Approver" />
+      <Property Name="Department" />
+      <Property Name="Executor" />
+      <Property Name="Requester" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="BudgetDescriptions" />
+    </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="System.Object" Collapsed="true">
-    <Position X="5.5" Y="1.5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="Common.Model.ChainOfApprovals" Collapsed="true">
-    <Position X="7.75" Y="3.25" Width="1.5" />
+  <Class Name="EasyBudget.Common.Model.ChainOfApprovals">
+    <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\ChainOfApprovals.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Common.Model.Entity" Collapsed="true">
-    <Position X="2.5" Y="1.5" Width="1.5" />
+  <Class Name="EasyBudget.Common.Model.Security.Action">
+    <Position X="7" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\Entity.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Security\Action.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Roles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EasyBudget.Common.Model.Security.Role">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAIAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Security\Role.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Department" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Actions" />
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EasyBudget.Common.Model.Security.User">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Security\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Roles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EasyBudget.Common.Model.Department">
+    <Position X="9.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Department.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

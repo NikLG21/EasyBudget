@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Common.Model.Security
+﻿namespace EasyBudget.Common.Model
 {
     public class Department : Entity
     {

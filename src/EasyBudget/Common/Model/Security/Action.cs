@@ -1,8 +1,6 @@
-﻿
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
-
-namespace Common.Model.Security
+namespace EasyBudget.Common.Model.Security
 {
     public class Action : Entity
     {
