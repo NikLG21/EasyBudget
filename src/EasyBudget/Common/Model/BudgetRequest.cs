@@ -23,9 +23,9 @@ namespace EasyBudget.Common.Model
 
         public decimal EstimatedSum { get; set; }
         public decimal ExactSum { get; set; }
-        private decimal ExpenceSum { get; set; }
+        public decimal ExpenceSum { get; set; }
 
-        private ChainOfApprovals Chain { get; }
+        public ChainOfApprovals Chain { get; }
 
         public List<BudgetDescription> BudgetDescriptions { get; } = new List<BudgetDescription>();
     }

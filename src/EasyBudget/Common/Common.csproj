@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Operations\" />
-    <Folder Include="Business\Services\" />
     <Folder Include="DataAccess\Commands\" />
     <Folder Include="DataAccess\Queries\" />
     <Folder Include="Diagrams\" />
