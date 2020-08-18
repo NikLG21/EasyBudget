@@ -10,7 +10,33 @@ namespace ConsoleMykyta
         static void Main(string[] args)
         {
             IBudgetRequestAccess access = new BudgetRequestAccess();
-            BudgetRequest request = new BudgetRequest();
+            BudgetRequest request = new BudgetRequest()
+
+            {
+                Id = Guid.NewGuid(),
+                Name = "Class",
+                DateRequested = DateTime.Now,
+                DateRequestedDeadline = DateTime.MaxValue,
+                DateDirectorApprove = DateTime.Today,
+                DateStartExecution = DateTime.Now,
+                DateDeadlineExecution = DateTime.Now,
+                DateEndExecution = DateTime.Now,
+                RealPrice = 100,
+                EstimatedPrice = 120,
+                State = BudgetState.ApprovedDirector,
+                BudgetDescriptions =
+                {
+                    new BudgetDescription()
+                    {
+                        Date = DateTime.Today,
+                        Description = String.Empty,
+                        Id = Guid.NewGuid(),
+                        User = null
+                    }
+                }
+                
+            };
+
             access.AddBudgetRequest(request);
             Guid id = request.Id;
             BudgetRequest budgetRequest = access.GetBudgetRequest(id);
