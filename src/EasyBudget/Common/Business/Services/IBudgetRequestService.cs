@@ -6,7 +6,7 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.Business.Services
 {
-    interface IBudgetRequestService
+    public interface IBudgetRequestService
     {
         void AddBudgetRequest(BudgetRequest request, User user);
         void EditBudgetRequest(Guid id);

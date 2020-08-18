@@ -5,7 +5,7 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.Business.Services
 {
-    interface IAgreementBudgetRequestService
+    public interface IAgreementBudgetRequestService
     {
         void ApproveBudgetRequest(Guid id);
         void RejectBudgetRequest(Guid id);

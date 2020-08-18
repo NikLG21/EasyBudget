@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyBudget.Common.Business.Services
 {
-    interface INotificationsSend
+    public interface INotificationsSend
     {
         void SendApproveNotification();
         void SendDeclineNotification();
