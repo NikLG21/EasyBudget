@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using EasyBudget.Common.DataAccess.Commands;
 using EasyBudget.Common.Model;
@@ -10,17 +11,33 @@ namespace DataAccess
     {
         public void AddBudgetRequest(BudgetRequest request)
         {
-            throw new NotImplementedException();
+            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            {
+                context.BudgetRequests.Add(request);
+                context.SaveChanges();
+            }
         }
 
         public void UpdateBudgetRequest(BudgetRequest request)
         {
-            throw new NotImplementedException();
+            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            {
+                BudgetRequest oldRequest = context.BudgetRequests.FirstOrDefault(e => e.Id == request.Id);
+                oldRequest = request;
+                context.Entry(oldRequest).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+                
         }
 
         public void DeleteBudgetRequest(Guid budgetRequestId)
         {
-            throw new NotImplementedException();
+            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            {
+                BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == budgetRequestId);
+                context.BudgetRequests.Remove(request);
+                context.SaveChanges();
+            }
         }
 
         public BudgetRequest GetBudgetRequest(Guid budgetRequestId)

@@ -10,8 +10,11 @@ namespace ConsoleMykyta
         static void Main(string[] args)
         {
             IBudgetRequestAccess access = new BudgetRequestAccess();
-            Guid id = Guid.Empty;
+            BudgetRequest request = new BudgetRequest();
+            access.AddBudgetRequest(request);
+            Guid id = request.Id;
             BudgetRequest budgetRequest = access.GetBudgetRequest(id);
+            Console.WriteLine(budgetRequest.Id);
         }
     }
 }
