@@ -11,9 +11,7 @@ namespace EasyBudget.Common.Business.Services
         void AddBudgetRequest(BudgetRequest request, User user);
         void EditBudgetRequest(Guid id);
         void DeleteBudgetRequest(Guid id);
-
         BudgetRequest ViewingBudgetRequest(Guid id);
-
         List<BudgetRequest> ViewingBudgetRequestsList(User user);
     }
 }

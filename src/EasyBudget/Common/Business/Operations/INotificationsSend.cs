@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EasyBudget.Common.Business.Services
+﻿namespace EasyBudget.Common.Business.Operations
 {
     public interface INotificationsSend
     {
