@@ -11,6 +11,5 @@ namespace EasyBudget.Common.Business.Services
         void RejectBudgetRequest(Guid id);
         void SpecifyBudgetRequest(Guid id,User user);
         void DelayBudgetRequest(Guid id, DateTime delayTime);
-        
     }
 }

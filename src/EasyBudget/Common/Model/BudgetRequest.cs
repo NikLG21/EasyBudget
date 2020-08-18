@@ -21,11 +21,10 @@ namespace EasyBudget.Common.Model
         public DateTime DateDeadlineExecution { get; set; }
         public DateTime DateEndExecution { get; set; }
 
-        public decimal EstimatedSum { get; set; }
-        public decimal ExactSum { get; set; }
-        public decimal ExpenceSum { get; set; }
+        public decimal EstimatedPrice { get; set; }
+        public decimal RealPrice { get; set; }
 
-        public ChainOfApprovals Chain { get; }
+        public BudgetState State { get; set; }
 
         public List<BudgetDescription> BudgetDescriptions { get; } = new List<BudgetDescription>();
     }

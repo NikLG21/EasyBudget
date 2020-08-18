@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccess\Queries\" />
     <Folder Include="Model\Security\" />
   </ItemGroup>
 
