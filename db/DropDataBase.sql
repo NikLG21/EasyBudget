@@ -1,0 +1,11 @@
+USE [EasyBudget]
+
+DROP TABLE [dbo].[RoleAction]
+DROP TABLE [dbo].[UserRole]
+DROP TABLE [dbo].[Role]
+DROP TABLE [dbo].[Action]
+DROP TABLE [dbo].[BudgetDescription]
+DROP TABLE [dbo].[BudgetRequest]
+DROP TABLE [dbo].[Department]
+DROP TABLE [dbo].[User]
+DROP TABLE [dbo].[__MigrationHistory]

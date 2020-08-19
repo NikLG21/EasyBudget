@@ -2,6 +2,7 @@
 using DataAccess;
 using EasyBudget.Common.DataAccess.Commands;
 using EasyBudget.Common.Model;
+using EasyBudget.Common.Model.Security;
 
 namespace ConsoleMykyta
 {
@@ -31,7 +32,13 @@ namespace ConsoleMykyta
                         Date = DateTime.Today,
                         Description = String.Empty,
                         Id = Guid.NewGuid(),
-                        User = null
+                        User = new User()
+                        {
+                            Id = Guid.NewGuid(),
+                            Login = "log",
+                            Name = "g",
+                            Password = "dfd"
+                        }
                     }
                 }
                 

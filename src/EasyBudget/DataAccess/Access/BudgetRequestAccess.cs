@@ -50,12 +50,38 @@ namespace DataAccess
 
         public List<BudgetRequest> GetBudgetRequestByOriginatorList(Guid userId)
         {
-            throw new NotImplementedException();
+            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            {
+                List<BudgetRequest> budgetRequests = new List<BudgetRequest>();
+                
+                foreach (BudgetRequest budgetRequest in context.BudgetRequests)
+                {
+                    if (budgetRequest.Requester.Id.Equals(userId))
+                    {
+                        budgetRequests.Add(budgetRequest);
+                    }
+                }
+
+                return budgetRequests;
+            }
         }
 
         public List<BudgetRequest> GetBudgetRequestByApproverList(Guid userId)
         {
-            throw new NotImplementedException();
+            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            {
+                List<BudgetRequest> budgetRequests = new List<BudgetRequest>();
+
+                foreach (BudgetRequest budgetRequest in context.BudgetRequests)
+                {
+                    if (budgetRequest.Approver.Id.Equals(userId))
+                    {
+                        budgetRequests.Add(budgetRequest);
+                    }
+                }
+
+                return budgetRequests;
+            }
         }
     }
 }
