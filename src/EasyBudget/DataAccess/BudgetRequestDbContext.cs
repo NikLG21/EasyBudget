@@ -27,6 +27,7 @@ namespace DataAccess
             OnModelCreating_BudgetDescriptionConfig(modelBuilder);
             OnModelCreating_RoleConfig(modelBuilder);
             OnModelCreating_ActionConfig(modelBuilder);
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
 
         private static void OnModelCreating_MainConfig(DbModelBuilder modelBuilder)
@@ -62,8 +63,6 @@ namespace DataAccess
         private static void OnModelCreating_BudgetDescriptionConfig(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BudgetDescription>().Property(p => p.Description).HasMaxLength(2000);
-
-            modelBuilder.Entity<BudgetDescription>().HasRequired(u => u.BudgetRequest).WithMany().WillCascadeOnDelete(false);
             modelBuilder.Entity<BudgetDescription>().HasRequired(u => u.User).WithMany().WillCascadeOnDelete(false);
             
         }
