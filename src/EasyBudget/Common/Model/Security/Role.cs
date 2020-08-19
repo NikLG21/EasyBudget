@@ -1,12 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EasyBudget.Common.Model.Security
 {
     public class Role : Entity
     {
+        public Role()
+        {
+            Users = new HashSet<User>();
+            Actions = new HashSet<Action>();
+        }
+
         public string Name { get; set; }
         public Department Department { get; set; }
-        public List<User> Users { get;} = new List<User>();
-        public List<Action> Actions { get; } = new List<Action>();
+        public Guid? DepartmentId { get; set; }
+        public HashSet<User> Users { get; set; }
+        public HashSet<Action> Actions { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
@@ -49,18 +47,12 @@ namespace DataAccess
 
         private static void OnModelCreating_BudgetRequestConfig(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.Name).HasMaxLength(20);
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.State).IsRequired();
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.DateDirectorApprove).IsOptional();
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.DateRequestedDeadline).IsOptional();
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.DateStartExecution).IsOptional();
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.DateEndExecution).IsOptional();
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.DateDeadlineExecution).IsOptional();
+            modelBuilder.Entity<BudgetRequest>().Property(p => p.Name).HasMaxLength(200);
         }
 
         private static void OnModelCreating_BudgetDescriptionConfig(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BudgetDescription>().Property(p => p.Description).HasMaxLength(300);
+            modelBuilder.Entity<BudgetDescription>().Property(p => p.Description).HasMaxLength(2000);
         }
         private static void OnModelCreating_RoleConfig(DbModelBuilder modelBuilder)
         {
@@ -69,14 +61,14 @@ namespace DataAccess
 
         private static void OnModelCreating_ActionConfig(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Action>().Property(p => p.Name).HasMaxLength(20);
+            modelBuilder.Entity<Action>().Property(p => p.Name).HasMaxLength(50);
         }
-
 
         public DbSet<Action> Actions { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<BudgetRequest> BudgetRequests { get; set; }
         public DbSet<BudgetDescription> BudgetDescriptions { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

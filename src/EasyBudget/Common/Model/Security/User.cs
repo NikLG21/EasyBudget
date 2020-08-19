@@ -4,9 +4,14 @@ namespace EasyBudget.Common.Model.Security
 {
     public class User : Entity
     {
+        public User()
+        {
+            Roles = new HashSet<Role>();
+        }
+
         public string Name { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public List<Role> Roles { get; } = new List<Role>();
+        public HashSet<Role> Roles { get; set; }
     }
 }
