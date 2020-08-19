@@ -8,7 +8,7 @@ namespace EasyBudget.Common.Model
     {
         public BudgetRequest()
         {
-            BudgetDescriptions = new HashSet<BudgetDescription>();
+            //BudgetDescriptions = new HashSet<BudgetDescription>();
         }
 
         public string Name { get; set; }
@@ -18,12 +18,6 @@ namespace EasyBudget.Common.Model
         public User Executor { get; set; }
 
         public Department Department { get; set; }
-
-        public Guid? RequesterId { get; set; }
-        public Guid? ApproverId { get; set; }
-        public Guid? ExecutorId { get; set; }
-        
-        public Guid DepartmentId { get; set; }
 
         public DateTime DateRequested { get; set; }
         public DateTime? DateRequestedDeadline { get; set; }
@@ -37,6 +31,6 @@ namespace EasyBudget.Common.Model
 
         public BudgetState State { get; set; }
 
-        public HashSet<BudgetDescription> BudgetDescriptions { get; set; }
+        public List<BudgetDescription> BudgetDescriptions { get; } = new List<BudgetDescription>();
     }
 }

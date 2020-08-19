@@ -1,5 +1,8 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Diagnostics.CodeAnalysis;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using Action = EasyBudget.Common.Model.Security.Action;
@@ -48,11 +51,21 @@ namespace DataAccess
         private static void OnModelCreating_BudgetRequestConfig(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BudgetRequest>().Property(p => p.Name).HasMaxLength(200);
+
+            modelBuilder.Entity<BudgetRequest>().HasRequired(u => u.Requester).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<BudgetRequest>().HasOptional(u => u.Approver).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<BudgetRequest>().HasOptional(u => u.Executor).WithMany().WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<BudgetRequest>().HasRequired(u => u.Department).WithMany().WillCascadeOnDelete(false);
         }
 
         private static void OnModelCreating_BudgetDescriptionConfig(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BudgetDescription>().Property(p => p.Description).HasMaxLength(2000);
+
+            modelBuilder.Entity<BudgetDescription>().HasRequired(u => u.BudgetRequest).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<BudgetDescription>().HasRequired(u => u.User).WithMany().WillCascadeOnDelete(false);
+            
         }
         private static void OnModelCreating_RoleConfig(DbModelBuilder modelBuilder)
         {
