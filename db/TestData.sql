@@ -14,3 +14,73 @@ INSERT [dbo].[User] ([Id], [Name], [Login], [Password]) VALUES (N'3148ce2c-540e-
 INSERT [dbo].[User] ([Id], [Name], [Login], [Password]) VALUES (N'2873d99d-a793-4b51-8ee9-484b6b30d5bb', N'Vitalik Dopkin', N'Vetal', N'dopVetal1')
 INSERT [dbo].[User] ([Id], [Name], [Login], [Password]) VALUES (N'7bb4db6d-2072-4258-809b-c7a5bbe2d392', N'Zheka Krasniy', N'RedOne', N'003kras004')
 
+USE [EasyBudget]
+GO
+
+INSERT INTO [dbo].[BudgetRequest]
+           ([Id]
+           ,[Name]
+           ,[DateRequested]
+           ,[DateRequestedDeadline]
+           ,[DateDirectorApprove]
+           ,[DateStartExecution]
+           ,[DateDeadlineExecution]
+           ,[DateEndExecution]
+           ,[EstimatedPrice]
+           ,[RealPrice]
+           ,[State]
+           ,[Approver_Id]
+           ,[Department_Id]
+           ,[Executor_Id]
+           ,[Requester_Id])
+     VALUES
+           (NEWID()
+           ,'Table lampe'
+           ,GETDATE()
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,200,6
+           ,null
+           ,1
+           ,null
+           ,'22946ba4-b06c-4d9e-a0d3-2e03b62afb5c'
+           ,null
+           ,'3148ce2c-540e-4cc4-a372-42e0c29a478b')
+INSERT INTO [dbo].[BudgetRequest]
+           ([Id]
+           ,[Name]
+           ,[DateRequested]
+           ,[DateRequestedDeadline]
+           ,[DateDirectorApprove]
+           ,[DateStartExecution]
+           ,[DateDeadlineExecution]
+           ,[DateEndExecution]
+           ,[EstimatedPrice]
+           ,[RealPrice]
+           ,[State]
+           ,[Approver_Id]
+           ,[Department_Id]
+           ,[Executor_Id]
+           ,[Requester_Id])
+     VALUES
+           (NEWID()
+           ,'New PC'
+           ,'2020-06-21'
+           ,'2020-10-01'
+           ,'2020-08-18'
+           ,null
+           ,null
+           ,null
+           ,30000
+           ,32445
+           ,4
+           ,'6a875efe-05ef-4137-889a-137df8c67ab2'
+           ,'03de38f2-5445-4c9d-a039-2b47a1668a3f'
+           ,'7bb4db6d-2072-4258-809b-c7a5bbe2d392'
+           ,'2873d99d-a793-4b51-8ee9-484b6b30d5bb')
+
+
+
