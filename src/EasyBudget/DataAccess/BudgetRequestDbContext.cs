@@ -69,11 +69,18 @@ namespace DataAccess
         private static void OnModelCreating_RoleConfig(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().Property(p => p.Name).HasMaxLength(20);
+            modelBuilder.Entity<Role>().HasIndex(p => p.Name).IsUnique();
         }
 
         private static void OnModelCreating_ActionConfig(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Action>().Property(p => p.Name).HasMaxLength(50);
+            modelBuilder.Entity<Action>().HasIndex(p => p.Name).IsUnique();
+        }
+        private static void OnModelCreating_DepartmentConfig(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Department>().Property(p => p.Name).HasMaxLength(30);
+            modelBuilder.Entity<Department>().HasIndex(p => p.Name).IsUnique();
         }
 
         public DbSet<Action> Actions { get; set; }

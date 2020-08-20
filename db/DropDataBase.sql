@@ -1,5 +1,15 @@
 USE [EasyBudget]
 
+DELETE [dbo].[RoleAction]
+DELETE [dbo].[UserRole]
+DELETE [dbo].[Role]
+DELETE [dbo].[Action]
+DELETE [dbo].[BudgetDescription]
+DELETE [dbo].[BudgetRequest]
+DELETE [dbo].[Department]
+DELETE [dbo].[User]
+
+
 DROP TABLE [dbo].[RoleAction]
 DROP TABLE [dbo].[UserRole]
 DROP TABLE [dbo].[Role]

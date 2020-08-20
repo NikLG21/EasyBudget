@@ -8,79 +8,18 @@ INSERT [dbo].[Action] ([Id], [Name]) VALUES (N'0af011ae-6681-47e8-a408-8bfef0042
 INSERT [dbo].[Action] ([Id], [Name]) VALUES (N'8863e973-d2d6-4c02-ad92-a4dc37706c6f', N'RequestorAddBudgetRequest')
 INSERT [dbo].[Department] ([Id], [Name]) VALUES (N'03de38f2-5445-4c9d-a039-2b47a1668a3f', N'My 2 dept')
 INSERT [dbo].[Department] ([Id], [Name]) VALUES (N'22946ba4-b06c-4d9e-a0d3-2e03b62afb5c', N'My dept')
-INSERT [dbo].[Department] ([Id], [Name]) VALUES (N'2450b213-73b0-4136-93f8-5a2eed28eefc', N'My dept')
 INSERT [dbo].[User] ([Id], [Name], [Login], [Password]) VALUES (N'6a875efe-05ef-4137-889a-137df8c67ab2', N'Tsybulkin Kyrylo', N'Chipolino', N'Lukovka01')
 INSERT [dbo].[User] ([Id], [Name], [Login], [Password]) VALUES (N'3148ce2c-540e-4cc4-a372-42e0c29a478b', N'Deny Dipson', N'Dipson001', N'Den1985Dip')
 INSERT [dbo].[User] ([Id], [Name], [Login], [Password]) VALUES (N'2873d99d-a793-4b51-8ee9-484b6b30d5bb', N'Vitalik Dopkin', N'Vetal', N'dopVetal1')
 INSERT [dbo].[User] ([Id], [Name], [Login], [Password]) VALUES (N'7bb4db6d-2072-4258-809b-c7a5bbe2d392', N'Zheka Krasniy', N'RedOne', N'003kras004')
-
-USE [EasyBudget]
-GO
-
-INSERT INTO [dbo].[BudgetRequest]
-           ([Id]
-           ,[Name]
-           ,[DateRequested]
-           ,[DateRequestedDeadline]
-           ,[DateDirectorApprove]
-           ,[DateStartExecution]
-           ,[DateDeadlineExecution]
-           ,[DateEndExecution]
-           ,[EstimatedPrice]
-           ,[RealPrice]
-           ,[State]
-           ,[Approver_Id]
-           ,[Department_Id]
-           ,[Executor_Id]
-           ,[Requester_Id])
-     VALUES
-           (NEWID()
-           ,'Table lampe'
-           ,GETDATE()
-           ,null
-           ,null
-           ,null
-           ,null
-           ,null
-           ,200,6
-           ,null
-           ,1
-           ,null
-           ,'22946ba4-b06c-4d9e-a0d3-2e03b62afb5c'
-           ,null
-           ,'3148ce2c-540e-4cc4-a372-42e0c29a478b')
-INSERT INTO [dbo].[BudgetRequest]
-           ([Id]
-           ,[Name]
-           ,[DateRequested]
-           ,[DateRequestedDeadline]
-           ,[DateDirectorApprove]
-           ,[DateStartExecution]
-           ,[DateDeadlineExecution]
-           ,[DateEndExecution]
-           ,[EstimatedPrice]
-           ,[RealPrice]
-           ,[State]
-           ,[Approver_Id]
-           ,[Department_Id]
-           ,[Executor_Id]
-           ,[Requester_Id])
-     VALUES
-           (NEWID()
-           ,'New PC'
-           ,'2020-06-21'
-           ,'2020-10-01'
-           ,'2020-08-18'
-           ,null
-           ,null
-           ,null
-           ,30000
-           ,32445
-           ,4
-           ,'6a875efe-05ef-4137-889a-137df8c67ab2'
-           ,'03de38f2-5445-4c9d-a039-2b47a1668a3f'
-           ,'7bb4db6d-2072-4258-809b-c7a5bbe2d392'
-           ,'2873d99d-a793-4b51-8ee9-484b6b30d5bb')
-
-
-
+INSERT [dbo].[BudgetRequest] ([Id], [Name], [DateRequested], [DateRequestedDeadline], [DateDirectorApprove], [DateStartExecution], [DateDeadlineExecution], [DateEndExecution], [EstimatedPrice], [RealPrice], [State], [Approver_Id], [Department_Id], [Executor_Id], [Requester_Id]) 
+VALUES (N'bbf0b6f5-8686-40ed-a945-3b17d8f5234f', N'Medical masks - 50 pieces', CAST(N'2020-08-08T00:00:00.000' AS DateTime), CAST(N'2020-09-15T00:00:00.000' AS DateTime), CAST(N'2020-08-19T00:00:00.000' AS DateTime), CAST(N'2020-08-20T00:00:00.000' AS DateTime), CAST(N'2020-09-01T00:00:00.000' AS DateTime), NULL, CAST(200.00 AS Decimal(18, 2)), CAST(190.00 AS Decimal(18, 2)), 9, N'6a875efe-05ef-4137-889a-137df8c67ab2', N'03de38f2-5445-4c9d-a039-2b47a1668a3f', N'2873d99d-a793-4b51-8ee9-484b6b30d5bb', N'3148ce2c-540e-4cc4-a372-42e0c29a478b')
+INSERT [dbo].[BudgetRequest] ([Id], [Name], [DateRequested], [DateRequestedDeadline], [DateDirectorApprove], [DateStartExecution], [DateDeadlineExecution], [DateEndExecution], [EstimatedPrice], [RealPrice], [State], [Approver_Id], [Department_Id], [Executor_Id], [Requester_Id]) 
+VALUES (N'457c8cb2-4feb-41ef-8134-45a98034f4b4', N'Toshiba Xario soft - Ultrasound machine', CAST(N'2020-07-21T00:00:00.000' AS DateTime), NULL, NULL, NULL, NULL, NULL, CAST(400000.00 AS Decimal(18, 2)), CAST(406000.00 AS Decimal(18, 2)), 6, N'6a875efe-05ef-4137-889a-137df8c67ab2', N'03de38f2-5445-4c9d-a039-2b47a1668a3f', N'2873d99d-a793-4b51-8ee9-484b6b30d5bb', N'3148ce2c-540e-4cc4-a372-42e0c29a478b')
+INSERT [dbo].[BudgetRequest] ([Id], [Name], [DateRequested], [DateRequestedDeadline], [DateDirectorApprove], [DateStartExecution], [DateDeadlineExecution], [DateEndExecution], [EstimatedPrice], [RealPrice], [State], [Approver_Id], [Department_Id], [Executor_Id], [Requester_Id]) 
+VALUES (N'0159de4c-f25d-4b93-9cec-760b6e555856', N'New PC', CAST(N'2020-06-21T00:00:00.000' AS DateTime), CAST(N'2020-10-01T00:00:00.000' AS DateTime), CAST(N'2020-08-18T00:00:00.000' AS DateTime), NULL, NULL, NULL, CAST(30000.00 AS Decimal(18, 2)), CAST(32445.00 AS Decimal(18, 2)), 4, N'6a875efe-05ef-4137-889a-137df8c67ab2', N'03de38f2-5445-4c9d-a039-2b47a1668a3f', N'7bb4db6d-2072-4258-809b-c7a5bbe2d392', N'2873d99d-a793-4b51-8ee9-484b6b30d5bb')
+INSERT [dbo].[BudgetRequest] ([Id], [Name], [DateRequested], [DateRequestedDeadline], [DateDirectorApprove], [DateStartExecution], [DateDeadlineExecution], [DateEndExecution], [EstimatedPrice], [RealPrice], [State], [Approver_Id], [Department_Id], [Executor_Id], [Requester_Id]) 
+VALUES (N'44ebb261-b7f9-484c-9759-a7855a246d6a', N'Table lampe', CAST(N'2020-08-20T13:02:20.267' AS DateTime), NULL, NULL, NULL, NULL, NULL, CAST(200.60 AS Decimal(18, 2)), NULL, 1, NULL, N'22946ba4-b06c-4d9e-a0d3-2e03b62afb5c', NULL, N'3148ce2c-540e-4cc4-a372-42e0c29a478b')
+INSERT [dbo].[BudgetDescription] ([Id], [Description], [Date], [BudgetRequest_Id], [User_Id]) VALUES (N'af5a0a59-3210-4ea5-8207-d7d9a841c72c', N'It is very good new ultrasound machine. It has many different advantages in relation to old copies.', CAST(N'2020-07-21T00:00:00.000' AS DateTime), N'457c8cb2-4feb-41ef-8134-45a98034f4b4', N'3148ce2c-540e-4cc4-a372-42e0c29a478b')
+INSERT [dbo].[BudgetDescription] ([Id], [Description], [Date], [BudgetRequest_Id], [User_Id]) VALUES (N'027745f2-e6a7-4244-aa5e-f3c0d99ca218', N'I do not think that this machine is good for our clinic. We can find better choice. I approve this request but have some uncertainty about this model', CAST(N'2020-08-03T00:00:00.000' AS DateTime), N'457c8cb2-4feb-41ef-8134-45a98034f4b4', N'6a875efe-05ef-4137-889a-137df8c67ab2')
+INSERT [dbo].[BudgetDescription] ([Id], [Description], [Date], [BudgetRequest_Id], [User_Id]) VALUES (N'6dfc0cf6-d03f-4d69-a2e8-f5c229e7fbfb', N'We have too few protective masks and according to my calculations they will run out in the middle of September. Their stocks need to be replenished', CAST(N'2020-08-08T00:00:00.000' AS DateTime), N'bbf0b6f5-8686-40ed-a945-3b17d8f5234f', N'3148ce2c-540e-4cc4-a372-42e0c29a478b')
