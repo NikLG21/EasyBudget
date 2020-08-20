@@ -17,5 +17,10 @@ namespace DataAccess.Access
         {
             throw new NotImplementedException();
         }
+
+        public User Get(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

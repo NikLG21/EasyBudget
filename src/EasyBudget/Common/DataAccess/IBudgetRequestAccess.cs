@@ -6,12 +6,11 @@ namespace EasyBudget.Common.DataAccess.Commands
 {
     public interface IBudgetRequestAccess
     {
-        void AddBudgetRequest(BudgetRequest request);
-        void UpdateBudgetRequest(BudgetRequest request);
-        void DeleteBudgetRequest(Guid budgetRequestId);
-        BudgetRequest GetBudgetRequest(Guid budgetRequestId);
+        void Add(BudgetRequest request);
+        void Update(BudgetRequest request);
+        void Delete(Guid Id);
+        BudgetRequest Get(Guid Id);
 
-        List<BudgetRequest> GetBudgetRequestByOriginatorList(Guid userId);
-        List<BudgetRequest> GetBudgetRequestByApproverList(Guid userId);
+
     }
 }

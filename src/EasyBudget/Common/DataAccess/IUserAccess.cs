@@ -7,5 +7,6 @@ namespace EasyBudget.Common.DataAccess
     {
         void Add(User user);
         void Update(User user);
+        User Get(Guid id);
     }
 }

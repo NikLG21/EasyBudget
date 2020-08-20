@@ -55,9 +55,9 @@ namespace ConsoleMykyta
                 
             };
 
-            access.AddBudgetRequest(request);
+            access.Add(request);
             //Guid id = request.Id;
-            //BudgetRequest budgetRequest = access.GetBudgetRequest(id);
+            //BudgetRequest budgetRequest = access.Get(id);
             //Console.WriteLine(budgetRequest.Id);
         }
     }
