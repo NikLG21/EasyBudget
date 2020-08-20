@@ -7,14 +7,13 @@ namespace EasyBudget.Common.Model.Security
     {
         public Role()
         {
-            Users = new HashSet<User>();
-            Actions = new HashSet<Action>();
+            Users = new List<User>();
+            Actions = new List<Action>();
         }
 
         public string Name { get; set; }
         public Department Department { get; set; }
-        public Guid? DepartmentId { get; set; }
-        public HashSet<User> Users { get; set; }
-        public HashSet<Action> Actions { get; set; }
+        public List<User> Users { get; set; }
+        public List<Action> Actions { get; set; }
     }
 }
