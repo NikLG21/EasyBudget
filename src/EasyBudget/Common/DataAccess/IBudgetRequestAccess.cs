@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using EasyBudget.Common.Model;
 
-namespace EasyBudget.Common.DataAccess.Commands
+namespace EasyBudget.Common.DataAccess
 {
     public interface IBudgetRequestAccess
     {

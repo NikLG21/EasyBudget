@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using EasyBudget.Common.DataAccess.Commands;
+using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.Model;
 
-namespace DataAccess
+namespace DataAccess.Access
 {
     public class BudgetRequestAccess : IBudgetRequestAccess
     {
@@ -14,6 +13,7 @@ namespace DataAccess
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
                 context.BudgetRequests.Add(request);
+                context.Entry(request).State = EntityState.Added;
                 context.SaveChanges();
             }
         }
@@ -32,18 +32,13 @@ namespace DataAccess
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-
-                //List<ActionAudit> list = context.ActionAudits
-                //    .AsNoTracking()
-                //    .Where(x => x.ActionTime >= fromTime)
-                //    .Where(x => x.ActionTime <= toTime)
-                //    .OrderBy(x => x.ActionTime)
-                //    .Map().ToList();
-                //return list;
-
                 BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == Id);
-                context.BudgetRequests.Remove(request);
-                context.SaveChanges();
+                if (request != null)
+                {
+                    context.BudgetRequests.Attach(request);
+                    context.BudgetRequests.Remove(request);
+                    context.SaveChanges();
+                }
             }
         }
 
