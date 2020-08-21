@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 
 namespace DataAccess.Access
@@ -12,9 +14,15 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                context.BudgetRequests.Add(request);
-                context.Entry(request).State = EntityState.Added;
-                context.SaveChanges();
+                try
+                {
+                    context.BudgetRequests.Add(request);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
             }
         }
 
@@ -22,9 +30,16 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                context.BudgetRequests.Add(request);
-                context.Entry(request).State = EntityState.Modified;
-                context.SaveChanges();
+                try
+                {
+                    context.BudgetRequests.Add(request);
+                    context.Entry(request).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
             }
         }
 
@@ -32,13 +47,21 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == Id);
-                if (request != null)
+                try
                 {
-                    context.BudgetRequests.Attach(request);
-                    context.BudgetRequests.Remove(request);
-                    context.SaveChanges();
+                    BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == Id);
+                    if (request != null)
+                    {
+                        context.BudgetRequests.Attach(request);
+                        context.BudgetRequests.Remove(request);
+                        context.SaveChanges();
+                    }
                 }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+
             }
         }
 
@@ -46,7 +69,12 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                return context.BudgetRequests.AsNoTracking().FirstOrDefault(e => e.Id == Id);
+                BudgetRequest request = context.BudgetRequests.AsNoTracking().FirstOrDefault(e => e.Id == Id);
+                if (request==null)
+                {
+                    throw new GetNullException("Запрос");
+                }
+                return request;
             }
         }
 

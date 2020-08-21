@@ -43,9 +43,27 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                context.Departments.Add(department);
-                context.Entry(department).State = EntityState.Modified;
-                context.SaveChanges();
+                try
+                {
+                    context.Departments.Add(department);
+                    context.Entry(department).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    SqlException sqlException = e.InnerException?.InnerException as SqlException;
+                    if (sqlException != null && sqlException.Number == 2601)
+                    {
+                        throw new DuplicateEntryException("Отдел", e);
+                    }
+
+                    throw new CriticalException(e);
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+
             }
         }
 
@@ -53,12 +71,19 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                Department department = context.Departments.FirstOrDefault(d => d.Id == id);
-                if (department != null)
+                try
                 {
-                    context.Departments.Attach(department);
-                    context.Departments.Remove(department);
-                    context.SaveChanges();
+                    Department department = context.Departments.FirstOrDefault(d => d.Id == id);
+                    if (department != null)
+                    {
+                        context.Departments.Attach(department);
+                        context.Departments.Remove(department);
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
                 }
             }
         }
@@ -67,7 +92,13 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                return context.Departments.AsNoTracking().FirstOrDefault(d => d.Id == id);
+                Department department = context.Departments.AsNoTracking().FirstOrDefault(d => d.Id == id);
+                if (department==null)
+                {
+                    throw new GetNullException("Отдел");
+                }
+
+                return department;
             }
         }
     }
