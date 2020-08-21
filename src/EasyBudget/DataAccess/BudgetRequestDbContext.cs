@@ -27,6 +27,7 @@ namespace DataAccess
             OnModelCreating_BudgetDescriptionConfig(modelBuilder);
             OnModelCreating_RoleConfig(modelBuilder);
             OnModelCreating_ActionConfig(modelBuilder);
+            OnModelCreating_DepartmentConfig(modelBuilder);
             //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
         }
 

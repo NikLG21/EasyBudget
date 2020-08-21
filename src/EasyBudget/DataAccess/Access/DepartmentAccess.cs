@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 
 namespace DataAccess.Access
@@ -14,8 +17,25 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                context.Departments.Add(department);
-                context.SaveChanges();
+                try
+                {
+                    context.Departments.Add(department);
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    SqlException sqlException = e.InnerException?.InnerException as SqlException;
+                    if (sqlException != null && sqlException.Number == 2601)
+                    {
+                        throw new DuplicateEntryException("Отдел", e);
+                    }
+
+                    throw new CriticalException(e);
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
             }
         }
 
