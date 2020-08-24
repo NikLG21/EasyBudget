@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
-using EasyBudget.Common.Model;
+using EasyBudget.Common.Exceptions;
 
 namespace DataAccess.Queries
 {
@@ -14,19 +13,26 @@ namespace DataAccess.Queries
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                List<BudgetDesctiptionMainListDto> list = context
-                    .BudgetDescriptions
-                    .Where(bd => bd.BudgetRequest.Id == budgetRequestId)
-                    .Select(bd =>
-                    new BudgetDesctiptionMainListDto
-                    {
-                        Id = bd.Id,
-                        UserName = bd.User.Name,
-                        Date = bd.Date,
-                        Description = bd.Description
-                    }).ToList();
+                try
+                {
+                    List<BudgetDesctiptionMainListDto> list = context
+                        .BudgetDescriptions
+                        .Where(bd => bd.BudgetRequest.Id == budgetRequestId)
+                        .Select(bd =>
+                            new BudgetDesctiptionMainListDto
+                            {
+                                Id = bd.Id,
+                                UserName = bd.User.Name,
+                                Date = bd.Date,
+                                Description = bd.Description
+                            }).ToList();
+                    return list;
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
 
-                return list;
             }
 
         }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using EasyBudget.Common.Model.Security;
-using Action = System.Action;
 
 namespace EasyBudget.Common.Business.Services
 {
     public interface IUserService
     {
-        void UserLogIn(string login, string password);
-        void UserLogOut(User user);
-        List<Action> GetActions(User user);
-        void UserChangePassword(User user, string oldPassword, string newPassword);
+        void Add(User user);
+        Guid LogIn(string login, string password);
+        List<string> GetActions(User user);
+        void UpdatePassword(Guid userId, string oldPassword, string newPassword);
+        void Update(User user);
     }
 }

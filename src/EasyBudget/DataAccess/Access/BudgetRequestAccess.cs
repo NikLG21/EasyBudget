@@ -61,7 +61,6 @@ namespace DataAccess.Access
                 {
                     throw new CriticalException(e);
                 }
-
             }
         }
 
@@ -69,12 +68,20 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                BudgetRequest request = context.BudgetRequests.AsNoTracking().FirstOrDefault(e => e.Id == Id);
-                if (request==null)
+                try
                 {
-                    throw new GetNullException("Запрос");
+                    BudgetRequest request = context.BudgetRequests.AsNoTracking().FirstOrDefault(e => e.Id == Id);
+                    if (request == null)
+                    {
+                        throw new GetNullException("Запрос");
+                    }
+                    return request;
                 }
-                return request;
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+
             }
         }
 

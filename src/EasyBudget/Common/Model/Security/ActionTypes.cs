@@ -2,7 +2,7 @@
 {
     public static class  ActionTypes
     {
-        public const string OriginatorAddBudgetRequest = "OriginatorAddBudgetRequest";
+        public const string OriginatorAddBudgetRequest = "RequestorAddBudgetRequest";
         
     }
 }

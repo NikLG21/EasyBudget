@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using EasyBudget.Common.DataAccess.Dtos;
 
 namespace EasyBudget.Common.DataAccess.Queries
 {
@@ -8,5 +9,7 @@ namespace EasyBudget.Common.DataAccess.Queries
     {
         Guid GetUserByLogin(string login, string password);
         List<string> GetUserActions(Guid userId);
+        List<UserMainListDto> GetUsers();
+        UserMainListDto GetMainInfo(Guid id);
     }
 }

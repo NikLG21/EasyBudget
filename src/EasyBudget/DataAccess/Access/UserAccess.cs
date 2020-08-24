@@ -71,12 +71,20 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                User user = context.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
-                if (user == null)
+                try
                 {
-                    throw new GetNullException("Пользователь");
+                    User user = context.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
+                    if (user == null)
+                    {
+                        throw new GetNullException("Пользователь");
+                    }
+                    return user;
                 }
-                return user;
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+
             }
         }
     }

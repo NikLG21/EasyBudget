@@ -92,13 +92,20 @@ namespace DataAccess.Access
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
-                Department department = context.Departments.AsNoTracking().FirstOrDefault(d => d.Id == id);
-                if (department==null)
+                try
                 {
-                    throw new GetNullException("Отдел");
+                    Department department = context.Departments.AsNoTracking().FirstOrDefault(d => d.Id == id);
+                    if (department == null)
+                    {
+                        throw new GetNullException("Отдел");
+                    }
+                    return department;
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
                 }
 
-                return department;
             }
         }
     }
