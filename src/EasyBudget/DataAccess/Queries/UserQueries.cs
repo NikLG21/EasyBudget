@@ -70,7 +70,7 @@ namespace DataAccess.Queries
                 {
                     List<UserMainListDto> list =  context.Users.AsNoTracking().Select(u => new UserMainListDto
                     {
-                        
+                        Name = u.Name,
                         Login= u.Login,
                         Roles = u.Roles
                     }).ToList();
@@ -92,6 +92,7 @@ namespace DataAccess.Queries
                     return context.Users.AsNoTracking().Where(u => u.Id == id).Select(u =>
                         new UserMainListDto
                         {
+                            Name = u.Name,
                             Login = u.Login,
                             Roles = u.Roles
                         }).FirstOrDefault();
@@ -101,5 +102,6 @@ namespace DataAccess.Queries
                     throw new CriticalException(e);
                 }
             }
+        }
     }
 }

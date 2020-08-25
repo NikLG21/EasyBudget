@@ -22,57 +22,117 @@ namespace EasyBudget.Business.Services
 
         public void Add(User user)
         {
-            userAccess.Add(user);
+            try
+            {
+                userAccess.Add(user);
+            }
+            catch (DuplicateEntryException e)
+            {
+                throw new DuplicateEntryException(e.EntityName, e);
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+            
         }
 
         public Guid LogIn(string login, string password)
         {
-            
-            Guid id = userQueries.GetUserByLogin(login, password);
-            if (id == Guid.Empty)
+            try
             {
-                throw new WrongPasswordException("входа");
-            }
+                Guid id = userQueries.GetUserByLogin(login, password);
+                if (id == Guid.Empty)
+                {
+                    throw new WrongPasswordException("входа");
+                }
 
-            if (userAccess.Get(id).IsDisabled)
-            {
-                throw new DisabledUserException();
+                if (userAccess.Get(id).IsDisabled)
+                {
+                    throw new DisabledUserException();
+                }
+                return id;
             }
-            return id;
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+            
         }
 
         public List<string> GetActions(User user)
         {
-            return userQueries.GetUserActions(user.Id);
+            try
+            {
+                return userQueries.GetUserActions(user.Id);
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+            
         }
 
         public void UpdatePassword(Guid userId, string oldPassword, string newPassword)
         {
-            User user = userAccess.Get(userId);
-            if (oldPassword == user.Password)
+            try
             {
-                user.Password = newPassword;
-                Update(user);
+                User user = userAccess.Get(userId);
+                if (oldPassword == user.Password)
+                {
+                    user.Password = newPassword;
+                    Update(user);
+                }
+                else
+                {
+                    throw new WrongPasswordException("смены пароля");
+                }
             }
-            else
+            catch (Exception e)
             {
-                throw new WrongPasswordException("смены пароля");
+                throw new CriticalException(e);
             }
+
         }
 
         public void Update(User user)
         {
-            userAccess.Update(user);
+            try
+            {
+                userAccess.Update(user);
+            }
+            catch (DuplicateEntryException e)
+            {
+                throw new DuplicateEntryException(e.EntityName, e);
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
         }
 
         public UserMainListDto GetMainListDto(Guid id)
         {
-            return userQueries.GetMainInfo(id);
+            try
+            {
+                return userQueries.GetMainInfo(id);
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
         }
 
-        //public UserMainListDto GetUsersList()
-        //{
-
-        //}
+        public List<UserMainListDto> GetUsersList()
+        {
+            try
+            {
+                return userQueries.GetUsers();
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
     }
 }

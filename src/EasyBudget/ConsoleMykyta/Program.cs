@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using DataAccess;
 using DataAccess.Access;
+using DataAccess.Queries;
+using EasyBudget.Business.Services;
+using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 
@@ -12,19 +16,28 @@ namespace ConsoleMykyta
     {
         static void Main(string[] args)
         {
-            IUserAccess userAccess = new UserAccess();
-            User user;
-            //User user = new User()
-            //{
-            //    Id = Guid.Parse("76C21A2E-4ECB-4724-ACED-9948CB106702"),
-            //    IsDisabled = false,
-            //    Login = "Chipolino",
-            //    Name = "Григорий Сковорода",
-            //    Password = "skovoroda01",
-            //    Roles = new List<Role>()
-            //};
-            user = userAccess.Get(Guid.Parse("2148CE2C-540E-4CC4-A372-42E0C29A478B"));
-            Console.WriteLine(user.Name);
+            try
+            {
+                IUserService userService = new UserService(new UserAccess(), new UserQueries());
+
+                User user = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    IsDisabled = false,
+                    Login = "Chipolino",
+                    Name = "Григорий Сковорода",
+                    Password = "skovoroda01",
+                    Roles = new List<Role>()
+                };
+                userService.Add(user);
+            }
+            catch (DuplicateEntryException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            //user = userAccess.Get(Guid.Parse("2148CE2C-540E-4CC4-A372-42E0C29A478B"));
+            //Console.WriteLine(user.Name);
             //IDepartmentAccess departmentAccess = new DepartmentAccess();
             //Department department = new Department()
             //{
