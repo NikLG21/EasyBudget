@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.DataAccess.Dtos;
@@ -24,11 +26,13 @@ namespace EasyBudget.Business.Services
         {
             try
             {
+                GetUserPasswordHash(user);
+
                 userAccess.Add(user);
             }
             catch (DuplicateEntryException e)
             {
-                throw new DuplicateEntryException(e.EntityName, e);
+                throw;
             }
             catch (Exception e)
             {
@@ -111,7 +115,7 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public UserMainListDto GetMainListDto(Guid id)
+        public UserMainInfoDto GetMainListDto(Guid id)
         {
             try
             {
@@ -123,16 +127,38 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public List<UserMainListDto> GetUsersList()
+        public List<UserMainInfoDto> GetUsersList()
         {
             try
             {
                 return userQueries.GetUsers();
             }
+            catch (CriticalException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new CriticalException(e);
             }
+        }
+
+        private static void GetUserPasswordHash(User user)
+        {
+            string userPassword = user.Password;
+
+            var userPasswordHash = GetHash(userPassword);
+
+            user.Password = userPasswordHash;
+        }
+
+        private static string GetHash(string str)
+        {
+            SHA1 sha1 = new SHA1CryptoServiceProvider();
+            byte[] input = Encoding.Unicode.GetBytes(str);
+            byte[] output = sha1.ComputeHash(input);
+            string hash = Convert.ToBase64String(output);
+            return hash;
         }
     }
 }

@@ -97,7 +97,7 @@ namespace DataAccess.Access
                     Department department = context.Departments.AsNoTracking().FirstOrDefault(d => d.Id == id);
                     if (department == null)
                     {
-                        throw new GetNullException("Отдел");
+                        throw new EntityNotFoundException("Отдел");
                     }
                     return department;
                 }

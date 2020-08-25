@@ -9,7 +9,7 @@ namespace EasyBudget.Common.DataAccess.Queries
     {
         Guid GetUserByLogin(string login, string password);
         List<string> GetUserActions(Guid userId);
-        List<UserMainListDto> GetUsers();
-        UserMainListDto GetMainInfo(Guid id);
+        List<UserMainInfoDto> GetUsers();
+        UserMainInfoDto GetMainInfo(Guid id);
     }
 }

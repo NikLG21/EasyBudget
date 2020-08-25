@@ -62,13 +62,13 @@ namespace DataAccess.Queries
             }
         }
 
-        public List<UserMainListDto> GetUsers()
+        public List<UserMainInfoDto> GetUsers()
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
                 try
                 {
-                    List<UserMainListDto> list =  context.Users.AsNoTracking().Select(u => new UserMainListDto
+                    List<UserMainInfoDto> list =  context.Users.AsNoTracking().Select(u => new UserMainInfoDto
                     {
                         Name = u.Name,
                         Login= u.Login,
@@ -83,14 +83,14 @@ namespace DataAccess.Queries
             }
         }
 
-        public UserMainListDto GetMainInfo(Guid id)
+        public UserMainInfoDto GetMainInfo(Guid id)
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
                 try
                 {
                     return context.Users.AsNoTracking().Where(u => u.Id == id).Select(u =>
-                        new UserMainListDto
+                        new UserMainInfoDto
                         {
                             Name = u.Name,
                             Login = u.Login,

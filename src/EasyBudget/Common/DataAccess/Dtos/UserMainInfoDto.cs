@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.DataAccess.Dtos
 {
-    public class UserMainListDto
+    public class UserMainInfoDto : Entity
     {
-        public UserMainListDto()
+        public UserMainInfoDto()
         {
             Roles = new List<Role>();
         }

@@ -73,7 +73,7 @@ namespace DataAccess.Access
                     BudgetRequest request = context.BudgetRequests.AsNoTracking().FirstOrDefault(e => e.Id == Id);
                     if (request == null)
                     {
-                        throw new GetNullException("Запрос");
+                        throw new EntityNotFoundException("Запрос");
                     }
                     return request;
                 }

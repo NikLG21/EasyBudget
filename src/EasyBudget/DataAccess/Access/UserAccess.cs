@@ -76,7 +76,7 @@ namespace DataAccess.Access
                     User user = context.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
                     if (user == null)
                     {
-                        throw new GetNullException("Пользователь");
+                        throw new EntityNotFoundException("Пользователь");
                     }
                     return user;
                 }
