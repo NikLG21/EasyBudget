@@ -20,18 +20,18 @@ namespace ConsoleMykyta
             {
                 IUserService userService = new UserService(new UserAccess(), new UserQueries());
 
-                User user = new User()
-                {
-                    Id = Guid.NewGuid(),
-                    IsDisabled = false,
-                    Login = "Chipolino",
-                    Name = "Григорий Сковорода",
-                    Password = "skovoroda01",
-                    Roles = new List<Role>()
-                };
-                userService.Add(user);
+                //User user = new User()
+                //{
+                //    Id = Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"),
+                //    IsDisabled = false,
+                //    Login = "1234",
+                //    Name = "Григорий Сковорода",
+                //    Password = "skovoroda01",
+                //    Roles = new List<Role>()
+                //};
+                userService.UpdatePassword(Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"), "skovoroda01","skovoroda02");
             }
-            catch (DuplicateEntryException e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }

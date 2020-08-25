@@ -15,22 +15,26 @@ namespace EasyBudget.Business.Services
     {
         private IUserAccess userAccess;
         private IUserQueries userQueries;
-
+        
         public UserService(IUserAccess userAccess, IUserQueries userQueries)
         {
             this.userAccess = userAccess;
             this.userQueries = userQueries;
         }
 
-        public void Add(User user)
+        public void Add(Guid currentUserId, User user)
         {
             try
             {
-                GetUserPasswordHash(user);
-
+                userQueries.GetUserActions(currentUserId).Find()
+                user = GetUserPasswordHash(user);
                 userAccess.Add(user);
             }
-            catch (DuplicateEntryException e)
+            catch (DuplicateEntryException)
+            {
+                throw;
+            }
+            catch (CriticalException)
             {
                 throw;
             }
@@ -41,11 +45,11 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public Guid LogIn(string login, string password)
+        public Guid LogIn(Guid currentUserId,string login, string password)
         {
             try
             {
-                Guid id = userQueries.GetUserByLogin(login, password);
+                Guid id = userQueries.GetUserByLogin(login, GetHash(password));
                 if (id == Guid.Empty)
                 {
                     throw new WrongPasswordException("входа");
@@ -57,18 +61,9 @@ namespace EasyBudget.Business.Services
                 }
                 return id;
             }
-            catch (Exception e)
+            catch (CriticalException)
             {
-                throw new CriticalException(e);
-            }
-            
-        }
-
-        public List<string> GetActions(User user)
-        {
-            try
-            {
-                return userQueries.GetUserActions(user.Id);
+                throw;
             }
             catch (Exception e)
             {
@@ -77,21 +72,26 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public void UpdatePassword(Guid userId, string oldPassword, string newPassword)
+        public void UpdatePassword(Guid currentUserId,Guid userId, string oldPassword, string newPassword)
         {
             try
             {
                 User user = userAccess.Get(userId);
-                if (oldPassword == user.Password)
+                if (GetHash(oldPassword) == user.Password)
                 {
                     user.Password = newPassword;
-                    Update(user);
+                    user = GetUserPasswordHash(user);
+                    Update(currentUserId, user);
                 }
                 else
                 {
                     throw new WrongPasswordException("смены пароля");
                 }
             }
+            catch (CriticalException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new CriticalException(e);
@@ -99,15 +99,19 @@ namespace EasyBudget.Business.Services
 
         }
 
-        public void Update(User user)
+        public void Update(Guid currentUserId,User user)
         {
             try
             {
                 userAccess.Update(user);
             }
-            catch (DuplicateEntryException e)
+            catch (DuplicateEntryException)
             {
-                throw new DuplicateEntryException(e.EntityName, e);
+                throw;
+            }
+            catch (CriticalException)
+            {
+                throw;
             }
             catch (Exception e)
             {
@@ -115,19 +119,23 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public UserMainInfoDto GetMainListDto(Guid id)
+        public UserMainInfoDto GetMainInfoDto(Guid currentUserId,Guid id)
         {
             try
             {
                 return userQueries.GetMainInfo(id);
             }
+            catch (CriticalException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 throw new CriticalException(e);
             }
         }
 
-        public List<UserMainInfoDto> GetUsersList()
+        public List<UserMainInfoDto> GetUsersList(Guid currentUserId)
         {
             try
             {
@@ -142,14 +150,14 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-
-        private static void GetUserPasswordHash(User user)
+        private static User GetUserPasswordHash(User user)
         {
             string userPassword = user.Password;
 
             var userPasswordHash = GetHash(userPassword);
 
             user.Password = userPasswordHash;
+            return user;
         }
 
         private static string GetHash(string str)

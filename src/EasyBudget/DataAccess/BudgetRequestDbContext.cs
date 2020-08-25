@@ -47,7 +47,7 @@ namespace DataAccess
             modelBuilder.Entity<User>().Property(u => u.Login).HasMaxLength(20);
             modelBuilder.Entity<User>().HasIndex(u => u.Login).IsUnique();
             modelBuilder.Entity<User>().Property(u => u.Name).HasMaxLength(40);
-            modelBuilder.Entity<User>().Property(u => u.Password).HasMaxLength(20);
+            modelBuilder.Entity<User>().Property(u => u.Password).HasMaxLength(100);
         }
 
         private static void OnModelCreating_BudgetRequestConfig(DbModelBuilder modelBuilder)
