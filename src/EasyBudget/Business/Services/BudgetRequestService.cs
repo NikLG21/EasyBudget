@@ -22,7 +22,7 @@ namespace EasyBudget.Business.Services
             this.budgetRequestAccess = budgetRequestAccess;
         }
 
-        public void AddBudgetRequest(BudgetRequest request)
+        public void Add(BudgetRequest request)
         {
             try
             {
@@ -41,12 +41,24 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-
-        public void UpdateBudgetRequest(BudgetRequest request)
+        public void UpdateByRequestor(BudgetRequest request)
         {
             try
             {
-                budgetRequestAccess.Update(request);
+                BudgetRequest request1 = Get(request.Id);
+                if (request != request1)
+                {
+                    throw new EntityUpdatedException("Запрос");
+                }
+                if (request.State == BudgetState.Requested)
+                {
+                    budgetRequestAccess.Update(request);
+                }
+                else
+                {
+                    throw new NonDeletedUpdatedRequestException("Обновление");
+                }
+                
             }
             catch (DuplicateEntryException)
             {
@@ -61,12 +73,11 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-
         public void DeleteBudgetRequest(BudgetRequest request)
         {
             try
             {
-                BudgetRequest request1 = GetBudgetRequest(request.Id);
+                BudgetRequest request1 = Get(request.Id);
                 if (request != request1)
                 {
                     throw new EntityUpdatedException("Запрос");
@@ -77,7 +88,7 @@ namespace EasyBudget.Business.Services
                 }
                 else
                 {
-                    throw new NonDeletedBudgetRequestException();
+                    throw new NonDeletedUpdatedRequestException("Удаление");
                 }
             }
             catch (CriticalException)
@@ -89,8 +100,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-
-        public BudgetRequest GetBudgetRequest(Guid id)
+        public BudgetRequest Get(Guid id)
         {
             try
             {
@@ -105,32 +115,20 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-
-        public List<BudgetRequestMainListDto> ViewBudgetRequestsList(User user, DateTime start , DateTime finish, List<Role> roles)
+        public List<BudgetRequestMainListDto> GetListByRequestor(Guid userId, DateTime start , DateTime finish)
         {
             try
             {
-                List<BudgetRequestMainListDto> list = new List<BudgetRequestMainListDto>();
-                //for (int i = 0; i < roles.Count; i++)
-                //{
-                //    switch (roles[i].Name)
-                //    {
-                //        case "Инициатор запроса":
-                //            list.AddRange(budgetRequestQueries.GetBudgetRequestsByRequestor(user.Id));
-                //            break;
-                //        case "Утверждающий":
-                //            list.AddRange(budgetRequestQueries.GetBudgetRequestsByApprover(user.Id));
-                //            break;
-                //        case "Исполнитель IT":
-                //            list.AddRange(budgetRequestQueries.GetBudgetRequestByExecutor(user.Id));
-                //            break;
-                //        case "Исполнитель Хозчасть":
-                //            list.AddRange(budgetRequestQueries.GetBudgetRequestByExecutor(user.Id));
-                //            break;
-                //    }
-                //}
-                return list;
+                if (start.Equals(null))
+                {
+                    start = DateTime.MinValue;
+                }
 
+                if (finish.Equals(null))
+                {
+                    finish = DateTime.MaxValue;
+                }
+                return budgetRequestQueries.GetBudgetRequestsByRequestor(userId, start, finish);
             }
             catch (CriticalException)
             {
@@ -141,5 +139,169 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
+        public List<BudgetRequestMainListDto> GetListByApprover(Guid userId, DateTime start, DateTime finish)
+        {
+            try
+            {
+                if (start.Equals(null))
+                {
+                    start = DateTime.MinValue;
+                }
+
+                if (finish.Equals(null))
+                {
+                    finish = DateTime.MaxValue;
+                }
+                return budgetRequestQueries.GetBudgetRequestsByApprover(userId, start, finish);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        public List<BudgetRequestMainListDto> GetListByExecutor(Guid userId, DateTime start, DateTime finish)
+        {
+            try
+            {
+                if (start.Equals(null))
+                {
+                    start = DateTime.MinValue;
+                }
+
+                if (finish.Equals(null))
+                {
+                    finish = DateTime.MaxValue;
+                }
+                return budgetRequestQueries.GetBudgetRequestByExecutor(userId, start, finish);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        public List<BudgetRequestMainListDto> GetListByTime(DateTime start, DateTime finish)
+        {
+            try
+            {
+                if (start.Equals(null))
+                {
+                    start = DateTime.MinValue;
+                }
+
+                if (finish.Equals(null))
+                {
+                    finish = DateTime.MaxValue;
+                }
+                return budgetRequestQueries.GetBudgetRequestByTime(start, finish);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        public List<BudgetRequestMainListDto> GetListUnapprovedDirector()
+        {
+            try
+            {
+                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.ExecutorEstimated);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        public List<BudgetRequestMainListDto> GetListUnapprovedFinDirector()
+        {
+            try
+            {
+                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.ApprovedDirector);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        public List<BudgetRequestMainListDto> GetListPostponedFinDirector()
+        {
+            try
+            {
+                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.PostpondFinDirector);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        public List<BudgetRequestMainListDto> GetListPostponedDirector()
+        {
+            try
+            {
+                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.PostpondDirector);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        //public List<BudgetRequestMainListDto> GetListUncheckedExecutor(User user)
+        //{
+        //    try
+        //    {
+        //        return budgetRequestQueries.GetBudgetRequestUncheckedExecutor();
+        //    }
+        //    catch (CriticalException)
+        //    {
+        //        throw;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new CriticalException(e);
+        //    }
+        //}
+
+        //public List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId)
+        //{
+        //    try
+        //    {
+        //        return budgetRequestQueries.GetBudgetRequestUnapprovedApprover(userId);
+        //    }
+        //    catch (CriticalException)
+        //    {
+        //        throw;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new CriticalException(e);
+        //    }
+        //}
+
     }
 }

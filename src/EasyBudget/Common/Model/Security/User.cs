@@ -12,6 +12,7 @@ namespace EasyBudget.Common.Model.Security
         public string Login { get; set; }
         public string Password { get; set; }
         public bool IsDisabled { get; set; }
+        //public Department Department { get; set; }
         public List<Role> Roles { get; set; }
     }
 }
