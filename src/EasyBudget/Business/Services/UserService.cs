@@ -22,11 +22,10 @@ namespace EasyBudget.Business.Services
             this.userQueries = userQueries;
         }
 
-        public void Add(Guid currentUserId, User user)
+        public void Add( User user)
         {
             try
             {
-                userQueries.GetUserActions(currentUserId).Find()
                 user = GetUserPasswordHash(user);
                 userAccess.Add(user);
             }
@@ -45,7 +44,7 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public Guid LogIn(Guid currentUserId,string login, string password)
+        public Guid LogIn(string login, string password)
         {
             try
             {
@@ -72,7 +71,7 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public void UpdatePassword(Guid currentUserId,Guid userId, string oldPassword, string newPassword)
+        public void UpdatePassword(Guid userId, string oldPassword, string newPassword)
         {
             try
             {
@@ -81,7 +80,7 @@ namespace EasyBudget.Business.Services
                 {
                     user.Password = newPassword;
                     user = GetUserPasswordHash(user);
-                    Update(currentUserId, user);
+                    Update(user);
                 }
                 else
                 {
@@ -99,7 +98,7 @@ namespace EasyBudget.Business.Services
 
         }
 
-        public void Update(Guid currentUserId,User user)
+        public void Update(User user)
         {
             try
             {
@@ -119,7 +118,7 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public UserMainInfoDto GetMainInfoDto(Guid currentUserId,Guid id)
+        public UserMainInfoDto GetMainInfoDto(Guid id)
         {
             try
             {
@@ -135,7 +134,7 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public List<UserMainInfoDto> GetUsersList(Guid currentUserId)
+        public List<UserMainInfoDto> GetUsersList()
         {
             try
             {

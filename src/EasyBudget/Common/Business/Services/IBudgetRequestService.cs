@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 
@@ -7,12 +8,12 @@ namespace EasyBudget.Common.Business.Services
 {
     public interface IBudgetRequestService
     {
-        void AddBudgetRequest(BudgetRequest request, User user);
-        void UpdateBudgetRequest(BudgetRequest request, User user);
-        void DeleteBudgetRequest(BudgetRequest request, User user);
+        void AddBudgetRequest(BudgetRequest request);
+        void UpdateBudgetRequest(BudgetRequest request);
+        void DeleteBudgetRequest(BudgetRequest request);
 
-        BudgetRequest ViewBudgetRequest(Guid id, User user);
+        BudgetRequest GetBudgetRequest(Guid id);
 
-        List<BudgetRequest> ViewBudgetRequestsList(User user, DateTime start, DateTime finish);
+        List<BudgetRequestMainListDto> ViewBudgetRequestsList(User user, DateTime start, DateTime finish,  List<Role> roles);
     }
 }

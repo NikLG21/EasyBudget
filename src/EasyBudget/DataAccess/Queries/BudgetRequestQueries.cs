@@ -10,7 +10,7 @@ namespace DataAccess.Queries
 {
     public class BudgetRequestQueries : IBudgetRequestQueries
     {
-        public List<BudgetRequestMainListDto> GetBudgetRequestsByOriginator(Guid userId)
+        public List<BudgetRequestMainListDto> GetBudgetRequestsByRequestor(Guid userId)
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
