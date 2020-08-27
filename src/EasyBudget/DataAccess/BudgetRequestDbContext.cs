@@ -28,7 +28,7 @@ namespace DataAccess
             OnModelCreating_RoleConfig(modelBuilder);
             OnModelCreating_ActionConfig(modelBuilder);
             OnModelCreating_DepartmentConfig(modelBuilder);
-            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            OnModelCreating_BudgetHistoryConfig(modelBuilder);
         }
 
         private static void OnModelCreating_MainConfig(DbModelBuilder modelBuilder)
@@ -67,7 +67,6 @@ namespace DataAccess
         {
             modelBuilder.Entity<BudgetDescription>().Property(p => p.Description).HasMaxLength(2000);
             modelBuilder.Entity<BudgetDescription>().HasRequired(u => u.User).WithMany().WillCascadeOnDelete(false);
-            
         }
         private static void OnModelCreating_RoleConfig(DbModelBuilder modelBuilder)
         {
@@ -85,6 +84,10 @@ namespace DataAccess
             modelBuilder.Entity<Department>().Property(p => p.Name).HasMaxLength(30);
             modelBuilder.Entity<Department>().HasIndex(p => p.Name).IsUnique();
         }
+        private static void OnModelCreating_BudgetHistoryConfig(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BudgetHistory>().HasRequired(b =>b.User).WithMany().WillCascadeOnDelete(false);
+        }
 
         public DbSet<Action> Actions { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -93,5 +96,6 @@ namespace DataAccess
         public DbSet<BudgetDescription> BudgetDescriptions { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Unit> Units { get; set; }
+        public DbSet<BudgetHistory> BudgetHistories { get; set; }
     }
 }

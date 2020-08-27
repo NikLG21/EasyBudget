@@ -34,5 +34,7 @@ namespace EasyBudget.Common.Model
         public BudgetState State { get; set; }
 
         public List<BudgetDescription> BudgetDescriptions { get; } = new List<BudgetDescription>();
+
+        public List<BudgetHistory> BudgetHistory { get; } = new List<BudgetHistory>();
     }
 }
