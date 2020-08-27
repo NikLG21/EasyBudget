@@ -45,11 +45,6 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                BudgetRequest request1 = Get(request.Id);
-                if (request != request1)
-                {
-                    throw new EntityUpdatedException("Запрос");
-                }
                 if (request.State == BudgetState.Requested)
                 {
                     budgetRequestAccess.Update(request);
@@ -271,37 +266,36 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        //public List<BudgetRequestMainListDto> GetListUncheckedExecutor(User User)
-        //{
-        //    try
-        //    {
-        //        return budgetRequestQueries.GetBudgetRequestUncheckedExecutor();
-        //    }
-        //    catch (CriticalException)
-        //    {
-        //        throw;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new CriticalException(e);
-        //    }
-        //}
-
-        //public List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId)
-        //{
-        //    try
-        //    {
-        //        return budgetRequestQueries.GetBudgetRequestUnapprovedApprover(userId);
-        //    }
-        //    catch (CriticalException)
-        //    {
-        //        throw;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new CriticalException(e);
-        //    }
-        //}
+        public List<BudgetRequestMainListDto> GetListUncheckedExecutor(Department department)
+        {
+            try
+            {
+                return budgetRequestQueries.GetBudgetRequestUncheckedExecutor(department);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
+        public List<BudgetRequestMainListDto> GetListUnapprovedApprover(Unit unit)
+        {
+            try
+            {
+                return budgetRequestQueries.GetBudgetRequestUnapprovedApprover(unit);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
 
     }
 }

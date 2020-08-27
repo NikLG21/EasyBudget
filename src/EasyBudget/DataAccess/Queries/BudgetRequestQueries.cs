@@ -153,7 +153,7 @@ namespace DataAccess.Queries
                 }
             }
         }
-        public List<BudgetRequestMainListDto> GetBudgetRequestUnapprovedApprover(Guid userId)
+        public List<BudgetRequestMainListDto> GetBudgetRequestUnapprovedApprover(Unit unit)
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
@@ -162,7 +162,7 @@ namespace DataAccess.Queries
                     List<BudgetRequestMainListDto> list = context
                         .BudgetRequests
                         .AsNoTracking()
-                        .Where(br => br.Approver.Id == userId)
+                        .Where(br => br.Unit == unit)
                         .Where(br => br.State == BudgetState.Requested)
                         .Select(br => new BudgetRequestMainListDto
                         {
