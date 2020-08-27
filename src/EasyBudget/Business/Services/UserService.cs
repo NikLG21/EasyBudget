@@ -26,6 +26,10 @@ namespace EasyBudget.Business.Services
         {
             try
             {
+                if (!CheckUnityInUser(user))
+                {
+                    throw;
+                }
                 user = GetUserPasswordHash(user);
                 userAccess.Add(user);
             }
@@ -71,7 +75,7 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public void UpdatePassword(Guid userId, string oldPassword, string newPassword)
+        public void ChangePassword(Guid userId, string oldPassword, string newPassword)
         {
             try
             {
@@ -80,7 +84,7 @@ namespace EasyBudget.Business.Services
                 {
                     user.Password = newPassword;
                     user = GetUserPasswordHash(user);
-                    Update(user);
+                    userAccess.Update(user);
                 }
                 else
                 {
@@ -98,10 +102,19 @@ namespace EasyBudget.Business.Services
 
         }
 
-        public void Update(User user)
+        public void UpdateByAdmin(User user)
         {
             try
             {
+                if (userAccess.Get(user.Id).Login != user.Login)
+                {
+                    throw;
+                }
+
+                if (!CheckUnityInUser(user))
+                {
+                    throw;
+                }
                 userAccess.Update(user);
             }
             catch (DuplicateEntryException)
@@ -166,6 +179,33 @@ namespace EasyBudget.Business.Services
             byte[] output = sha1.ComputeHash(input);
             string hash = Convert.ToBase64String(output);
             return hash;
+        }
+
+        private static bool CheckUnityInUser(User user)
+        {
+            foreach (Role role in user.Roles)
+            {
+                if (role.Name == "Инициатор запроса" | role.Name == "Утверждающий")
+                {
+                    if (user.Unit != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (user.Unit == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

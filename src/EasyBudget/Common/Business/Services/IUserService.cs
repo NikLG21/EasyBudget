@@ -9,8 +9,8 @@ namespace EasyBudget.Common.Business.Services
     {
         void Add(User user);
         Guid LogIn( string login, string password);
-        void UpdatePassword( Guid userId, string oldPassword, string newPassword);
-        void Update(User user);
+        void ChangePassword( Guid userId, string oldPassword, string newPassword);
+        void UpdateByAdmin(User user);
         List<UserMainInfoDto> GetUsersList();
         UserMainInfoDto GetMainInfoDto( Guid id);
     }
