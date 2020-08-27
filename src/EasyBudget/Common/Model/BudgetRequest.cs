@@ -19,6 +19,8 @@ namespace EasyBudget.Common.Model
 
         public Department Department { get; set; }
 
+        public Unit Unit { get; set; }
+
         public DateTime DateRequested { get; set; }
         public DateTime? DateRequestedDeadline { get; set; }
         public DateTime? DateDirectorApprove { get; set; }

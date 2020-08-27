@@ -8,6 +8,7 @@ DELETE [dbo].[BudgetDescription]
 DELETE [dbo].[BudgetRequest]
 DELETE [dbo].[Department]
 DELETE [dbo].[User]
+DELETE [dbo].[Unit]
 
 
 DROP TABLE [dbo].[RoleAction]
@@ -18,4 +19,5 @@ DROP TABLE [dbo].[BudgetDescription]
 DROP TABLE [dbo].[BudgetRequest]
 DROP TABLE [dbo].[Department]
 DROP TABLE [dbo].[User]
+DROP TABLE [dbo].[Unit]
 DROP TABLE [dbo].[__MigrationHistory]
