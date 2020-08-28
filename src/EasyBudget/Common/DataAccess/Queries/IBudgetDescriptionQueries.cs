@@ -7,6 +7,6 @@ namespace EasyBudget.Common.DataAccess.Queries
 {
     public interface IBudgetDescriptionQueries
     {
-        List<BudgetDesctiptionMainListDto> GetBudgetDescriptionByRequest(Guid budgetRequestId);
+        List<BudgetDescriptionMainListDto> GetBudgetDescriptionByRequest(Guid budgetRequestId);
     }
 }

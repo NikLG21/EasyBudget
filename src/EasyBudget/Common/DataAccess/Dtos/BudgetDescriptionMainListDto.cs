@@ -5,7 +5,7 @@ using EasyBudget.Common.Model;
 
 namespace EasyBudget.Common.DataAccess.Dtos
 {
-    public class BudgetDesctiptionMainListDto : Entity
+    public class BudgetDescriptionMainListDto : Entity
     {
         public string Description { get; set; }
         public string UserName { get; set; }

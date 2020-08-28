@@ -9,17 +9,17 @@ namespace DataAccess.Queries
 {
     public class BudgetDescriptionQueries : IBudgetDescriptionQueries
     {
-        public List<BudgetDesctiptionMainListDto> GetBudgetDescriptionByRequest(Guid budgetRequestId)
+        public List<BudgetDescriptionMainListDto> GetBudgetDescriptionByRequest(Guid budgetRequestId)
         {
             using (BudgetRequestDbContext context = new BudgetRequestDbContext())
             {
                 try
                 {
-                    List<BudgetDesctiptionMainListDto> list = context
+                    List<BudgetDescriptionMainListDto> list = context
                         .BudgetDescriptions
                         .Where(bd => bd.BudgetRequest.Id == budgetRequestId)
                         .Select(bd =>
-                            new BudgetDesctiptionMainListDto
+                            new BudgetDescriptionMainListDto
                             {
                                 Id = bd.Id,
                                 UserName = bd.User.Name,
