@@ -9,9 +9,10 @@ namespace EasyBudget.Common.Business.Services
     public interface IBudgetRequestService
     {
         void AddRequest(Guid userId,BudgetRequest request);
+        void AddRequestByAdmin(Guid userId, Guid id, BudgetRequest request);
         void UpdateByRequestor(Guid userId,BudgetRequest request);
         void DeleteBudgetRequest(Guid userId,BudgetRequest request);
-        BudgetRequest Get(Guid userId,Guid id);
+        BudgetRequest Get(Guid userId,Guid requestId);
         List<BudgetRequestMainListDto> GetListByRequestor(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByApprover(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByExecutor(Guid userId, DateTime start, DateTime finish);

@@ -12,12 +12,19 @@ namespace EasyBudget.Business.Services
      public class AgreementBudgetRequestService : IAgreementBudgetRequestService 
      {
          private IBudgetRequestService budgetRequestService;
-         private IBudgetRequestAccess budgetRequestAccess; 
+         private IBudgetRequestAccess budgetRequestAccess;
+
+         public AgreementBudgetRequestService(IBudgetRequestService budgetRequestService, IBudgetRequestAccess budgetRequestAccess)
+         {
+             this.budgetRequestService = budgetRequestService;
+             this.budgetRequestAccess = budgetRequestAccess;
+         }
+
          public void ApproveFirstLine(Guid userId,Guid id)
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.Requested)
                  {
                      request.State = BudgetState.ApprovedFirstLine;
@@ -41,7 +48,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.ApprovedDirector;
@@ -68,7 +75,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.Requested)
                  {
                      request.State = BudgetState.RejectedFirstLine;
@@ -95,7 +102,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.RejectedDirector;
@@ -119,7 +126,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ExecutorEstimated)
                  {
                      request.State = BudgetState.PostpondDirector;
@@ -145,7 +152,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ApprovedDirector)
                  {
                      request.State = BudgetState.PostpondFinDirector;
@@ -169,7 +176,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ApprovedDirector| request.State == BudgetState.PostpondFinDirector)
                  {
                      request.State = BudgetState.Execution;
@@ -196,7 +203,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(id);
+                 BudgetRequest request = budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ApprovedFirstLine)
                  {
                      request.State = BudgetState.PostpondFinDirector;
@@ -216,6 +223,32 @@ namespace EasyBudget.Business.Services
              {
                  throw new CriticalException(e);
              }
-         } 
+         }
+         public void ExecutionFinishedFinDirector(Guid userId, Guid id)
+         {
+             try
+             {
+                 BudgetRequest request = budgetRequestService.Get(userId,id);
+                 if (request.State == BudgetState.Execution)
+                 {
+                     request.State = BudgetState.Executed;
+                     request.DateEndExecution = DateTime.Today;
+                     budgetRequestAccess.Update(request);
+                 }
+             }
+             catch (EntityNotFoundException)
+             {
+                 throw;
+             }
+             catch (CriticalException)
+             {
+                 throw;
+             }
+             catch (Exception e)
+             {
+                 throw new CriticalException(e);
+             }
+
+         }
      }
 }

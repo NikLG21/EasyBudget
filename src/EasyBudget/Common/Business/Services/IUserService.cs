@@ -7,11 +7,11 @@ namespace EasyBudget.Common.Business.Services
 {
     public interface IUserService
     {
-        void AddUserByAdmin(User user);
-        Guid LogInUser( string login, string password);
+        void AddUserByAdmin(Guid userId, User user);
+        Guid LogInUser(Guid userId, string login, string password);
         void ChangePasswordByUser( Guid userId, string oldPassword, string newPassword);
-        void UpdateByAdmin(User user);
-        List<UserMainInfoDto> GetUsersList();
-        UserMainInfoDto GetMainInfoDto( Guid id);
+        void UpdateByAdmin(Guid userId, User user);
+        List<UserMainInfoDto> GetUsersList(Guid userId);
+        UserMainInfoDto GetMainInfoDto(Guid userId, Guid id);
     }
 }

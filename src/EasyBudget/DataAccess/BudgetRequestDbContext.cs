@@ -72,6 +72,7 @@ namespace DataAccess
         {
             modelBuilder.Entity<Role>().Property(p => p.Name).HasMaxLength(20);
             modelBuilder.Entity<Role>().HasIndex(p => p.Name).IsUnique();
+            modelBuilder.Entity<Role>().HasOptional(u => u.Department).WithMany().WillCascadeOnDelete(false);
         }
 
         private static void OnModelCreating_ActionConfig(DbModelBuilder modelBuilder)

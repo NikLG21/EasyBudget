@@ -15,5 +15,6 @@ namespace EasyBudget.Common.Business.Services
         void PostponedFinDirector(Guid userId, Guid id);
         void RealPriceAdded(Guid userId, Guid id, decimal realPrice);
         void ExecutionStartedFinDirector(Guid userId, Guid id, DateTime deadline);
+        void ExecutionFinishedFinDirector(Guid userId, Guid id);
     }
 }

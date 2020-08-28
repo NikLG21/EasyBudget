@@ -15,17 +15,22 @@ namespace EasyBudget.Business.Services
     {
         private IBudgetRequestQueries budgetRequestQueries;
         private IBudgetRequestAccess budgetRequestAccess;
+        private IUserAccess userAccess;
 
         public BudgetRequestService(IBudgetRequestQueries budgetRequestQueries, IBudgetRequestAccess budgetRequestAccess)
         {
             this.budgetRequestQueries = budgetRequestQueries;
             this.budgetRequestAccess = budgetRequestAccess;
         }
-
         public void AddRequest(Guid userId,BudgetRequest request)
         {
             try
             {
+                User user = userAccess.Get(userId);
+                request.State = BudgetState.Requested;
+                request.DateRequested = DateTime.Today;
+                request.Requester = user;
+                request.Unit = user.Unit;
                 budgetRequestAccess.Add(request);
             }
             catch (DuplicateEntryException)
@@ -41,9 +46,29 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public void AddRequestByAdmin(Guid userId)
+        public void AddRequestByAdmin(Guid userId, Guid id, BudgetRequest request)
         {
-
+            try
+            {
+                User user = userAccess.Get(id);
+                request.State = BudgetState.Requested;
+                request.DateRequested = DateTime.Today;
+                request.Requester = user;
+                request.Unit = user.Unit;
+                budgetRequestAccess.Add(request);
+            }
+            catch (DuplicateEntryException)
+            {
+                throw;
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
         }
         public void UpdateByRequestor(Guid userId,BudgetRequest request)
         {
@@ -76,7 +101,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                BudgetRequest request1 = Get(request.Id);
+                BudgetRequest request1 = Get(userId, request.Id);
                 if (request != request1)
                 {
                     throw new EntityUpdatedException("Запит");
@@ -99,11 +124,11 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public BudgetRequest Get(Guid userId,Guid id)
+        public BudgetRequest Get(Guid userId,Guid requestId)
         {
             try
             {
-                return budgetRequestAccess.Get(id);
+                return budgetRequestAccess.Get(requestId);
             }
             catch (CriticalException)
             {

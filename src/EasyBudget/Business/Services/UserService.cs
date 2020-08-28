@@ -22,7 +22,7 @@ namespace EasyBudget.Business.Services
             this.userQueries = userQueries;
         }
 
-        public void AddUserByAdmin( User user)
+        public void AddUserByAdmin(Guid userId, User user)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public Guid LogInUser(string login, string password)
+        public Guid LogInUser(Guid userId, string login, string password)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace EasyBudget.Business.Services
 
         }
 
-        public void UpdateByAdmin(User user)
+        public void UpdateByAdmin(Guid userId, User user)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public UserMainInfoDto GetMainInfoDto(Guid id)
+        public UserMainInfoDto GetMainInfoDto(Guid userId, Guid id)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public List<UserMainInfoDto> GetUsersList()
+        public List<UserMainInfoDto> GetUsersList(Guid userId)
         {
             try
             {
