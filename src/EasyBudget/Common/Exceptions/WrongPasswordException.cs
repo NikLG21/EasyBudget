@@ -6,7 +6,7 @@ namespace EasyBudget.Common.Exceptions
 {
     public class WrongPasswordException : Exception
     {
-        const string FormatMessageString = "Неправильно введен пароль при попытке {0}";
+        const string FormatMessageString = "Неправильно введений пароль при спробі {0}";
         public string TaskName { get; private set; }
         public WrongPasswordException(string taskName) : base(string.Format(FormatMessageString, taskName))
         {

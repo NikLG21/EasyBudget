@@ -7,13 +7,13 @@ namespace EasyBudget.Common.Business.Services
 {
     public interface IAgreementBudgetRequestService
     {
-        void ApproveFirstLine(Guid id);
-        void ApproveDirector(Guid id);
-        void RejectFirstLine(Guid id);
-        void RejectDirector(Guid id);
-        void PostponedDirector(Guid id);
-        void PostponedFinDirector(Guid id);
-        void RealPriceAdded(Guid id, decimal realPrice);
-        void SpecifyBudgetRequest(Guid id,User user);
+        void ApproveFirstLine(Guid userId, Guid id);
+        void ApproveDirector(Guid userId, Guid id);
+        void RejectFirstLine(Guid userId, Guid id);
+        void RejectDirector(Guid userId, Guid id);
+        void PostponedDirector(Guid userId, Guid id);
+        void PostponedFinDirector(Guid userId, Guid id);
+        void RealPriceAdded(Guid userId, Guid id, decimal realPrice);
+        void ExecutionStartedFinDirector(Guid userId, Guid id, DateTime deadline);
     }
 }

@@ -6,7 +6,7 @@ namespace EasyBudget.Common.Exceptions
 {
     public class DisabledUserException:Exception
     {
-        const string FormatMessageString = "Этот пользователь был отключен.";
+        const string FormatMessageString = "Цей користувач був відключений.";
         public DisabledUserException() : base(FormatMessageString)
         {
         }

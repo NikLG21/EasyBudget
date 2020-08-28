@@ -209,5 +209,34 @@ namespace DataAccess.Queries
                 }
             }
         }
+
+        public List<BudgetRequestMainListDto> GetBudgetRequestExecution(Department department)
+        {
+            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            {
+                try
+                {
+                    List<BudgetRequestMainListDto> list = context
+                        .BudgetRequests
+                        .AsNoTracking()
+                        .Where(br => br.Department == department)
+                        .Where(br => br.State == BudgetState.Execution)
+                        .Select(br => new BudgetRequestMainListDto
+                        {
+                            Name = br.Name,
+                            RequesterName = br.Requester.Name,
+                            DepartmentName = br.Department.Name,
+                            DateRequested = br.DateRequested,
+                            State = br.State,
+                            RealPrice = br.RealPrice
+                        }).ToList();
+                    return list;
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+            }
+        }
     }
 }

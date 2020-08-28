@@ -6,7 +6,7 @@ namespace EasyBudget.Common.Exceptions
 {
     public class NonDeletedUpdatedRequestException : Exception
     {
-        const string FormatMessageString = "Запрос уже был утвержден. \"{0}\" невозможно.";
+        const string FormatMessageString = "Запит вже був затверджений. \"{0}\" неможливо.";
         public string EntityName { get; private set; }
 
         public NonDeletedUpdatedRequestException(string entityName)

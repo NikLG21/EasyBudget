@@ -73,7 +73,7 @@ namespace DataAccess.Access
                     BudgetRequest request = context.BudgetRequests.AsNoTracking().FirstOrDefault(e => e.Id == Id);
                     if (request == null)
                     {
-                        throw new EntityNotFoundException("Запрос");
+                        throw new EntityNotFoundException("Запит");
                     }
                     return request;
                 }
@@ -95,7 +95,7 @@ namespace DataAccess.Access
         //        {
         //            if (budgetRequest.Requester.Id.Equals(userId))
         //            {
-        //                budgetRequests.Add(budgetRequest);
+        //                budgetRequests.AddUserByAdmin(budgetRequest);
         //            }
         //        }
 
@@ -113,7 +113,7 @@ namespace DataAccess.Access
         //        {
         //            if (budgetRequest.Approver.Id.Equals(userId))
         //            {
-        //                budgetRequests.Add(budgetRequest);
+        //                budgetRequests.AddUserByAdmin(budgetRequest);
         //            }
         //        }
 

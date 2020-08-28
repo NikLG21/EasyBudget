@@ -13,7 +13,7 @@ namespace EasyBudget.Business.Services
      {
          private IBudgetRequestService budgetRequestService;
          private IBudgetRequestAccess budgetRequestAccess; 
-         public void ApproveFirstLine(Guid id)
+         public void ApproveFirstLine(Guid userId,Guid id)
          {
              try
              {
@@ -37,14 +37,15 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
              }
          } 
-         public void ApproveDirector(Guid id)
+         public void ApproveDirector(Guid userId,Guid id)
          {
              try
              {
                  BudgetRequest request = budgetRequestService.Get(id);
-                 if (request.State == BudgetState.ExecutorEstimated)
+                 if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.ApprovedDirector;
+                     request.DateDirectorApprove = DateTime.Today;
                      budgetRequestAccess.Update(request);
                  }
 
@@ -63,7 +64,7 @@ namespace EasyBudget.Business.Services
              }
 
          } 
-         public void RejectFirstLine(Guid id)
+         public void RejectFirstLine(Guid userId, Guid id)
          {
              try
              {
@@ -90,12 +91,12 @@ namespace EasyBudget.Business.Services
              }
 
          } 
-         public void RejectDirector(Guid id)
+         public void RejectDirector(Guid userId, Guid id)
          {
              try
              {
                  BudgetRequest request = budgetRequestService.Get(id);
-                 if (request.State == BudgetState.ExecutorEstimated)
+                 if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.RejectedDirector;
                      budgetRequestAccess.Update(request);
@@ -114,7 +115,7 @@ namespace EasyBudget.Business.Services
                  throw new CriticalException(e);
              }
          } 
-         public void PostponedDirector(Guid id)
+         public void PostponedDirector(Guid userId, Guid id)
          {
              try
              {
@@ -140,7 +141,7 @@ namespace EasyBudget.Business.Services
              }
              
          } 
-         public void PostponedFinDirector(Guid id)
+         public void PostponedFinDirector(Guid userId, Guid id)
          {
              try
              {
@@ -163,8 +164,35 @@ namespace EasyBudget.Business.Services
              {
                  throw new CriticalException(e);
              }
-         } 
-         public void RealPriceAdded(Guid id, decimal realPrice)
+         }
+         public void ExecutionStartedFinDirector(Guid userId, Guid id, DateTime deadline)
+         {
+             try
+             {
+                 BudgetRequest request = budgetRequestService.Get(id);
+                 if (request.State == BudgetState.ApprovedDirector| request.State == BudgetState.PostpondFinDirector)
+                 {
+                     request.State = BudgetState.Execution;
+                     request.DateDeadlineExecution = deadline; 
+                     request.DateStartExecution = DateTime.Today;
+                     budgetRequestAccess.Update(request);
+                 }
+             }
+             catch (EntityNotFoundException)
+             {
+                 throw;
+             }
+             catch (CriticalException)
+             {
+                 throw;
+             }
+             catch (Exception e)
+             {
+                 throw new CriticalException(e);
+             }
+
+         }
+         public void RealPriceAdded(Guid userId, Guid id, decimal realPrice)
          {
              try
              {
@@ -189,9 +217,5 @@ namespace EasyBudget.Business.Services
                  throw new CriticalException(e);
              }
          } 
-         public void SpecifyBudgetRequest(Guid id, User user) 
-         {
-            throw new NotImplementedException();
-         }
      }
 }

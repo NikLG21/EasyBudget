@@ -15,5 +15,6 @@ namespace EasyBudget.Common.DataAccess.Queries
         List<BudgetRequestMainListDto> GetBudgetRequestUnapprovedDirectors(BudgetState state);
         List<BudgetRequestMainListDto> GetBudgetRequestUnapprovedApprover(Unit unit);
         List<BudgetRequestMainListDto> GetBudgetRequestUncheckedExecutor(Department department);
+        List<BudgetRequestMainListDto> GetBudgetRequestExecution(Department department);
     }
 }

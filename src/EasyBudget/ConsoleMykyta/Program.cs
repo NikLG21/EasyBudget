@@ -34,8 +34,8 @@ namespace ConsoleMykyta
                         Name = "1"
                     }
                 };
-                userService.Add(user);
-                //userService.ChangePassword(Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"), "skovoroda01","skovoroda02");
+                userService.AddUserByAdmin(user);
+                //userService.ChangePasswordByUser(Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"), "skovoroda01","skovoroda02");
             }
             catch (Exception e)
             {

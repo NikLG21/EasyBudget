@@ -22,13 +22,13 @@ namespace EasyBudget.Business.Services
             this.userQueries = userQueries;
         }
 
-        public void Add( User user)
+        public void AddUserByAdmin( User user)
         {
             try
             {
                 if (!CheckUnityInUser(user))
                 {
-                    throw;
+                    throw new UnityInUserRequiredException();
                 }
                 user = GetUserPasswordHash(user);
                 userAccess.Add(user);
@@ -48,14 +48,14 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public Guid LogIn(string login, string password)
+        public Guid LogInUser(string login, string password)
         {
             try
             {
                 Guid id = userQueries.GetUserByLogin(login, GetHash(password));
                 if (id == Guid.Empty)
                 {
-                    throw new WrongPasswordException("входа");
+                    throw new UnityInUserRequiredException();
                 }
 
                 if (userAccess.Get(id).IsDisabled)
@@ -75,7 +75,7 @@ namespace EasyBudget.Business.Services
             
         }
 
-        public void ChangePassword(Guid userId, string oldPassword, string newPassword)
+        public void ChangePasswordByUser(Guid userId, string oldPassword, string newPassword)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace EasyBudget.Business.Services
                 }
                 else
                 {
-                    throw new WrongPasswordException("смены пароля");
+                    throw new WrongPasswordException("зміни пароля");
                 }
             }
             catch (CriticalException)
@@ -108,12 +108,12 @@ namespace EasyBudget.Business.Services
             {
                 if (userAccess.Get(user.Id).Login != user.Login)
                 {
-                    throw;
+                    throw new NonChangedLoginException();
                 }
 
                 if (!CheckUnityInUser(user))
                 {
-                    throw;
+                    throw new UnityInUserRequiredException();
                 }
                 userAccess.Update(user);
             }

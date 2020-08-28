@@ -27,7 +27,7 @@ namespace DataAccess.Access
                     SqlException sqlException = e.InnerException?.InnerException as SqlException;
                     if (sqlException != null && sqlException.Number == 2601)
                     {
-                        throw new DuplicateEntryException("Пользователь", e);
+                        throw new DuplicateEntryException("Користувач", e);
                     }
 
                     throw new CriticalException(e);
@@ -54,7 +54,7 @@ namespace DataAccess.Access
                     SqlException sqlException = e.InnerException?.InnerException as SqlException;
                     if (sqlException != null && sqlException.Number == 2601)
                     {
-                        throw new DuplicateEntryException("Пользователь", e);
+                        throw new DuplicateEntryException("Користувач", e);
                     }
 
                     throw new CriticalException(e);
@@ -76,7 +76,7 @@ namespace DataAccess.Access
                     User user = context.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
                     if (user == null)
                     {
-                        throw new EntityNotFoundException("Пользователь");
+                        throw new EntityNotFoundException("Користувач");
                     }
                     return user;
                 }

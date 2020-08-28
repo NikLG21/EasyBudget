@@ -8,19 +8,20 @@ namespace EasyBudget.Common.Business.Services
 {
     public interface IBudgetRequestService
     {
-        void Add(BudgetRequest request);
-        void UpdateByRequestor(BudgetRequest request);
-        void DeleteBudgetRequest(BudgetRequest request);
-        BudgetRequest Get(Guid id);
+        void AddRequest(Guid userId,BudgetRequest request);
+        void UpdateByRequestor(Guid userId,BudgetRequest request);
+        void DeleteBudgetRequest(Guid userId,BudgetRequest request);
+        BudgetRequest Get(Guid userId,Guid id);
         List<BudgetRequestMainListDto> GetListByRequestor(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByApprover(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByExecutor(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByTime(DateTime start, DateTime finish);
-        List<BudgetRequestMainListDto> GetListUnapprovedDirector();
-        List<BudgetRequestMainListDto> GetListUnapprovedFinDirector();
-        List<BudgetRequestMainListDto> GetListPostponedFinDirector();
-        List<BudgetRequestMainListDto> GetListPostponedDirector();
-        List<BudgetRequestMainListDto> GetListUnapprovedApprover(Unit unit);
-        List<BudgetRequestMainListDto> GetListUncheckedExecutor(Department department);
+        List<BudgetRequestMainListDto> GetListUnapprovedDirector(Guid userId);
+        List<BudgetRequestMainListDto> GetListUnapprovedFinDirector(Guid userId);
+        List<BudgetRequestMainListDto> GetListPostponedFinDirector(Guid userId);
+        List<BudgetRequestMainListDto> GetListPostponedDirector(Guid userId);
+        List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId,Unit unit);
+        List<BudgetRequestMainListDto> GetListUncheckedExecutor(Guid userId,Department department);
+        List<BudgetRequestMainListDto> GetListExecutionExecutor(Guid userId, Department department);
     }
 }

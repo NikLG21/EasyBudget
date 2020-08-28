@@ -6,7 +6,7 @@ namespace EasyBudget.Common.Exceptions
 {
     public class DuplicateEntryException : Exception
     {
-        const string FormatMessageString = "Невозможено добавить или обновить \"{0}\". Сущность с такими параметрами уже существует.";
+        const string FormatMessageString = "Неможливо додати або оновити \"{0}\". Сутність з такими параметрами вже існує.";
 
         public string EntityName { get; private set; }
 

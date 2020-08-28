@@ -22,7 +22,7 @@ namespace EasyBudget.Business.Services
             this.budgetRequestAccess = budgetRequestAccess;
         }
 
-        public void Add(BudgetRequest request)
+        public void AddRequest(Guid userId,BudgetRequest request)
         {
             try
             {
@@ -41,7 +41,11 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public void UpdateByRequestor(BudgetRequest request)
+        public void AddRequestByAdmin(Guid userId)
+        {
+
+        }
+        public void UpdateByRequestor(Guid userId,BudgetRequest request)
         {
             try
             {
@@ -51,7 +55,7 @@ namespace EasyBudget.Business.Services
                 }
                 else
                 {
-                    throw new NonDeletedUpdatedRequestException("Обновление");
+                    throw new NonDeletedUpdatedRequestException("Оновлення");
                 }
                 
             }
@@ -68,14 +72,14 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public void DeleteBudgetRequest(BudgetRequest request)
+        public void DeleteBudgetRequest(Guid userId,BudgetRequest request)
         {
             try
             {
                 BudgetRequest request1 = Get(request.Id);
                 if (request != request1)
                 {
-                    throw new EntityUpdatedException("Запрос");
+                    throw new EntityUpdatedException("Запит");
                 }
                 if (request.State == BudgetState.Requested)
                 {
@@ -83,7 +87,7 @@ namespace EasyBudget.Business.Services
                 }
                 else
                 {
-                    throw new NonDeletedUpdatedRequestException("Удаление");
+                    throw new NonDeletedUpdatedRequestException("Видалення");
                 }
             }
             catch (CriticalException)
@@ -95,7 +99,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public BudgetRequest Get(Guid id)
+        public BudgetRequest Get(Guid userId,Guid id)
         {
             try
             {
@@ -206,7 +210,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListUnapprovedDirector()
+        public List<BudgetRequestMainListDto> GetListUnapprovedDirector(Guid userId)
         {
             try
             {
@@ -221,7 +225,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListUnapprovedFinDirector()
+        public List<BudgetRequestMainListDto> GetListUnapprovedFinDirector(Guid userId)
         {
             try
             {
@@ -236,7 +240,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListPostponedFinDirector()
+        public List<BudgetRequestMainListDto> GetListPostponedFinDirector(Guid userId)
         {
             try
             {
@@ -251,7 +255,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListPostponedDirector()
+        public List<BudgetRequestMainListDto> GetListPostponedDirector(Guid userId)
         {
             try
             {
@@ -266,7 +270,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListUncheckedExecutor(Department department)
+        public List<BudgetRequestMainListDto> GetListUncheckedExecutor(Guid userId,Department department)
         {
             try
             {
@@ -281,7 +285,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListUnapprovedApprover(Unit unit)
+        public List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId,Unit unit)
         {
             try
             {
@@ -296,6 +300,20 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-
+        public List<BudgetRequestMainListDto> GetListExecutionExecutor(Guid userId, Department department)
+        {
+            try
+            {
+                return budgetRequestQueries.GetBudgetRequestExecution(department);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
     }
 }

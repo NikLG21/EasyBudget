@@ -6,7 +6,7 @@ namespace EasyBudget.Common.Exceptions
 {
     public class EntityUpdatedException:Exception
     {
-        const string FormatMessageString = "\"{0}\" в базе был кем-то обновлен. Обновите \"{0}\" у себя в клиенте.";
+        const string FormatMessageString = "\"{0}\" в базі був кимось оновлений. Обновите \"{0}\" у себе в клієнті.";
         public string EntityName { get; private set; }
 
         public EntityUpdatedException(string entityName)
