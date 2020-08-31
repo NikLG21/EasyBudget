@@ -19,6 +19,15 @@ namespace EasyBudget.Business.Services
         {
             try
             {
+                if (description.Description == null)
+                {
+                    throw new LackMandatoryInformation("Коментар");
+                }
+
+                if (description.BudgetRequest == null)
+                {
+                    throw new LackMandatoryInformation("Запиту до якого відноситься коментар");
+                }
                 description.User = userAccess.Get(userId);
                 description.Date = DateTime.Today;
                 budgetDescriptionAccess.Add(description);

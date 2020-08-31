@@ -30,6 +30,20 @@ namespace EasyBudget.Business.Services
                 {
                     throw new UnityInUserRequiredException();
                 }
+                if (user.Name == null)
+                {
+                    throw  new LackMandatoryInformation("Їм'я");
+                }
+                if (user.Login == null)
+                {
+                    throw new LackMandatoryInformation("Логін");
+                }
+                if (user.Password == null)
+                {
+                    throw new LackMandatoryInformation("Пароль");
+                }
+
+                user.IsDisabled = false;
                 user = GetUserPasswordHash(user);
                 userAccess.Add(user);
             }

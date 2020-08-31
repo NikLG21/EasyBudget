@@ -26,6 +26,10 @@ namespace EasyBudget.Business.Services
         {
             try
             {
+                if (request.Name == null)
+                {
+                    throw new LackMandatoryInformation("Назва запиту");
+                }
                 User user = userAccess.Get(userId);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
