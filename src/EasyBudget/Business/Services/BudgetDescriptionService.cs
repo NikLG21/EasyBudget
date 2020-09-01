@@ -12,9 +12,20 @@ namespace EasyBudget.Business.Services
 {
     public class BudgetDescriptionService : IBudgetDescriptionService
     {
-        private IBudgetDescriptionQueries budgetDescriptionQueries;
-        private IBudgetDescriptionAccess budgetDescriptionAccess;
-        private IUserAccess userAccess;
+        private readonly IBudgetDescriptionQueries _budgetDescriptionQueries;
+        private readonly IBudgetDescriptionAccess _budgetDescriptionAccess;
+        private readonly IUserAccess _userAccess;
+
+        public BudgetDescriptionService(
+            IBudgetDescriptionQueries budgetDescriptionQueries, 
+            IBudgetDescriptionAccess budgetDescriptionAccess, 
+            IUserAccess userAccess)
+        {
+            _budgetDescriptionQueries = budgetDescriptionQueries;
+            _budgetDescriptionAccess = budgetDescriptionAccess;
+            _userAccess = userAccess;
+        }
+
         public void AddBudgetDescription(Guid userId, BudgetDescription description)
         {
             try
@@ -28,9 +39,9 @@ namespace EasyBudget.Business.Services
                 {
                     throw new LackMandatoryInformation("Запиту до якого відноситься коментар");
                 }
-                description.User = userAccess.Get(userId);
+                description.User = _userAccess.Get(userId);
                 description.Date = DateTime.Today;
-                budgetDescriptionAccess.Add(description);
+                _budgetDescriptionAccess.Add(description);
             }
             catch (CriticalException)
             {
@@ -46,7 +57,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetDescriptionAccess.Get(descriptionId);
+                return _budgetDescriptionAccess.Get(descriptionId);
             }
             catch (EntityNotFoundException)
             {
@@ -66,7 +77,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetDescriptionQueries.GetBudgetDescriptionByRequest(budgetRequestId);
+                return _budgetDescriptionQueries.GetBudgetDescriptionByRequest(budgetRequestId);
             }
             catch (CriticalException)
             {

@@ -11,24 +11,26 @@ namespace EasyBudget.Business.Services
 {
      public class AgreementBudgetRequestService : IAgreementBudgetRequestService 
      {
-         private IBudgetRequestService budgetRequestService;
-         private IBudgetRequestAccess budgetRequestAccess;
+         private readonly IBudgetRequestService _budgetRequestService;
+         private readonly IBudgetRequestAccess _budgetRequestAccess;
 
-         public AgreementBudgetRequestService(IBudgetRequestService budgetRequestService, IBudgetRequestAccess budgetRequestAccess)
+         public AgreementBudgetRequestService(
+             IBudgetRequestService budgetRequestService, 
+             IBudgetRequestAccess budgetRequestAccess)
          {
-             this.budgetRequestService = budgetRequestService;
-             this.budgetRequestAccess = budgetRequestAccess;
+             _budgetRequestService = budgetRequestService;
+             _budgetRequestAccess = budgetRequestAccess;
          }
 
          public void ApproveFirstLine(Guid userId,Guid id)
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.Requested)
                  {
                      request.State = BudgetState.ApprovedFirstLine;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
              }
              catch (EntityNotFoundException)
@@ -48,12 +50,12 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.ApprovedDirector;
                      request.DateDirectorApprove = DateTime.Today;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
 
              }
@@ -75,14 +77,14 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.Requested)
                  {
                      request.State = BudgetState.RejectedFirstLine;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
                  request.State = BudgetState.RejectedFirstLine;
-                 budgetRequestAccess.Update(request);
+                 _budgetRequestAccess.Update(request);
              }
              catch (EntityNotFoundException)
              {
@@ -102,11 +104,11 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.RejectedDirector;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
              }
              catch (EntityNotFoundException)
@@ -126,11 +128,11 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ExecutorEstimated)
                  {
                      request.State = BudgetState.PostpondDirector;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
 
              }
@@ -152,11 +154,11 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ApprovedDirector)
                  {
                      request.State = BudgetState.PostpondFinDirector;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
              }
              catch (EntityNotFoundException)
@@ -176,13 +178,13 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ApprovedDirector| request.State == BudgetState.PostpondFinDirector)
                  {
                      request.State = BudgetState.Execution;
                      request.DateDeadlineExecution = deadline; 
                      request.DateStartExecution = DateTime.Today;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
              }
              catch (EntityNotFoundException)
@@ -203,12 +205,12 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestService.Get(userId, id);
                  if (request.State == BudgetState.ApprovedFirstLine)
                  {
                      request.State = BudgetState.PostpondFinDirector;
                      request.RealPrice = realPrice;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
              }
              catch (EntityNotFoundException)
@@ -228,12 +230,12 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = budgetRequestService.Get(userId,id);
+                 BudgetRequest request = _budgetRequestService.Get(userId,id);
                  if (request.State == BudgetState.Execution)
                  {
                      request.State = BudgetState.Executed;
                      request.DateEndExecution = DateTime.Today;
-                     budgetRequestAccess.Update(request);
+                     _budgetRequestAccess.Update(request);
                  }
              }
              catch (EntityNotFoundException)

@@ -13,13 +13,15 @@ namespace EasyBudget.Business.Services
 {
     public class UserService :IUserService
     {
-        private IUserAccess userAccess;
-        private IUserQueries userQueries;
+        private readonly IUserAccess _userAccess;
+        private readonly IUserQueries _userQueries;
         
-        public UserService(IUserAccess userAccess, IUserQueries userQueries)
+        public UserService(
+            IUserAccess userAccess,
+            IUserQueries userQueries)
         {
-            this.userAccess = userAccess;
-            this.userQueries = userQueries;
+            this._userAccess = userAccess;
+            this._userQueries = userQueries;
         }
 
         public void AddUserByAdmin(Guid userId, User user)
@@ -45,7 +47,7 @@ namespace EasyBudget.Business.Services
 
                 user.IsDisabled = false;
                 user = GetUserPasswordHash(user);
-                userAccess.Add(user);
+                _userAccess.Add(user);
             }
             catch (DuplicateEntryException)
             {
@@ -66,13 +68,13 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                Guid id = userQueries.GetUserByLogin(login, GetHash(password));
+                Guid id = _userQueries.GetUserByLogin(login, GetHash(password));
                 if (id == Guid.Empty)
                 {
                     throw new UnityInUserRequiredException();
                 }
 
-                if (userAccess.Get(id).IsDisabled)
+                if (_userAccess.Get(id).IsDisabled)
                 {
                     throw new DisabledUserException();
                 }
@@ -93,12 +95,12 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                User user = userAccess.Get(userId);
+                User user = _userAccess.Get(userId);
                 if (GetHash(oldPassword) == user.Password)
                 {
                     user.Password = newPassword;
                     user = GetUserPasswordHash(user);
-                    userAccess.Update(user);
+                    _userAccess.Update(user);
                 }
                 else
                 {
@@ -120,7 +122,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                if (userAccess.Get(user.Id).Login != user.Login)
+                if (_userAccess.Get(user.Id).Login != user.Login)
                 {
                     throw new NonChangedLoginException();
                 }
@@ -129,7 +131,7 @@ namespace EasyBudget.Business.Services
                 {
                     throw new UnityInUserRequiredException();
                 }
-                userAccess.Update(user);
+                _userAccess.Update(user);
             }
             catch (DuplicateEntryException)
             {
@@ -149,7 +151,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return userQueries.GetMainInfo(id);
+                return _userQueries.GetMainInfo(id);
             }
             catch (CriticalException)
             {
@@ -165,7 +167,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return userQueries.GetUsers();
+                return _userQueries.GetUsers();
             }
             catch (CriticalException)
             {

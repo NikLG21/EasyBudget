@@ -13,15 +13,20 @@ namespace EasyBudget.Business.Services
 {
     public class BudgetRequestService : IBudgetRequestService
     {
-        private IBudgetRequestQueries budgetRequestQueries;
-        private IBudgetRequestAccess budgetRequestAccess;
-        private IUserAccess userAccess;
+        private readonly IBudgetRequestQueries _budgetRequestQueries;
+        private readonly IBudgetRequestAccess _budgetRequestAccess;
+        private readonly IUserAccess _userAccess;
 
-        public BudgetRequestService(IBudgetRequestQueries budgetRequestQueries, IBudgetRequestAccess budgetRequestAccess)
+        public BudgetRequestService(
+            IBudgetRequestQueries budgetRequestQueries,
+            IBudgetRequestAccess budgetRequestAccess, 
+            IUserAccess userAccess)
         {
-            this.budgetRequestQueries = budgetRequestQueries;
-            this.budgetRequestAccess = budgetRequestAccess;
+            _budgetRequestQueries = budgetRequestQueries;
+            _budgetRequestAccess = budgetRequestAccess;
+            _userAccess = userAccess;
         }
+
         public void AddRequest(Guid userId,BudgetRequest request)
         {
             try
@@ -30,12 +35,12 @@ namespace EasyBudget.Business.Services
                 {
                     throw new LackMandatoryInformation("Назва запиту");
                 }
-                User user = userAccess.Get(userId);
+                User user = _userAccess.Get(userId);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
                 request.Unit = user.Unit;
-                budgetRequestAccess.Add(request);
+                _budgetRequestAccess.Add(request);
             }
             catch (DuplicateEntryException)
             {
@@ -54,12 +59,12 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                User user = userAccess.Get(id);
+                User user = _userAccess.Get(id);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
                 request.Unit = user.Unit;
-                budgetRequestAccess.Add(request);
+                _budgetRequestAccess.Add(request);
             }
             catch (DuplicateEntryException)
             {
@@ -80,7 +85,7 @@ namespace EasyBudget.Business.Services
             {
                 if (request.State == BudgetState.Requested)
                 {
-                    budgetRequestAccess.Update(request);
+                    _budgetRequestAccess.Update(request);
                 }
                 else
                 {
@@ -112,7 +117,7 @@ namespace EasyBudget.Business.Services
                 }
                 if (request.State == BudgetState.Requested)
                 {
-                    budgetRequestAccess.Delete(request.Id);
+                    _budgetRequestAccess.Delete(request.Id);
                 }
                 else
                 {
@@ -132,7 +137,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestAccess.Get(requestId);
+                return _budgetRequestAccess.Get(requestId);
             }
             catch (CriticalException)
             {
@@ -156,7 +161,7 @@ namespace EasyBudget.Business.Services
                 {
                     finish = DateTime.MaxValue;
                 }
-                return budgetRequestQueries.GetBudgetRequestsByRequestor(userId, start, finish);
+                return _budgetRequestQueries.GetBudgetRequestsByRequestor(userId, start, finish);
             }
             catch (CriticalException)
             {
@@ -180,7 +185,7 @@ namespace EasyBudget.Business.Services
                 {
                     finish = DateTime.MaxValue;
                 }
-                return budgetRequestQueries.GetBudgetRequestsByApprover(userId, start, finish);
+                return _budgetRequestQueries.GetBudgetRequestsByApprover(userId, start, finish);
             }
             catch (CriticalException)
             {
@@ -204,7 +209,7 @@ namespace EasyBudget.Business.Services
                 {
                     finish = DateTime.MaxValue;
                 }
-                return budgetRequestQueries.GetBudgetRequestByExecutor(userId, start, finish);
+                return _budgetRequestQueries.GetBudgetRequestByExecutor(userId, start, finish);
             }
             catch (CriticalException)
             {
@@ -228,7 +233,7 @@ namespace EasyBudget.Business.Services
                 {
                     finish = DateTime.MaxValue;
                 }
-                return budgetRequestQueries.GetBudgetRequestByTime(start, finish);
+                return _budgetRequestQueries.GetBudgetRequestByTime(start, finish);
             }
             catch (CriticalException)
             {
@@ -243,7 +248,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.ExecutorEstimated);
+                return _budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.ExecutorEstimated);
             }
             catch (CriticalException)
             {
@@ -258,7 +263,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.ApprovedDirector);
+                return _budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.ApprovedDirector);
             }
             catch (CriticalException)
             {
@@ -273,7 +278,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.PostpondFinDirector);
+                return _budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.PostpondFinDirector);
             }
             catch (CriticalException)
             {
@@ -288,7 +293,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.PostpondDirector);
+                return _budgetRequestQueries.GetBudgetRequestUnapprovedDirectors(BudgetState.PostpondDirector);
             }
             catch (CriticalException)
             {
@@ -303,7 +308,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestQueries.GetBudgetRequestUncheckedExecutor(department);
+                return _budgetRequestQueries.GetBudgetRequestUncheckedExecutor(department);
             }
             catch (CriticalException)
             {
@@ -318,7 +323,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestQueries.GetBudgetRequestUnapprovedApprover(unit);
+                return _budgetRequestQueries.GetBudgetRequestUnapprovedApprover(unit);
             }
             catch (CriticalException)
             {
@@ -333,7 +338,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return budgetRequestQueries.GetBudgetRequestExecution(department);
+                return _budgetRequestQueries.GetBudgetRequestExecution(department);
             }
             catch (CriticalException)
             {
