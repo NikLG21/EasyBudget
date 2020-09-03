@@ -84,41 +84,5 @@ namespace DataAccess.Access
 
             }
         }
-
-        //public List<BudgetRequest> GetBudgetRequestByOriginatorList(Guid userId)
-        //{
-        //    using (BudgetRequestDbContext context = new BudgetRequestDbContext())
-        //    {
-        //        List<BudgetRequest> budgetRequests = new List<BudgetRequest>();
-                
-        //        foreach (BudgetRequest budgetRequest in context.BudgetRequests)
-        //        {
-        //            if (budgetRequest.Requester.Id.Equals(userId))
-        //            {
-        //                budgetRequests.AddUserByAdmin(budgetRequest);
-        //            }
-        //        }
-
-        //        return budgetRequests;
-        //    }
-        //}
-
-        //public List<BudgetRequest> GetBudgetRequestByApproverList(Guid userId)
-        //{
-        //    using (BudgetRequestDbContext context = new BudgetRequestDbContext())
-        //    {
-        //        List<BudgetRequest> budgetRequests = new List<BudgetRequest>();
-
-        //        foreach (BudgetRequest budgetRequest in context.BudgetRequests)
-        //        {
-        //            if (budgetRequest.Approver.Id.Equals(userId))
-        //            {
-        //                budgetRequests.AddUserByAdmin(budgetRequest);
-        //            }
-        //        }
-
-        //        return budgetRequests;
-        //    }
-        //}
     }
 }

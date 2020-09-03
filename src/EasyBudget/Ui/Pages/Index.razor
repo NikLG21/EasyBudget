@@ -1,7 +1,34 @@
 ﻿@page "/"
+@using EasyBudget.Common.Business.Services
+@using EasyBudget.Business.Services
+@using System.Runtime.CompilerServices
+@using DataAccess.Access
+@using DataAccess.Queries
+@using EasyBudget.Common.Model.Security
 
-<h1>Hello, world!</h1>
+<h1>Вхід до облікового запису</h1>
 
-Welcome to your new app.
+Логін:
+<input @bind-value ="@login" type="text" >
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<br>
+Пароль:
+<input @bind-value ="@password" type="password" />
+<br>
+<button class="btn btn-primary" @onclick="Login">Вхід</button>
+<textarea>@id</textarea>
+@code {
+    IUserService userService = new UserService(new UserAccess(), new UserQueries());
+    private string login;
+    private string password;
+    private Guid id;
+
+    private void Login()
+    {
+        id = userService.LogInUser(Guid.Empty, login, password);
+
+    }
+}
+
+
+

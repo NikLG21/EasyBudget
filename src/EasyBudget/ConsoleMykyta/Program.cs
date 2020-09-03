@@ -28,13 +28,9 @@ namespace ConsoleMykyta
                     Name = "Григорий Сковорода",
                     Password = "skovoroda01",
                     Roles = new List<Role>(),
-                    Unit = new Unit()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "1"
-                    }
+                    Unit = null
                 };
-                //userService.AddUserByAdmin(user);
+                userService.AddUserByAdmin(Guid.Empty, user);
                 //userService.ChangePasswordByUser(Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"), "skovoroda01","skovoroda02");
             }
             catch (Exception e)

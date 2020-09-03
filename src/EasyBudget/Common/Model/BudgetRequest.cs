@@ -11,6 +11,7 @@ namespace EasyBudget.Common.Model
             //BudgetDescriptions = new HashSet<BudgetDescription>();
         }
 
+
         public string Name { get; set; }
 
         public User Requester { get; set; }

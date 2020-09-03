@@ -5,6 +5,7 @@
     <RazorLangVersion>3.0</RazorLangVersion>
     <AssemblyName>EasyBudget.Ui</AssemblyName>
     <RootNamespace>EasyBudget.Ui</RootNamespace>
+    <UserSecretsId>264758b4-4b84-482f-82cd-7b47601dff7d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
