@@ -13,9 +13,16 @@ namespace DataAccess.Access
 {
     public class DepartmentAccess : IDepartmentAccess
     {
+        private readonly IBudgetRequestDbContextFactory _factory;
+
+        public DepartmentAccess(IBudgetRequestDbContextFactory factory)
+        {
+            _factory = factory;
+        }
+
         public void Add(Department department)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -41,7 +48,7 @@ namespace DataAccess.Access
 
         public void Update(Department department)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -69,7 +76,7 @@ namespace DataAccess.Access
 
         public void Delete(Guid id)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -90,7 +97,7 @@ namespace DataAccess.Access
 
         public Department Get(Guid id)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {

@@ -10,9 +10,16 @@ namespace DataAccess.Access
 {
     public class BudgetDescriptionAccess: IBudgetDescriptionAccess
     {
+        private readonly IBudgetRequestDbContextFactory _factory;
+
+        public BudgetDescriptionAccess(IBudgetRequestDbContextFactory factory)
+        {
+            _factory = factory;
+        }
+
         public void Add(BudgetDescription description)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -28,7 +35,7 @@ namespace DataAccess.Access
 
         public BudgetDescription Get(Guid id)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {

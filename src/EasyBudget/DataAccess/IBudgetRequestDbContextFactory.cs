@@ -4,7 +4,8 @@ using System.Text;
 
 namespace DataAccess
 {
-    interface IBudgetRequestDbContextFactory
+    public interface IBudgetRequestDbContextFactory
     {
+        BudgetRequestDbContext Create();
     }
 }

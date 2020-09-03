@@ -10,9 +10,16 @@ namespace DataAccess.Queries
 {
     public class UserQueries : IUserQueries
     {
+        private readonly IBudgetRequestDbContextFactory _factory;
+
+        public UserQueries(IBudgetRequestDbContextFactory factory)
+        {
+            _factory = factory;
+        }
+
         public Guid GetUserByLogin(string login, string password)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -34,7 +41,7 @@ namespace DataAccess.Queries
 
         public List<string> GetUserActions(Guid userId)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 
                 //return context
@@ -64,7 +71,7 @@ namespace DataAccess.Queries
 
         public List<UserMainInfoDto> GetUsers()
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -85,7 +92,7 @@ namespace DataAccess.Queries
 
         public UserMainInfoDto GetMainInfo(Guid id)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {

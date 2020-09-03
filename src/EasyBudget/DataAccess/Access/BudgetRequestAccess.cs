@@ -10,9 +10,16 @@ namespace DataAccess.Access
 {
     public class BudgetRequestAccess : IBudgetRequestAccess
     {
+        private readonly IBudgetRequestDbContextFactory _factory;
+
+        public BudgetRequestAccess(IBudgetRequestDbContextFactory factory)
+        {
+            _factory = factory;
+        }
+
         public void Add(BudgetRequest request)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -28,7 +35,7 @@ namespace DataAccess.Access
 
         public void Update(BudgetRequest request)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -45,7 +52,7 @@ namespace DataAccess.Access
 
         public void Delete(Guid Id)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -66,7 +73,7 @@ namespace DataAccess.Access
 
         public BudgetRequest Get(Guid Id)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {

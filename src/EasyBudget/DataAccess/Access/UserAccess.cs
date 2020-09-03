@@ -13,9 +13,16 @@ namespace DataAccess.Access
 {
     public class UserAccess : IUserAccess
     {
+        private readonly IBudgetRequestDbContextFactory _factory;
+
+        public UserAccess(IBudgetRequestDbContextFactory factory)
+        {
+            _factory = factory;
+        }
+
         public void Add(User user)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -41,7 +48,7 @@ namespace DataAccess.Access
 
         public void Update(User user)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -69,7 +76,7 @@ namespace DataAccess.Access
 
         public User Get(Guid id)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
