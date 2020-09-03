@@ -18,19 +18,20 @@ namespace ConsoleMykyta
         {
             try
             {
-                IUserService userService = new UserService(new UserAccess(), new UserQueries());
+                
+                //IUserService userService = new UserService(new UserAccess(), new UserQueries());
 
-                User user = new User()
-                {
-                    Id = Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"),
-                    IsDisabled = false,
-                    Login = "1234",
-                    Name = "Григорий Сковорода",
-                    Password = "skovoroda01",
-                    Roles = new List<Role>(),
-                    Unit = null
-                };
-                userService.AddUserByAdmin(Guid.Empty, user);
+                //User user = new User()
+                //{
+                //    Id = Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"),
+                //    IsDisabled = false,
+                //    Login = "1234",
+                //    Name = "Григорий Сковорода",
+                //    Password = "skovoroda01",
+                //    Roles = new List<Role>(),
+                //    Unit = null
+                //};
+                //userService.AddUserByAdmin(Guid.Empty, user);
                 //userService.ChangePasswordByUser(Guid.Parse("009D1E72-BD33-41F1-B449-BA3D3754AB3C"), "skovoroda01","skovoroda02");
             }
             catch (Exception e)
@@ -47,41 +48,41 @@ namespace ConsoleMykyta
             //departmentAccess.Delete(Guid.Parse("DF8E3D8F-4B48-4489-AAA6-53348267394A"));
             return;
 
-            IBudgetRequestAccess access = new BudgetRequestAccess();
-            BudgetRequest request = new BudgetRequest()
+            //IBudgetRequestAccess access = new BudgetRequestAccess();
+            //BudgetRequest request = new BudgetRequest()
 
-            {
-                Id = Guid.NewGuid(),
-                Name = "Class",
-                DateRequested = DateTime.Now,
-                DateRequestedDeadline = DateTime.MaxValue,
-                DateDirectorApprove = DateTime.Today,
-                DateStartExecution = DateTime.Now,
-                DateDeadlineExecution = DateTime.Now,
-                DateEndExecution = DateTime.Now,
-                RealPrice = 100,
-                EstimatedPrice = 120,
-                State = BudgetState.ApprovedDirector,
-                //BudgetDescriptions =
-                //{
-                //    new BudgetDescription()
-                //    {
-                //        Date = DateTime.Today,
-                //        Description = String.Empty,
-                //        Id = Guid.NewGuid(),
-                //        User = new User()
-                //        {
-                //            Id = Guid.NewGuid(),
-                //            Login = "log",
-                //            Name = "g",
-                //            Password = "dfd"
-                //        }
-                //    }
-                //}
+            //{
+            //    Id = Guid.NewGuid(),
+            //    Name = "Class",
+            //    DateRequested = DateTime.Now,
+            //    DateRequestedDeadline = DateTime.MaxValue,
+            //    DateDirectorApprove = DateTime.Today,
+            //    DateStartExecution = DateTime.Now,
+            //    DateDeadlineExecution = DateTime.Now,
+            //    DateEndExecution = DateTime.Now,
+            //    RealPrice = 100,
+            //    EstimatedPrice = 120,
+            //    State = BudgetState.ApprovedDirector,
+            //    //BudgetDescriptions =
+            //    //{
+            //    //    new BudgetDescription()
+            //    //    {
+            //    //        Date = DateTime.Today,
+            //    //        Description = String.Empty,
+            //    //        Id = Guid.NewGuid(),
+            //    //        User = new User()
+            //    //        {
+            //    //            Id = Guid.NewGuid(),
+            //    //            Login = "log",
+            //    //            Name = "g",
+            //    //            Password = "dfd"
+            //    //        }
+            //    //    }
+            //    //}
                 
-            };
+            //};
 
-            access.Add(request);
+            //access.Add(request);
             //Guid id = request.Id;
             //BudgetRequest budgetRequest = access.Get(id);
             //Console.WriteLine(budgetRequest.Id);

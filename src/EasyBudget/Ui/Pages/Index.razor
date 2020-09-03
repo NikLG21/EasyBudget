@@ -5,6 +5,10 @@
 @using DataAccess.Access
 @using DataAccess.Queries
 @using EasyBudget.Common.Model.Security
+@using global::Ui
+@using Unity
+
+@inject IUserService UserService
 
 <h1>Вхід до облікового запису</h1>
 
@@ -18,14 +22,14 @@
 <button class="btn btn-primary" @onclick="Login">Вхід</button>
 <textarea>@id</textarea>
 @code {
-    IUserService userService = new UserService(new UserAccess(), new UserQueries());
+    UnityContainer container = new UnityContainer();
     private string login;
     private string password;
     private Guid id;
 
     private void Login()
     {
-        id = userService.LogInUser(Guid.Empty, login, password);
+        id = UserService.LogInUser(Guid.Empty, login, password);
 
     }
 }
