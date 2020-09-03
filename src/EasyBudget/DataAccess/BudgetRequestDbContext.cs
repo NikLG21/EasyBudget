@@ -5,15 +5,16 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics.CodeAnalysis;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
+using Microsoft.Extensions.Configuration;
 using Action = EasyBudget.Common.Model.Security.Action;
 
 namespace DataAccess
 {
     public class BudgetRequestDbContext : DbContext
     {
-        public BudgetRequestDbContext() : base("name=BudgetRequestDbContext")
+        public BudgetRequestDbContext(string connectionString) : base(connectionString)
         {
-
+            
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

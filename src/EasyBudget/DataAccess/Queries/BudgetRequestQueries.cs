@@ -11,9 +11,16 @@ namespace DataAccess.Queries
 {
     public class BudgetRequestQueries : IBudgetRequestQueries
     {
+        private readonly IBudgetRequestDbContextFactory _factory;
+
+        public BudgetRequestQueries(IBudgetRequestDbContextFactory factory)
+        {
+            _factory = factory;
+        }
+
         public List<BudgetRequestMainListDto> GetBudgetRequestsByRequestor(Guid userId, DateTime from, DateTime to)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -42,7 +49,7 @@ namespace DataAccess.Queries
 
         public List<BudgetRequestMainListDto> GetBudgetRequestsByApprover(Guid userId, DateTime from, DateTime to)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -71,7 +78,7 @@ namespace DataAccess.Queries
 
         public List<BudgetRequestMainListDto> GetBudgetRequestByExecutor(Guid userId, DateTime from, DateTime to)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -100,7 +107,7 @@ namespace DataAccess.Queries
 
         public List<BudgetRequestMainListDto> GetBudgetRequestByTime(DateTime from, DateTime to)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -128,7 +135,7 @@ namespace DataAccess.Queries
 
         public List<BudgetRequestMainListDto> GetBudgetRequestUnapprovedDirectors(BudgetState state)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -155,7 +162,7 @@ namespace DataAccess.Queries
         }
         public List<BudgetRequestMainListDto> GetBudgetRequestUnapprovedApprover(Unit unit)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -183,7 +190,7 @@ namespace DataAccess.Queries
         }
         public List<BudgetRequestMainListDto> GetBudgetRequestUncheckedExecutor(Department department)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
@@ -212,7 +219,7 @@ namespace DataAccess.Queries
 
         public List<BudgetRequestMainListDto> GetBudgetRequestExecution(Department department)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {

@@ -9,9 +9,16 @@ namespace DataAccess.Queries
 {
     public class BudgetDescriptionQueries : IBudgetDescriptionQueries
     {
+        private readonly IBudgetRequestDbContextFactory _factory;
+
+        public BudgetDescriptionQueries(IBudgetRequestDbContextFactory factory)
+        {
+            _factory = factory;
+        }
+
         public List<BudgetDescriptionMainListDto> GetBudgetDescriptionByRequest(Guid budgetRequestId)
         {
-            using (BudgetRequestDbContext context = new BudgetRequestDbContext())
+            using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
