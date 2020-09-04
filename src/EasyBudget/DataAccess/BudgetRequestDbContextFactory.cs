@@ -16,6 +16,7 @@ namespace DataAccess
 
         public BudgetRequestDbContext Create()
         {
+            string connectionString1 = _configuration["ConnectionStrings:BudgetRequestDbContext"];
             string connectionString = _configuration["BudgetRequestDbContext"];
             return new BudgetRequestDbContext(connectionString);
         }

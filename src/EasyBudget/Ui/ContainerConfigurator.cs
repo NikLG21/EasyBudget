@@ -21,8 +21,15 @@ namespace Ui
             container.RegisterType<IBudgetRequestService, BudgetRequestService>();
             container.RegisterType<IBudgetDescriptionService, BudgetDescriptionService>();
             container.RegisterType<IAgreementBudgetRequestService, AgreementBudgetRequestService>();
+
             container.RegisterType<IUserAccess, UserAccess>();
             container.RegisterType<IUserQueries, UserQueries>();
+            container.RegisterType<IBudgetDescriptionAccess, BudgetDescriptionAccess>();
+            container.RegisterType<IBudgetDescriptionQueries, BudgetDescriptionQueries>();
+            container.RegisterType<IBudgetRequestAccess,BudgetRequestAccess>();
+            container.RegisterType<IBudgetRequestQueries, BudgetRequestQueries>();
+            container.RegisterType<IDepartmentAccess, DepartmentAccess>();
+
             container.RegisterType<IBudgetRequestDbContextFactory, BudgetRequestDbContextFactory>();
         }
     }
