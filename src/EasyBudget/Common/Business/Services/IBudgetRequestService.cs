@@ -16,13 +16,15 @@ namespace EasyBudget.Common.Business.Services
         List<BudgetRequestMainListDto> GetListByRequestor(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByApprover(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByExecutor(Guid userId, DateTime start, DateTime finish);
-        List<BudgetRequestMainListDto> GetListByTime(DateTime start, DateTime finish);
+        List<BudgetRequestMainListDto> GetListByTime(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListUnapprovedDirector(Guid userId);
         List<BudgetRequestMainListDto> GetListUnapprovedFinDirector(Guid userId);
         List<BudgetRequestMainListDto> GetListPostponedFinDirector(Guid userId);
         List<BudgetRequestMainListDto> GetListPostponedDirector(Guid userId);
         List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId,Unit unit);
-        List<BudgetRequestMainListDto> GetListUncheckedExecutor(Guid userId,Department department);
+        List<BudgetRequestMainListDto> GetListUncheckedExecutor(Guid userId, Department department);
         List<BudgetRequestMainListDto> GetListExecutionExecutor(Guid userId, Department department);
+
+        List<BudgetRequestMainListDto> GetListUnapprovedRequestor(Guid userId);
     }
 }

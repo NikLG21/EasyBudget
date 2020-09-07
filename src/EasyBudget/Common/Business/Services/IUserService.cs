@@ -13,5 +13,6 @@ namespace EasyBudget.Common.Business.Services
         void UpdateByAdmin(Guid userId, User user);
         List<UserMainInfoDto> GetUsersList(Guid userId);
         UserMainInfoDto GetMainInfoDto(Guid userId, Guid id);
+        User GetUser(Guid userId, Guid id);
     }
 }

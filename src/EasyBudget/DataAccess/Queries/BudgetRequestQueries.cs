@@ -6,6 +6,7 @@ using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
+using EasyBudget.Common.Utils;
 
 namespace DataAccess.Queries
 {
@@ -20,6 +21,45 @@ namespace DataAccess.Queries
 
         public List<BudgetRequestMainListDto> GetBudgetRequestsByRequestor(Guid userId, DateTime from, DateTime to)
         {
+            //int pageSize = 20;
+            //int pageNumber = 3;
+
+            //using (BudgetRequestDbContext context = _factory.Create())
+            //{
+            //    int total = context
+            //        .BudgetRequests
+            //        .AsNoTracking()
+            //        .Where(br => br.Requester.Id == userId)
+            //        .Count();
+
+            //    List<BudgetRequestMainListDto> list = context
+            //        .BudgetRequests
+            //        .AsNoTracking()
+            //        .Where(br => br.Requester.Id == userId)
+            //        .OrderByDescending(br => br.DateRequested)
+            //        .Skip(pageSize * pageNumber)
+            //        .Take(pageSize)
+            //        .Select(br => new BudgetRequestMainListDto
+            //        {
+            //            Name = br.Name,
+            //            RequesterName = br.Requester.Name,
+            //            DepartmentName = br.Department.Name,
+            //            DateRequested = br.DateRequested,
+            //            State = br.State,
+            //            RealPrice = br.RealPrice
+            //        }).ToList();
+
+            //    PagingList<BudgetRequestMainListDto> pagingList = new PagingList<BudgetRequestMainListDto>
+            //    {
+            //        Data = list,
+            //        Total = total,
+            //        PageNumber = pageNumber,
+            //        PageSize = pageSize
+            //    };
+
+            //   return pagingList;
+            //}
+
             using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
@@ -216,7 +256,6 @@ namespace DataAccess.Queries
                 }
             }
         }
-
         public List<BudgetRequestMainListDto> GetBudgetRequestExecution(Department department)
         {
             using (BudgetRequestDbContext context = _factory.Create())
@@ -228,6 +267,34 @@ namespace DataAccess.Queries
                         .AsNoTracking()
                         .Where(br => br.Department == department)
                         .Where(br => br.State == BudgetState.Execution)
+                        .Select(br => new BudgetRequestMainListDto
+                        {
+                            Name = br.Name,
+                            RequesterName = br.Requester.Name,
+                            DepartmentName = br.Department.Name,
+                            DateRequested = br.DateRequested,
+                            State = br.State,
+                            RealPrice = br.RealPrice
+                        }).ToList();
+                    return list;
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+            }
+        }
+        public List<BudgetRequestMainListDto> GetBudgetRequestUnapprovedRequestor(Guid userId)
+        {
+            using (BudgetRequestDbContext context = _factory.Create())
+            {
+                try
+                {
+                    List<BudgetRequestMainListDto> list = context
+                        .BudgetRequests
+                        .AsNoTracking()
+                        .Where(br => br.Requester.Id == userId)
+                        .Where(br => br.State == BudgetState.Requested)
                         .Select(br => new BudgetRequestMainListDto
                         {
                             Name = br.Name,

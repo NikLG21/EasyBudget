@@ -178,6 +178,22 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
+
+        public User GetUser(Guid userId, Guid id)
+        {
+            try
+            {
+                return _userAccess.Get(id);
+            }
+            catch (CriticalException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CriticalException(e);
+            }
+        }
         private static User GetUserPasswordHash(User user)
         {
             string userPassword = user.Password;
