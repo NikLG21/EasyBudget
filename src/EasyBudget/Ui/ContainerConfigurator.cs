@@ -8,6 +8,9 @@ using EasyBudget.Business.Services;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.DataAccess.Queries;
+using EasyBudget.Presentation.Interfaces;
+using EasyBudget.Presentation.ViewModels;
+using EasyBudget.Presentation.ViewModels.NextActionList;
 using Microsoft.Extensions.Configuration;
 using Unity;
 
@@ -29,6 +32,15 @@ namespace Ui
             container.RegisterType<IBudgetRequestAccess,BudgetRequestAccess>();
             container.RegisterType<IBudgetRequestQueries, BudgetRequestQueries>();
             container.RegisterType<IDepartmentAccess, DepartmentAccess>();
+
+            container.RegisterType<IBudgetRequestViewModel,BudgetRequestViewModel>();
+
+
+            container.RegisterType<IBudgetRequestListNextAction, BudgetRequestListNextActionApprover>("Approver");
+            container.RegisterType<IBudgetRequestListNextAction, BudgetRequestListNextActionDirector>("Director");
+            container.RegisterType<IBudgetRequestListNextAction, BudgetRequestListNextActionExecutor>("Executor");
+            container.RegisterType<IBudgetRequestListNextAction, BudgetRequestListNextActionFinDirector>("FinDirector");
+            container.RegisterType<IBudgetRequestRowViewModel, BudgetRequestRowViewModel>();
 
             container.RegisterType<IBudgetRequestDbContextFactory, BudgetRequestDbContextFactory>();
         }
