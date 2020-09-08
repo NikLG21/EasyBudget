@@ -7,6 +7,6 @@ namespace EasyBudget.Common.Business.Services
 {
     public interface IBudgetRequestListService
     {
-        List<BudgetRequestMainListDto> GetList(Guid userId);
+        List<BudgetRequestMainListDto> GetList(UserMainInfoDto userInfo);
     }
 }

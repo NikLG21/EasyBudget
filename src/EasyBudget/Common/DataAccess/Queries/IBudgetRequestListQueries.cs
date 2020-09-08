@@ -7,11 +7,11 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.DataAccess.Queries
 {
-    public interface IBudgetRequestQueries1
+    public interface IBudgetRequestListQueries
     {
         List<BudgetRequestMainListDto> GetAllRequestDirector(DateTime from);
         List<BudgetRequestMainListDto> GetAllRequestRequester(Guid userId, DateTime from);
-        List<BudgetRequestMainListDto> GetAllRequestApprover(Unit unit, DateTime from);
-        List<BudgetRequestMainListDto> GetAllRequestExecutor(Role role, DateTime from);
+        List<BudgetRequestMainListDto> GetAllRequestApprover(Guid unitId, DateTime from);
+        List<BudgetRequestMainListDto> GetAllRequestExecutor(Guid departmentId, DateTime from);
     }
 }

@@ -148,7 +148,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListByRequestor(Guid userId, DateTime start , DateTime finish)
+        public List<BudgetRequestMainListDto> GetListByRequestor(Guid userId, DateTime start, DateTime finish)
         {
             try
             {
@@ -308,7 +308,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-              return _budgetRequestQueries.GetBudgetRequestUncheckedExecutor(department);
+                return _budgetRequestQueries.GetBudgetRequestUncheckedExecutor(department);
             }
             catch (CriticalException)
             {
@@ -319,7 +319,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId,Unit unit)
+        public List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId, Unit unit)
         {
             try
             {

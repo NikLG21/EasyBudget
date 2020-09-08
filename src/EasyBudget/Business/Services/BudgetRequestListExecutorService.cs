@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using EasyBudget.Common.Business.Services;
+using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
 
 namespace EasyBudget.Business.Services
 {
-    public class BudgetRequestListDirectorService : IBudgetRequestListService
+    public class BudgetRequestListExecutorService : IBudgetRequestListService
     {
         private IBudgetRequestListQueries _budgetRequestListQueries;
-
-        public BudgetRequestListDirectorService(IBudgetRequestListQueries budgetRequestListQueries)
+        
+        public BudgetRequestListExecutorService(IBudgetRequestListQueries budgetRequestListQueries)
         {
             _budgetRequestListQueries = budgetRequestListQueries;
         }
@@ -21,7 +22,8 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return _budgetRequestListQueries.GetAllRequestDirector(DateTime.MinValue);
+                
+                return _budgetRequestListQueries.GetAllRequestExecutor(userInfo.DepartmentId,DateTime.MinValue);
             }
             catch (CriticalException)
             {

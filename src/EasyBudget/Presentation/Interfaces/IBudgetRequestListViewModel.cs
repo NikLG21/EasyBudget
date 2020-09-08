@@ -5,7 +5,8 @@ namespace EasyBudget.Presentation.Interfaces
 {
     public interface IBudgetRequestListViewModel
     {
-        List<BudgetRequestMainListDto> BudgetRequests { get; }
-        void LoadData();
+        List<BudgetRequestMainListDto> BudgetRequest { get; }
+        List<BudgetRequestMainListDto> LoadAllList();
+        List<BudgetRequestMainListDto> LoadNextActionList();
     }
 }

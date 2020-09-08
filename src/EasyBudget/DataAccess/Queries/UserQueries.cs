@@ -43,14 +43,6 @@ namespace DataAccess.Queries
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
-                
-                //return context
-                //    .Roles
-                //    .AsNoTracking()
-                //    .Where(r => r.Users.Any(u => u.Id == userId))
-                //    .SelectMany(r => r.Actions)
-                //    .Distinct()
-                //    .Select(a => a.Name).ToList();
                 try
                 {
                     return context
@@ -77,9 +69,12 @@ namespace DataAccess.Queries
                 {
                     List<UserMainInfoDto> list =  context.Users.AsNoTracking().Select(u => new UserMainInfoDto
                     {
+                        Id = u.Id,
                         Name = u.Name,
                         Login= u.Login,
-                        Roles = u.Roles
+                        Roles = u.Roles,
+                        UnitId = u.Unit.Id,
+                        UnitName = u.Unit.Name,
                     }).ToList();
                     return list;
                 }
@@ -99,9 +94,12 @@ namespace DataAccess.Queries
                     return context.Users.AsNoTracking().Where(u => u.Id == id).Select(u =>
                         new UserMainInfoDto
                         {
+                            Id = u.Id,
                             Name = u.Name,
                             Login = u.Login,
-                            Roles = u.Roles
+                            Roles = u.Roles,
+                            UnitId = u.Unit.Id,
+                            UnitName = u.Unit.Name,
                         }).FirstOrDefault();
                 }
                 catch (Exception e)

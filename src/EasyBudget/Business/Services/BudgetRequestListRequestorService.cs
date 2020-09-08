@@ -8,11 +8,11 @@ using EasyBudget.Common.Exceptions;
 
 namespace EasyBudget.Business.Services
 {
-    public class BudgetRequestListDirectorService : IBudgetRequestListService
+    public class BudgetRequestListRequestorService : IBudgetRequestListService
     {
         private IBudgetRequestListQueries _budgetRequestListQueries;
 
-        public BudgetRequestListDirectorService(IBudgetRequestListQueries budgetRequestListQueries)
+        public BudgetRequestListRequestorService(IBudgetRequestListQueries budgetRequestListQueries)
         {
             _budgetRequestListQueries = budgetRequestListQueries;
         }
@@ -21,7 +21,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return _budgetRequestListQueries.GetAllRequestDirector(DateTime.MinValue);
+                return _budgetRequestListQueries.GetAllRequestRequester(userInfo.Id,DateTime.MinValue);
             }
             catch (CriticalException)
             {

@@ -10,11 +10,11 @@ using EasyBudget.Common.Model.Security;
 
 namespace DataAccess.Queries
 {
-    public class BudgetRequestQueries1 : IBudgetRequestQueries1
+    public class BudgetRequestListQueries : IBudgetRequestListQueries
     {
         private readonly IBudgetRequestDbContextFactory _factory;
 
-        public BudgetRequestQueries1(IBudgetRequestDbContextFactory factory)
+        public BudgetRequestListQueries(IBudgetRequestDbContextFactory factory)
         {
             _factory = factory;
         }
@@ -74,7 +74,7 @@ namespace DataAccess.Queries
             }
         }
 
-        public List<BudgetRequestMainListDto> GetAllRequestApprover(Unit unit, DateTime from)
+        public List<BudgetRequestMainListDto> GetAllRequestApprover(Guid unitId, DateTime from)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
@@ -83,7 +83,7 @@ namespace DataAccess.Queries
                     List<BudgetRequestMainListDto> list = context
                         .BudgetRequests
                         .AsNoTracking()
-                        .Where(br => br.Unit == unit)
+                        .Where(br => br.Unit.Id == unitId)
                         .Where(br => br.DateRequested >= from)
                         .Select(br => new BudgetRequestMainListDto
                         {
@@ -103,7 +103,7 @@ namespace DataAccess.Queries
             }
 
         }
-        public List<BudgetRequestMainListDto> GetAllRequestExecutor(Role role, DateTime from)
+        public List<BudgetRequestMainListDto> GetAllRequestExecutor(Guid departmentId, DateTime from)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
@@ -112,7 +112,7 @@ namespace DataAccess.Queries
                     List<BudgetRequestMainListDto> list = context
                         .BudgetRequests
                         .AsNoTracking()
-                        .Where(br => br.Department == role.Department)
+                        .Where(br => br.Department.Id == departmentId)
                         .Where(br => br.DateRequested >= from)
                         .Select(br => new BudgetRequestMainListDto
                         {

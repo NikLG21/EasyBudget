@@ -21,7 +21,7 @@ namespace EasyBudget.Common.Business.Services
         List<BudgetRequestMainListDto> GetListUnapprovedFinDirector(Guid userId);
         List<BudgetRequestMainListDto> GetListPostponedFinDirector(Guid userId);
         List<BudgetRequestMainListDto> GetListPostponedDirector(Guid userId);
-        List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId,Unit unit);
+        List<BudgetRequestMainListDto> GetListUnapprovedApprover(Guid userId, Unit unit);
         List<BudgetRequestMainListDto> GetListUncheckedExecutor(Guid userId, Department department);
         List<BudgetRequestMainListDto> GetListExecutionExecutor(Guid userId, Department department);
 
