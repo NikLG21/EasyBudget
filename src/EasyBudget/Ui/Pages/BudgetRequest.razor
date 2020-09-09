@@ -1,10 +1,27 @@
 ﻿@page "/budgetRequest"
-@using EasyBudget.Presentation.Interfaces
-@inject IBudgetRequestViewModel BudgetRequestModel
+@inject IBudgetRequestViewModel BudgetRequestViewModel
 <h1>Запит на Бюджет</h1>
-
+<div>
+    @{
+        if (IsListVisible)
+        {
+            <BudgetRequestList ViewModel="BudgetRequestViewModel"></BudgetRequestList>
+        }
+        else
+        {
+            <BudgetRequestEntity ViewModel="BudgetRequestViewModel"></BudgetRequestEntity>
+        }
+    }
+</div>
 
 @code {
+    private bool IsListVisible { get; set; } = true;
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        BudgetRequestViewModel.LoadData();   
+        await base.OnInitializedAsync();
+    }
 
 }

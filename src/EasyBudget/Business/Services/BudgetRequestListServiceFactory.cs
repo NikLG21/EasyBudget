@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using EasyBudget.Common.Business;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
+using EasyBudget.Common.Utils;
 
 namespace EasyBudget.Business.Services
 {
     public class BudgetRequestListServiceFactory : IBudgetRequestListServiceFactory
     {
-        private IBudgetRequestListQueries _budgetRequestListQueries;
+        private readonly IBudgetRequestListQueries _budgetRequestListQueries;
 
         public BudgetRequestListServiceFactory(IBudgetRequestListQueries budgetRequestListQueries)
         {
@@ -21,22 +23,17 @@ namespace EasyBudget.Business.Services
             IBudgetRequestListService budgetRequestListService;
             switch (role.Name)
             {
-                case "Ініціатор запиту":
+                case RoleNames.Originator:
                     budgetRequestListService= new BudgetRequestListRequestorService(_budgetRequestListQueries);
                     break;
-                case "Затверджувач":
+                case RoleNames.Approver:
                     budgetRequestListService = new BudgetRequestListApproverService(_budgetRequestListQueries);
                     break;
-                case "Виконавець":
+                case RoleNames.Executor:
                     budgetRequestListService = new BudgetRequestListExecutorService(_budgetRequestListQueries);
                     break;
-                case "Виконавець IT":
-                    budgetRequestListService = new BudgetRequestListExecutorService(_budgetRequestListQueries);
-                    break;
-                case "Директор":
-                    budgetRequestListService = new BudgetRequestListDirectorService(_budgetRequestListQueries);
-                    break;
-                case "Фінансовий директор":
+                case RoleNames.Director:
+                case RoleNames.FinDirector:
                     budgetRequestListService = new BudgetRequestListDirectorService(_budgetRequestListQueries);
                     break;
                 default:

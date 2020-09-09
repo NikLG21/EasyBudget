@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EasyBudget.Common.Business.Services;
+﻿using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.Model.Security;
 
-namespace EasyBudget.Business.Services
+namespace EasyBudget.Common.Business
 {
     public interface IBudgetRequestListServiceFactory
     {

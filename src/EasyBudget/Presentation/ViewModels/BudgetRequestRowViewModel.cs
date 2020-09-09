@@ -18,13 +18,8 @@ namespace EasyBudget.Presentation.ViewModels
 
         public BudgetRequestMainListDto LoadData()
         {
-            
+            return null;
         }
 
-        public bool IsEditable()
-        {
-            User user = userService.GetUser(userId, userId);
-
-        }
     }
 }
