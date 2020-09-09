@@ -1,6 +1,12 @@
-﻿<h3>BudgetRequestList</h3>
+﻿@using GridBlazor.Pagination
+
+<h3>BudgetRequestList</h3>
+<GridCreateComponent Item="ViewModel.BudgetRequest.Id">
+
+</GridCreateComponent>
 
 @code {
     [Parameter]
     public IBudgetRequestViewModel ViewModel { get; set; }
+
 }
