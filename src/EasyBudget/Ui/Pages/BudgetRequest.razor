@@ -1,15 +1,15 @@
 ﻿@page "/budgetRequest"
-@inject IBudgetRequestViewModel BudgetRequestViewModel
+@inject IBudgetRequestListViewModel BudgetRequestListViewModel
 <h1>Запит на Бюджет</h1>
 <div>
     @{
         if (IsListVisible)
         {
-            <BudgetRequestList ViewModel="BudgetRequestViewModel"></BudgetRequestList>
+            <BudgetRequestList ViewModel="BudgetRequestListViewModel"></BudgetRequestList>
         }
         else
         {
-            <BudgetRequestEntity ViewModel="BudgetRequestViewModel"></BudgetRequestEntity>
+            <BudgetRequestEntity ViewModel="BudgetRequestListViewModel"></BudgetRequestEntity>
         }
     }
 </div>
@@ -20,7 +20,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        BudgetRequestViewModel.LoadData();   
+        BudgetRequestListViewModel.LoadData();   
         await base.OnInitializedAsync();
     }
 

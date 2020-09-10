@@ -1,12 +1,49 @@
 ﻿@using GridBlazor.Pagination
+@using EasyBudget.Common.DataAccess.Dtos
+@using GridShared.Utility
+@using DocumentFormat.OpenXml.Drawing.Charts
+@using GridShared
+@using GridShared.Pagination
+@using GridShared.Totals
+@using Microsoft.Extensions.Primitives
 
 <h3>BudgetRequestList</h3>
-<GridCreateComponent Item="ViewModel.BudgetRequest.Id">
-
-</GridCreateComponent>
+@if (_task.IsCompleted)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <GridComponent T="BudgetRequestMainListDto" Grid="@_grid"></GridComponent>
+        </div>
+    </div>
+}
+else
+{
+    <p><em>Loading...</em></p>
+}
 
 @code {
     [Parameter]
-    public IBudgetRequestViewModel ViewModel { get; set; }
+    public IBudgetRequestListViewModel ViewModel { get; set; }
 
+    private CGrid<BudgetRequestMainListDto> _grid;
+    private Task _task;
+    private IQueryDictionary<Type> _customFilters = new QueryDictionary<Type>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var query = new QueryDictionary<StringValues>();
+        Action<IGridColumnCollection<BudgetRequestMainListDto>> budgetRequestColumns = c =>
+        {
+            c.Add(b => b.Id, true);
+            c.Add(b => b.DateRequested, "Дата запиту").Format("{0:yyyy-MM-dd}").SetWidth(120);
+        };
+        var client = new GridClient<BudgetRequestMainListDto>(q =>
+            new ItemsDTO<BudgetRequestMainListDto>(ViewModel.BudgetRequests, new TotalsDTO(), new PagerDTO()),
+            query, false, "budgetRequestGrid");
+            
+            
+        _grid = client.Grid;
+        _task = client.UpdateGrid();
+        await _task;
+    }
 }

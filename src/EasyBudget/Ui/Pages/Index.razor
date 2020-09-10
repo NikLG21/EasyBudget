@@ -28,8 +28,16 @@
 
     private void Login()
     {
-        id = UserService.LogInUser(Guid.Empty, login, password);
-        
+        //UserService.AddUserByAdmin(Guid.Empty, new User()
+        //{
+        //    Id = Guid.NewGuid(),
+        //    IsDisabled = false,
+        //    Login = login,
+        //    Name = "aaaa",
+        //    Password = password,
+        //    Roles = new List<Role>(),
+        //    Unit = null
+        //});
     }
 }
 
