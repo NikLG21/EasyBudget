@@ -32,6 +32,9 @@ namespace EasyBudget.Business.Services
                 case RoleNames.Executor:
                     budgetRequestListService = new BudgetRequestListExecutorService(_budgetRequestListQueries);
                     break;
+                case RoleNames.ExecutorIT:
+                    budgetRequestListService = new BudgetRequestListExecutorService(_budgetRequestListQueries);
+                    break;
                 case RoleNames.Director:
                 case RoleNames.FinDirector:
                     budgetRequestListService = new BudgetRequestListDirectorService(_budgetRequestListQueries);
