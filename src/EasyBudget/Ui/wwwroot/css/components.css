@@ -1,5 +1,5 @@
 
-.list-view-container{
+.list-view-container {
     display: flex;
     flex-direction: column;
 }
@@ -12,11 +12,15 @@
     display: flex;
     justify-content: space-between;
 }
-.list-view-buttons{
-    padding: 10px;
+.list-view-combo {
+
 }
 
-table,
-td{
-    border: 2px solid #000000
+.list-view-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.common-button-div {
+    padding: 10px;
 }

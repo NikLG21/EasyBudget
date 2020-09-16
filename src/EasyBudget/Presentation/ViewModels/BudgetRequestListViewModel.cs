@@ -37,10 +37,8 @@ namespace EasyBudget.Presentation.ViewModels
 
         public void LoadData()
         {
-            List<BudgetRequestMainListDto> list = new List<BudgetRequestMainListDto>();
             IBudgetRequestListService budgetRequestListService = _budgetRequestListServiceFactory.Create(role);
-            list.AddRange(budgetRequestListService.GetList(userInfo));
-            foreach (BudgetRequestMainListDto request in list)
+            foreach (BudgetRequestMainListDto request in budgetRequestListService.GetList(userInfo))
             {
                 BudgetRequests.Add(new BudgetRequestRowViewModel(request));
             }

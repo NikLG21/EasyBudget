@@ -20,10 +20,6 @@ namespace EasyBudget.Ui
             container.RegisterType<IBudgetRequestService, BudgetRequestService>();
             container.RegisterType<IBudgetDescriptionService, BudgetDescriptionService>();
             container.RegisterType<IAgreementBudgetRequestService, AgreementBudgetRequestService>();
-            //container.RegisterType<IBudgetRequestListService, BudgetRequestListApproverService>("Approver");
-            //container.RegisterType<IBudgetRequestListService, BudgetRequestListDirectorService>("Director");
-            //container.RegisterType<IBudgetRequestListService, BudgetRequestListExecutorService>("Executor");
-            //container.RegisterType<IBudgetRequestListService, BudgetRequestListRequestorService>("Requestor");
             container.RegisterType<IBudgetRequestListServiceFactory, BudgetRequestListServiceFactory>();
 
             container.RegisterType<IUserAccess, UserAccess>();
@@ -37,8 +33,7 @@ namespace EasyBudget.Ui
 
             container.RegisterType<IBudgetRequestViewModel,BudgetRequestViewModel>();
             container.RegisterType<IBudgetRequestListViewModel, BudgetRequestListViewModel>();
-            container.RegisterType<IBudgetRequestRowViewModel, BudgetRequestRowViewModel>();
-
+            
 
             container.RegisterType<IBudgetRequestDbContextFactory, BudgetRequestDbContextFactory>();
 

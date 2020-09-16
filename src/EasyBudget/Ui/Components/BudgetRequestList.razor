@@ -13,37 +13,42 @@
         <div class="list-view-table">
             <table>
                 <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>
+                        <input type="checkbox" @onchange="eventArgs  => {MainCheckboxClicked(eventArgs.Value); }" >
+                    </th>
+                    <th>Назва</th>
+                    <th>Ініціатор</th>
+                    <th>Дата запиту</th>
+                    <th>Відділ</th>
                 </tr>
                 @{
-                    for (int i = 0; i < ViewModel.BudgetRequests.Count; i++)
+                    @for (int i = 0; i < ViewModel.BudgetRequests.Count; i++)
                     {
-                        BudgetRequestMainListDto budgetRequest = ViewModel.BudgetRequests[i];
-                        <InputCheckbox></InputCheckbox>
-                        <td>@budgetRequest.Name</td>
-                        <td>@budgetRequest.RequesterName</td>
-
+                        BudgetRequestRowViewModel budgetRequest = ViewModel.BudgetRequests[i];
+                        <tr>
+                            <td>
+                                <input type="checkbox" @bind-value="budgetRequest.IsSelected"/>
+                            </td>
+                            <td>@budgetRequest.BudgetRequest.Name</td>
+                            <td>@budgetRequest.BudgetRequest.RequesterName</td>
+                            <td>@budgetRequest.BudgetRequest.DateRequested.ToString("d")</td>
+                            <td>@budgetRequest.BudgetRequest.DepartmentName</td>
+                        </tr>
                     }
                 }
             </table>
         </div>
         <div class="list-view-bottom">
-            <div>
-
+            <div class="list-view-combo">
+                <span>Page</span>
             </div>
             <div class="list-view-buttons">
-                <div>
-                    <button @onclick ="OngoingListButtonClick">Button1</button>
-
+                <div class="common-button-div">
+                    <button @onclick="OngoingListButtonClick">Button1</button>
                 </div>
-                <div>
+                <div class="common-button-div">
                     <button @onclick="ApproveCheckedListButtonCLick">Button2</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -56,6 +61,7 @@ else
 @code {
     [Parameter]
     public IBudgetRequestListViewModel ViewModel { get; set; }
+
     private Task _task;
     private void OngoingListButtonClick()
     {
@@ -66,27 +72,22 @@ else
 
     }
 
-
-    //private CGrid<BudgetRequestMainListDto> _grid;
-
-    //private IQueryDictionary<Type> _customFilters = new QueryDictionary<Type>();
-
-
-    //protected override async Task OnParametersSetAsync()
-    //{
-    //    var query = new QueryDictionary<StringValues>();
-    //    Action<IGridColumnCollection<BudgetRequestMainListDto>> budgetRequestColumns = c =>
-    //    {
-    //        c.Add(b => b.Id, true);
-    //        c.Add(b => b.DateRequested, "Дата запиту").Format("{0:yyyy-MM-dd}").SetWidth(120);
-    //    };
-    //    var client = new GridClient<BudgetRequestMainListDto>(q =>
-    //        new ItemsDTO<BudgetRequestMainListDto>(ViewModel.BudgetRequests, new TotalsDTO(), new PagerDTO()),
-    //        query, false, "budgetRequestGrid");
-
-
-    //    _grid = client.Grid;
-    //    _task = client.UpdateGrid();
-    //    await _task;
-    //}
+    private void MainCheckboxClicked(object checkedValue)
+    {
+        if ((bool)checkedValue)
+        {
+            foreach (BudgetRequestRowViewModel row in ViewModel.BudgetRequests)
+            {
+                row.IsSelected = true;
+            }
+        }
+        else
+        {
+            foreach (BudgetRequestRowViewModel row in ViewModel.BudgetRequests)
+            {
+                row.IsSelected = false;
+            }
+        }
+        
+    }
 }
