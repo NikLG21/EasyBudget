@@ -1,0 +1,22 @@
+
+.list-view-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.list-view-table {
+    padding: 10px;
+}
+
+.list-view-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+.list-view-buttons{
+    padding: 10px;
+}
+
+table,
+td{
+    border: 2px solid #000000
+}

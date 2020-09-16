@@ -23,7 +23,7 @@ namespace EasyBudget.Business.Services
             IBudgetRequestListService budgetRequestListService;
             switch (role.Name)
             {
-                case RoleNames.Originator:
+                case RoleNames.Requestor:
                     budgetRequestListService= new BudgetRequestListRequestorService(_budgetRequestListQueries);
                     break;
                 case RoleNames.Approver:

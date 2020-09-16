@@ -6,7 +6,7 @@ namespace EasyBudget.Common.Utils
 {
     public class RoleNames
     {
-        public const string Originator = "Originator";
+        public const string Requestor = "Requestor";
         public const string Approver = "Approver";
         public const string Executor = "Executor";
         public const string ExecutorIT = "ExecutorIT";

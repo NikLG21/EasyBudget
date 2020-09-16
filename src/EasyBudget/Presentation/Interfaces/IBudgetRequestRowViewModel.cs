@@ -8,7 +8,7 @@ namespace EasyBudget.Presentation.Interfaces
     public interface IBudgetRequestRowViewModel
     {
         BudgetRequestMainListDto BudgetRequest { get; }
-        bool IsEditable { get; set; }
-        BudgetRequestMainListDto LoadData();
+        bool IsApproveable { get; set; }
+        bool IsSelected { get; set; }
     }
 }

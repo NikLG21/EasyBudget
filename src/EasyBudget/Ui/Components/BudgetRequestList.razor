@@ -7,12 +7,44 @@
 @using GridShared.Totals
 @using Microsoft.Extensions.Primitives
 
-<h3>BudgetRequestList</h3>
-@if (_task.IsCompleted)
+@if (true)
 {
-    <div class="row">
-        <div class="col-md-12">
-            <GridComponent T="BudgetRequestMainListDto" Grid="@_grid"></GridComponent>
+    <div class="list-view-container">
+        <div class="list-view-table">
+            <table>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @{
+                    for (int i = 0; i < ViewModel.BudgetRequests.Count; i++)
+                    {
+                        BudgetRequestMainListDto budgetRequest = ViewModel.BudgetRequests[i];
+                        <InputCheckbox></InputCheckbox>
+                        <td>@budgetRequest.Name</td>
+                        <td>@budgetRequest.RequesterName</td>
+
+                    }
+                }
+            </table>
+        </div>
+        <div class="list-view-bottom">
+            <div>
+
+            </div>
+            <div class="list-view-buttons">
+                <div>
+                    <button @onclick ="OngoingListButtonClick">Button1</button>
+
+                </div>
+                <div>
+                    <button @onclick="ApproveCheckedListButtonCLick">Button2</button>
+                </div>
+
+            </div>
         </div>
     </div>
 }
@@ -24,26 +56,37 @@ else
 @code {
     [Parameter]
     public IBudgetRequestListViewModel ViewModel { get; set; }
-
-    private CGrid<BudgetRequestMainListDto> _grid;
     private Task _task;
-    private IQueryDictionary<Type> _customFilters = new QueryDictionary<Type>();
-
-    protected override async Task OnParametersSetAsync()
+    private void OngoingListButtonClick()
     {
-        var query = new QueryDictionary<StringValues>();
-        Action<IGridColumnCollection<BudgetRequestMainListDto>> budgetRequestColumns = c =>
-        {
-            c.Add(b => b.Id, true);
-            c.Add(b => b.DateRequested, "Дата запиту").Format("{0:yyyy-MM-dd}").SetWidth(120);
-        };
-        var client = new GridClient<BudgetRequestMainListDto>(q =>
-            new ItemsDTO<BudgetRequestMainListDto>(ViewModel.BudgetRequests, new TotalsDTO(), new PagerDTO()),
-            query, false, "budgetRequestGrid");
-            
-            
-        _grid = client.Grid;
-        _task = client.UpdateGrid();
-        await _task;
+
     }
+    private void ApproveCheckedListButtonCLick()
+    {
+
+    }
+
+
+    //private CGrid<BudgetRequestMainListDto> _grid;
+
+    //private IQueryDictionary<Type> _customFilters = new QueryDictionary<Type>();
+
+
+    //protected override async Task OnParametersSetAsync()
+    //{
+    //    var query = new QueryDictionary<StringValues>();
+    //    Action<IGridColumnCollection<BudgetRequestMainListDto>> budgetRequestColumns = c =>
+    //    {
+    //        c.Add(b => b.Id, true);
+    //        c.Add(b => b.DateRequested, "Дата запиту").Format("{0:yyyy-MM-dd}").SetWidth(120);
+    //    };
+    //    var client = new GridClient<BudgetRequestMainListDto>(q =>
+    //        new ItemsDTO<BudgetRequestMainListDto>(ViewModel.BudgetRequests, new TotalsDTO(), new PagerDTO()),
+    //        query, false, "budgetRequestGrid");
+
+
+    //    _grid = client.Grid;
+    //    _task = client.UpdateGrid();
+    //    await _task;
+    //}
 }

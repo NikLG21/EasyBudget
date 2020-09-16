@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="GridComponent\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
