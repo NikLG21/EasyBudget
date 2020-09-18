@@ -28,11 +28,16 @@ namespace EasyBudget.Presentation.ViewModels
         };
 
         private IBudgetRequestListServiceFactory _budgetRequestListServiceFactory;
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public int Total { get; set; }
         public List<BudgetRequestRowViewModel> BudgetRequests { get; } = new List<BudgetRequestRowViewModel>();
 
         public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory)
         {
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
+            PageNumber = 1;
+            PageSize = 15;
         }
 
         public void LoadData()
@@ -42,6 +47,8 @@ namespace EasyBudget.Presentation.ViewModels
             {
                 BudgetRequests.Add(new BudgetRequestRowViewModel(request));
             }
+
+            Total = BudgetRequests.Count;
         }
 
         //public List<BudgetRequestMainListDto> LoadNextActionList()

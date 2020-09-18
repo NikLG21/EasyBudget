@@ -2,6 +2,7 @@
 @using EasyBudget.Common.DataAccess.Dtos
 @using GridShared.Utility
 @using DocumentFormat.OpenXml.Drawing.Charts
+@using DocumentFormat.OpenXml.Office2016.Drawing.Charts
 @using GridShared
 @using GridShared.Pagination
 @using GridShared.Totals
@@ -14,26 +15,48 @@
             <table>
                 <tr>
                     <th>
-                        <input type="checkbox" @onchange="eventArgs  => {MainCheckboxClicked(eventArgs.Value); }" >
+                        <input type="checkbox" @onchange="args  => {MainCheckboxClicked(args); }">
                     </th>
                     <th>Назва</th>
                     <th>Ініціатор</th>
+                    <th>Клініка</th>
                     <th>Дата запиту</th>
                     <th>Відділ</th>
                 </tr>
                 @{
-                    @for (int i = 0; i < ViewModel.BudgetRequests.Count; i++)
+                    if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
                     {
-                        BudgetRequestRowViewModel budgetRequest = ViewModel.BudgetRequests[i];
-                        <tr>
-                            <td>
-                                <input type="checkbox" @bind-value="budgetRequest.IsSelected"/>
-                            </td>
-                            <td>@budgetRequest.BudgetRequest.Name</td>
-                            <td>@budgetRequest.BudgetRequest.RequesterName</td>
-                            <td>@budgetRequest.BudgetRequest.DateRequested.ToString("d")</td>
-                            <td>@budgetRequest.BudgetRequest.DepartmentName</td>
-                        </tr>
+                        @for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.PageSize * ViewModel.PageNumber; i++)
+                        {
+                            BudgetRequestRowViewModel budgetRequest = ViewModel.BudgetRequests[i];
+                            <tr>
+                                <td>
+                                    <input type="checkbox" @bind="budgetRequest.IsSelected" />
+                                </td>
+                                <td>@budgetRequest.BudgetRequest.Name</td>
+                                <td>@budgetRequest.BudgetRequest.RequesterName</td>
+                                <td>@budgetRequest.BudgetRequest.UnitName</td>
+                                <td>@budgetRequest.BudgetRequest.DateRequested.ToString("d")</td>
+                                <td>@budgetRequest.BudgetRequest.DepartmentName</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        @for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.Total; i++)
+                        {
+                            BudgetRequestRowViewModel budgetRequest = ViewModel.BudgetRequests[i];
+                            <tr>
+                                <td>
+                                    <input type="checkbox" @bind="budgetRequest.IsSelected" />
+                                </td>
+                                <td>@budgetRequest.BudgetRequest.Name</td>
+                                <td>@budgetRequest.BudgetRequest.RequesterName</td>
+                                <td>@budgetRequest.BudgetRequest.UnitName</td>
+                                <td>@budgetRequest.BudgetRequest.DateRequested.ToString("d")</td>
+                                <td>@budgetRequest.BudgetRequest.DepartmentName</td>
+                            </tr>
+                        }
                     }
                 }
             </table>
@@ -41,6 +64,28 @@
         <div class="list-view-bottom">
             <div class="list-view-combo">
                 <span>Page</span>
+                <div>
+                    @if (ViewModel.PageNumber != 1)
+                    {
+                        <button @onclick="() => { PageButtonClicked(false); }">prev</button>
+                    }
+                    else
+                    {
+                        <button disabled="disabled">prev</button>
+                    }
+
+                </div>
+                <div>
+                    @if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
+                    {
+                        <button @onclick="() => { PageButtonClicked(true); }">next</button>
+                    }
+                    else
+                    {
+                        <button disabled="disabled">next</button>
+                    }
+                    
+                </div>
             </div>
             <div class="list-view-buttons">
                 <div class="common-button-div">
@@ -72,22 +117,40 @@ else
 
     }
 
-    private void MainCheckboxClicked(object checkedValue)
+    private void MainCheckboxClicked(ChangeEventArgs args)
     {
-        if ((bool)checkedValue)
+        bool value = (bool) args.Value;
+        foreach (BudgetRequestRowViewModel row in ViewModel.BudgetRequests)
         {
-            foreach (BudgetRequestRowViewModel row in ViewModel.BudgetRequests)
+            row.IsSelected = value;
+        }
+
+        this.StateHasChanged();
+    }
+
+    private void PageButtonClicked(bool direction)
+    {
+        if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
+        {
+            for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.PageSize * ViewModel.PageNumber; i++)
             {
-                row.IsSelected = true;
+                ViewModel.BudgetRequests[i].IsSelected = false;
             }
         }
         else
         {
-            foreach (BudgetRequestRowViewModel row in ViewModel.BudgetRequests)
+            for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.Total; i++)
             {
-                row.IsSelected = false;
+                ViewModel.BudgetRequests[i].IsSelected = false;
             }
         }
-        
+        if (direction)
+        {
+            ViewModel.PageNumber += 1;
+        }
+        else
+        {
+            ViewModel.PageNumber -= 1;
+        }
     }
 }

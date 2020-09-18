@@ -19,8 +19,22 @@
 .list-view-buttons {
     display: flex;
     flex-direction: row;
+    width: 70%;
 }
 
 .common-button-div {
     padding: 10px;
+}
+
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+}
+
+th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
 }
