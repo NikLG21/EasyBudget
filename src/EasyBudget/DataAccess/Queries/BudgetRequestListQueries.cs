@@ -35,7 +35,8 @@ namespace DataAccess.Queries
                             DepartmentName = br.Department.Name,
                             DateRequested = br.DateRequested,
                             State = br.State,
-                            RealPrice = br.RealPrice
+                            RealPrice = br.RealPrice,
+                            UnitName = br.Unit.Name
                         }).ToList();
                     return list;
                 }
@@ -63,7 +64,8 @@ namespace DataAccess.Queries
                             DepartmentName = br.Department.Name,
                             DateRequested = br.DateRequested,
                             State = br.State,
-                            RealPrice = br.RealPrice
+                            RealPrice = br.RealPrice,
+                            UnitName = br.Unit.Name
                         }).ToList();
                     return list;
                 }
@@ -92,7 +94,8 @@ namespace DataAccess.Queries
                             DepartmentName = br.Department.Name,
                             DateRequested = br.DateRequested,
                             State = br.State,
-                            RealPrice = br.RealPrice
+                            RealPrice = br.RealPrice,
+                            UnitName = br.Unit.Name
                         }).ToList();
                     return list;
                 }
@@ -121,7 +124,8 @@ namespace DataAccess.Queries
                             DepartmentName = br.Department.Name,
                             DateRequested = br.DateRequested,
                             State = br.State,
-                            RealPrice = br.RealPrice
+                            RealPrice = br.RealPrice,
+                            UnitName = br.Unit.Name
                         }).ToList();
                     return list;
                 }

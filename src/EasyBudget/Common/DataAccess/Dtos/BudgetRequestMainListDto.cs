@@ -9,10 +9,9 @@ namespace EasyBudget.Common.DataAccess.Dtos
 
         public string RequesterName { get; set; }
         public string DepartmentName { get; set; }
-
+        public string UnitName { get; set; }
         public DateTime DateRequested { get; set; }
         public BudgetState State { get; set; }
-
         public decimal? RealPrice { get; set; }
     }
 }
