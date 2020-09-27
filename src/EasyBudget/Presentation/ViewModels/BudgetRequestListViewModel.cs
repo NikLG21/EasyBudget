@@ -37,7 +37,7 @@ namespace EasyBudget.Presentation.ViewModels
         {
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             PageNumber = 1;
-            PageSize = 15;
+            PageSize = 2;
         }
 
         public void LoadData()

@@ -63,11 +63,18 @@
         </div>
         <div class="list-view-bottom">
             <div class="list-view-combo">
-                <span>Page</span>
-                <div>
+                <span style="color: red">Page</span>
+                <select>
+                    @for (int i = 0; i < ViewModel.Total / ViewModel.PageSize; i++)
+                    {
+                        <option @onclick="(() => { CertainPageButtonCLicked(i + 1); })">@(i + 1)</option>
+                    }
+                </select>
+                    
+                <div class="common-button-div">
                     @if (ViewModel.PageNumber != 1)
                     {
-                        <button @onclick="() => { PageButtonClicked(false); }">prev</button>
+                        <button @onclick="() => { CertainPageButtonCLicked(ViewModel.PageNumber-1); }">prev</button>
                     }
                     else
                     {
@@ -75,10 +82,10 @@
                     }
 
                 </div>
-                <div>
+                <div class="common-button-div">
                     @if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
                     {
-                        <button @onclick="() => { PageButtonClicked(true); }">next</button>
+                        <button @onclick="() => { CertainPageButtonCLicked(ViewModel.PageNumber+1); }">next</button>
                     }
                     else
                     {
@@ -127,8 +134,8 @@ else
 
         this.StateHasChanged();
     }
-
-    private void PageButtonClicked(bool direction)
+    
+    private void CertainPageButtonCLicked(int k)
     {
         if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
         {
@@ -144,13 +151,7 @@ else
                 ViewModel.BudgetRequests[i].IsSelected = false;
             }
         }
-        if (direction)
-        {
-            ViewModel.PageNumber += 1;
-        }
-        else
-        {
-            ViewModel.PageNumber -= 1;
-        }
+        ViewModel.PageNumber = k;
+        base.StateHasChanged();
     }
 }
