@@ -11,5 +11,6 @@ namespace EasyBudget.Presentation.Interfaces
         int Total { get; set; }
         List<BudgetRequestRowViewModel> BudgetRequests { get; }
         void LoadData();
+        void ApproveRequests();
     }
 }

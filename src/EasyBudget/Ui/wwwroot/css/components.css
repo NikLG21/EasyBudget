@@ -13,7 +13,8 @@
     justify-content: space-between;
 }
 .list-view-combo {
-
+    display: flex;
+    justify-content: flex-start;
 }
 
 .list-view-buttons {

@@ -30,6 +30,7 @@ namespace DataAccess.Queries
                         .Where(br => br.DateRequested >= from )
                         .Select(br => new BudgetRequestMainListDto
                         {
+                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,
@@ -59,6 +60,7 @@ namespace DataAccess.Queries
                         .Where(br => br.DateRequested >= from)
                         .Select(br => new BudgetRequestMainListDto
                         {
+                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,
@@ -89,6 +91,7 @@ namespace DataAccess.Queries
                         .Where(br => br.DateRequested >= from)
                         .Select(br => new BudgetRequestMainListDto
                         {
+                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,
@@ -119,6 +122,7 @@ namespace DataAccess.Queries
                         .Where(br => br.DateRequested >= from)
                         .Select(br => new BudgetRequestMainListDto
                         {
+                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,

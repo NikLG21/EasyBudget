@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
+using EasyBudget.Common.Utils;
 
 namespace EasyBudget.Business.Services
 {
      public class AgreementBudgetRequestService : IAgreementBudgetRequestService 
      {
-         private readonly IBudgetRequestService _budgetRequestService;
          private readonly IBudgetRequestAccess _budgetRequestAccess;
 
-         public AgreementBudgetRequestService(
-             IBudgetRequestService budgetRequestService, 
-             IBudgetRequestAccess budgetRequestAccess)
+         public AgreementBudgetRequestService(IBudgetRequestAccess budgetRequestAccess)
          {
-             _budgetRequestService = budgetRequestService;
              _budgetRequestAccess = budgetRequestAccess;
          }
 
@@ -26,7 +24,7 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
                  if (request.State == BudgetState.Requested)
                  {
                      request.State = BudgetState.ApprovedFirstLine;
@@ -45,12 +43,33 @@ namespace EasyBudget.Business.Services
              {
                 throw new CriticalException(e);
              }
-         } 
+         }
+
+         public Output ApproveListFirstLine(List<Guid> requestsIds)
+         {
+             List<BudgetRequestMainListDto> budgetRequests = _budgetRequestAccess.GetList(requestsIds);
+             Output output = new Output();
+             foreach (BudgetRequestMainListDto request in budgetRequests)
+             {
+                if (request.State == BudgetState.Requested)
+                {
+                    request.State = BudgetState.ApprovedFirstLine;
+                    output.Success.Add(request);
+                }
+                else
+                {
+                    output.Success.Add(request);
+                    output.Messages.Add("\""+request.Name+"\": неможливо затвердити. Запит був видалений або змінений");
+                }
+             }
+             _budgetRequestAccess.UpdateList(budgetRequests);
+             return output;
+         }
          public void ApproveDirector(Guid userId,Guid id)
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
                  if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.ApprovedDirector;
@@ -72,12 +91,40 @@ namespace EasyBudget.Business.Services
                  throw new CriticalException(e);
              }
 
-         } 
+         }
+
+         public Output ApproveListDirector(List<Guid> requestsIds)
+         {
+            List<BudgetRequestMainListDto> budgetRequests = _budgetRequestAccess.GetList(requestsIds);
+            Output output = new Output();
+            foreach (BudgetRequestMainListDto request in budgetRequests)
+            {
+                if (request.State == BudgetState.ExecutorEstimated| request.State == BudgetState.PostpondDirector)
+                {
+                    request.State = BudgetState.ApprovedFirstLine;
+                    output.Success.Add(request);
+
+                }
+                else
+                {
+                    output.Success.Add(request);
+                    output.Messages.Add("\"" + request.Name + "\": неможливо затвердити. Запит був видалений або змінений");
+                }
+            }
+            _budgetRequestAccess.UpdateList(budgetRequests);
+            return output;
+        }
+
+         public Output ExecutionStartedListFinDirector(List<Guid> requestsIds)
+         {
+             throw new NotImplementedException();
+         }
+
          public void RejectFirstLine(Guid userId, Guid id)
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
                  if (request.State == BudgetState.Requested)
                  {
                      request.State = BudgetState.RejectedFirstLine;
@@ -104,8 +151,8 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
-                 if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
+                if (request.State == BudgetState.ExecutorEstimated|request.State == BudgetState.PostpondDirector)
                  {
                      request.State = BudgetState.RejectedDirector;
                      _budgetRequestAccess.Update(request);
@@ -128,8 +175,8 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
-                 if (request.State == BudgetState.ExecutorEstimated)
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
+                if (request.State == BudgetState.ExecutorEstimated)
                  {
                      request.State = BudgetState.PostpondDirector;
                      _budgetRequestAccess.Update(request);
@@ -154,8 +201,8 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
-                 if (request.State == BudgetState.ApprovedDirector)
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
+                if (request.State == BudgetState.ApprovedDirector)
                  {
                      request.State = BudgetState.PostpondFinDirector;
                      _budgetRequestAccess.Update(request);
@@ -178,8 +225,8 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
-                 if (request.State == BudgetState.ApprovedDirector| request.State == BudgetState.PostpondFinDirector)
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
+                if (request.State == BudgetState.ApprovedDirector| request.State == BudgetState.PostpondFinDirector)
                  {
                      request.State = BudgetState.Execution;
                      request.DateDeadlineExecution = deadline; 
@@ -205,8 +252,8 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId, id);
-                 if (request.State == BudgetState.ApprovedFirstLine)
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
+                if (request.State == BudgetState.ApprovedFirstLine)
                  {
                      request.State = BudgetState.PostpondFinDirector;
                      request.RealPrice = realPrice;
@@ -230,8 +277,8 @@ namespace EasyBudget.Business.Services
          {
              try
              {
-                 BudgetRequest request = _budgetRequestService.Get(userId,id);
-                 if (request.State == BudgetState.Execution)
+                 BudgetRequest request = _budgetRequestAccess.Get(id);
+                if (request.State == BudgetState.Execution)
                  {
                      request.State = BudgetState.Executed;
                      request.DateEndExecution = DateTime.Today;
