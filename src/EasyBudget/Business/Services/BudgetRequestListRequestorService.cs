@@ -9,7 +9,7 @@ namespace EasyBudget.Business.Services
 {
     public class BudgetRequestListRequestorService : IBudgetRequestListService
     {
-        private IBudgetRequestListQueries _budgetRequestListQueries;
+        private readonly IBudgetRequestListQueries _budgetRequestListQueries;
 
         public BudgetRequestListRequestorService(IBudgetRequestListQueries budgetRequestListQueries)
         {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
@@ -10,7 +9,7 @@ namespace EasyBudget.Business.Services
 {
     public class BudgetRequestListApproverService : IBudgetRequestListService
     {
-        private IBudgetRequestListQueries _budgetRequestListQueries;
+        private readonly IBudgetRequestListQueries _budgetRequestListQueries;
 
         public BudgetRequestListApproverService(IBudgetRequestListQueries budgetRequestListQueries)
         {

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EasyBudget.Common.Business;
+﻿using EasyBudget.Common.Business;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess.Queries;
-using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using EasyBudget.Common.Utils;
 
 namespace EasyBudget.Business.Services
 {
+    //TODO: Please move to the Factories folder
     public class BudgetRequestListServiceFactory : IBudgetRequestListServiceFactory
     {
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;

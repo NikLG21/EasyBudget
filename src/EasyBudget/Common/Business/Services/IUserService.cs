@@ -5,6 +5,7 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.Business.Services
 {
+    //TODO: Very big service. Please, split it into several.
     public interface IUserService
     {
         void AddUserByAdmin(Guid userId, User user);
