@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using EasyBudget.Common.Business;
+using EasyBudget.Common.Business.Factories;
+using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services;
+using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
-using EasyBudget.Common.Utils;
 using EasyBudget.Presentation.Interfaces;
 
 namespace EasyBudget.Presentation.ViewModels
@@ -21,24 +23,22 @@ namespace EasyBudget.Presentation.ViewModels
         
         private Role role = new Role()
         {
-            Actions = null,
             Department = null,
             Id = Guid.Parse("aab78899-6781-4a42-b7a0-18c18ca652d4"),
             Name = "Director",
-            Users = new List<User>()
         };
 
         private IBudgetRequestListServiceFactory _budgetRequestListServiceFactory;
-        private IAgreementBudgetRequestService _agreementBudgetRequestService;
+        private IAgreementBaseService _agreementBaseService;
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
         public int Total { get; set; }
         public List<BudgetRequestRowViewModel> BudgetRequests { get; } = new List<BudgetRequestRowViewModel>();
 
-        public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBudgetRequestService agreementBudgetRequestService)
+        public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService)
         {
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
-            _agreementBudgetRequestService = agreementBudgetRequestService;
+            _agreementBaseService = agreementBaseService;
             PageNumber = 1;
             PageSize = 10;
         }
@@ -83,24 +83,9 @@ namespace EasyBudget.Presentation.ViewModels
             {
                 return;
             }
-            Output output;
-            switch (role.Name)
-            {
-                case RoleNames.Approver:
-                    output = _agreementBudgetRequestService.ApproveListFirstLine(ids);
-                    break;
-                case RoleNames.Director:
-                    output = _agreementBudgetRequestService.ApproveListDirector(ids);
-                    break;
-                case RoleNames.FinDirector:
-                    output = _agreementBudgetRequestService.ExecutionStartedListFinDirector(ids);
-                    break;
-                default:
-                    output = null;
-                    break;
-            }
+            BudgetRequestUpdateOutput output = _agreementBaseService.ApproveListByRole(ids, role);
 
-            foreach (BudgetRequestMainListDto request in output.Success)
+            foreach (BudgetRequestMainListDto request in output.SuccessUpdatedBudgetRequests)
             {
                 if (Total - PageSize * PageNumber > 0)
                 {
@@ -127,7 +112,7 @@ namespace EasyBudget.Presentation.ViewModels
                 }
             }
 
-            foreach (BudgetRequestMainListDto request in output.Fail)
+            foreach (BudgetRequestMainListDto request in output.FailedUpdatedBudgetRequests)
             {
                 if (Total - PageSize * PageNumber > 0)
                 {
@@ -136,6 +121,7 @@ namespace EasyBudget.Presentation.ViewModels
                         if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
                         {
                             BudgetRequests[i] = new BudgetRequestRowViewModel(request);
+
                         }
                     }
                 }
@@ -143,82 +129,15 @@ namespace EasyBudget.Presentation.ViewModels
                 {
                     for (int i = PageSize * (PageNumber - 1); i < Total; i++)
                     {
-                        if (BudgetRequests[i].IsApproveable && BudgetRequests[i].IsSelected)
-                        {
-                            if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
-                            {
-                                BudgetRequests[i] = new BudgetRequestRowViewModel(request);
-                            }
+                        if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id)) 
+                        { 
+                            BudgetRequests[i] = new BudgetRequestRowViewModel(request);
+
                         }
                     }
                 }
             }
 
         }
-            //public List<BudgetRequestMainListDto> LoadNextActionList()
-            //{
-            //    List<BudgetRequestMainListDto> list = new List<BudgetRequestMainListDto>();
-            //    switch (role.Name)
-            //    {
-            //        case "Ініціатор запиту":
-            //            foreach (BudgetRequestMainListDto request in BudgetRequests)
-            //            {
-            //                if (request.State == BudgetState.Requested)
-            //                {
-            //                    list.Add(request);
-            //                }
-            //            }
-            //            break;
-            //        case "Затверджувач":
-            //            foreach (BudgetRequestMainListDto request in BudgetRequests)
-            //            {
-            //                if (request.State == BudgetState.Requested)
-            //                {
-            //                    list.Add(request);
-            //                }
-            //            }
-            //            break;
-            //        case "Виконавець":
-            //            foreach (BudgetRequestMainListDto request in BudgetRequests)
-            //            {
-            //                if (request.State == BudgetState.ApprovedFirstLine|request.State == BudgetState.Executing)
-            //                {
-            //                    list.Add(request);
-            //                }
-            //            }
-            //            break;
-            //        case "Виконавець IT":
-            //            foreach (BudgetRequestMainListDto request in BudgetRequests)
-            //            {
-            //                if (request.State == BudgetState.Requested | request.State == BudgetState.Executing)
-            //                {
-            //                    list.Add(request);
-            //                }
-            //            }
-            //            break;
-            //        case "Директор":
-            //            foreach (BudgetRequestMainListDto request in BudgetRequests)
-            //            {
-            //                if (request.State == BudgetState.ExecutorEstimated)
-            //                {
-            //                    list.Add(request);
-            //                }
-            //            }
-            //            break;
-            //        case "Фінансовий директор":
-            //            foreach (BudgetRequestMainListDto request in BudgetRequests)
-            //            {
-            //                if (request.State == BudgetState.ApprovedDirector)
-            //                {
-            //                    list.Add(request);
-            //                }
-            //            }
-            //            break;
-            //        default:
-            //            break;
-            //    }
-
-            //    return list;
-            //}
-        }
+    }
 }

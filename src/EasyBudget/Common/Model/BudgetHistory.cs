@@ -8,8 +8,7 @@ namespace EasyBudget.Common.Model
         public BudgetRequest BudgetRequest { get; set; }
         public User User { get; set; }
         public DateTime Date { get; set; }
-        //TODO: Bad name. Probably ActionName
-        public string ActionMade { get; set; }
+        public string ActionName { get; set; }
         public string PreviousValue { get; set; }
         public string NewValue { get; set; }
     }

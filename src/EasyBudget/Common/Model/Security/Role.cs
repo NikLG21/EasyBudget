@@ -16,9 +16,7 @@ namespace EasyBudget.Common.Model.Security
         public string DisplayName { get; set; }
 
         public Department Department { get; set; }
-        //TODO: Drop set
-        public List<User> Users { get; set; }
-        //TODO: Drop set
-        public List<Action> Actions { get; set; }
+        public List<User> Users { get; }
+        public List<Action> Actions { get;}
     }
 }

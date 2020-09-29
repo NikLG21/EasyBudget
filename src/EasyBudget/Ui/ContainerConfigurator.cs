@@ -1,9 +1,15 @@
 ﻿using DataAccess;
 using DataAccess.Access;
 using DataAccess.Queries;
+using EasyBudget.Business.Factories;
 using EasyBudget.Business.Services;
+using EasyBudget.Business.Services.AgreementBudgetRequestServices;
+using EasyBudget.Business.Services.UserServices;
 using EasyBudget.Common.Business;
+using EasyBudget.Common.Business.Factories;
 using EasyBudget.Common.Business.Services;
+using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
+using EasyBudget.Common.Business.Services.UserServices;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Presentation.Interfaces;
@@ -16,11 +22,18 @@ namespace EasyBudget.Ui
     {
         public static void ConfigureContainer(this IUnityContainer container)
         {
-            container.RegisterType<IUserService, UserService>();
+            //business
+            container.RegisterType<IBaseUserService, BaseUserService>();
+            container.RegisterType<IAdminUserService, AdminUserService>();
             container.RegisterType<IBudgetDescriptionService, BudgetDescriptionService>();
-            container.RegisterType<IAgreementBudgetRequestService, AgreementBudgetRequestService>();
+            container.RegisterType<IAgreementDirectorService, AgreementDirectorService>();
+            container.RegisterType<IAgreementFinDirectorService, AgreementFinDirectorService>();
+            container.RegisterType<IAgreementFirstLineService, AgreementFirstLineService>();
+            container.RegisterType<IAgreementExecutorService, AgreementExecutorService>();
+            container.RegisterType<IAgreementBaseService, AgreementBaseService>();
             container.RegisterType<IBudgetRequestListServiceFactory, BudgetRequestListServiceFactory>();
-
+            //dataAccess
+            container.RegisterType<IBudgetRequestDbContextFactory, BudgetRequestDbContextFactory>();
             container.RegisterType<IUserAccess, UserAccess>();
             container.RegisterType<IUserQueries, UserQueries>();
             container.RegisterType<IBudgetDescriptionAccess, BudgetDescriptionAccess>();
@@ -28,13 +41,10 @@ namespace EasyBudget.Ui
             container.RegisterType<IBudgetRequestAccess,BudgetRequestAccess>();
             container.RegisterType<IDepartmentAccess, DepartmentAccess>();
             container.RegisterType<IBudgetRequestListQueries, BudgetRequestListQueries>();
-
+            //Presentation
             container.RegisterType<IBudgetRequestViewModel,BudgetRequestViewModel>();
             container.RegisterType<IBudgetRequestListViewModel, BudgetRequestListViewModel>();
             
-
-            container.RegisterType<IBudgetRequestDbContextFactory, BudgetRequestDbContextFactory>();
-
         }
     }
 }

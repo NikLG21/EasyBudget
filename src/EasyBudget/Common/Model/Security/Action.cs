@@ -10,7 +10,6 @@ namespace EasyBudget.Common.Model.Security
         }
 
         public string Name { get; set; }
-        //TODO: Drop set
-        public List<Role> Roles { get; set; }
+        public List<Role> Roles { get; }
     }
 }

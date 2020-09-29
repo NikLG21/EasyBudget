@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Factories\" />
-    <Folder Include="Business\Outputs\" />
     <Folder Include="DataAccess\Commands\" />
-    <Folder Include="Model\Security\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,6 @@ using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
-using EasyBudget.Common.Utils;
 using EasyBudget.Presentation.Interfaces;
 
 namespace EasyBudget.Presentation.ViewModels
@@ -14,11 +13,9 @@ namespace EasyBudget.Presentation.ViewModels
     {
         private Role currentRole = new Role()
         {
-            Actions = null,
             Department = null,
             Id = Guid.Parse("aab78899-6781-4a42-b7a0-18c18ca652d4"),
-            Name = "Director",
-            Users = new List<User>()
+            Name = "Director"
         };
         public BudgetRequestMainListDto BudgetRequest { get; private set; }
         public bool IsApproveable { get; set; }

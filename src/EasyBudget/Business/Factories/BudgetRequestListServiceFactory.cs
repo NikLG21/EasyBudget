@@ -1,12 +1,11 @@
-﻿using EasyBudget.Common.Business;
+﻿using EasyBudget.Business.Services;
+using EasyBudget.Common.Business.Factories;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Model.Security;
-using EasyBudget.Common.Utils;
 
-namespace EasyBudget.Business.Services
+namespace EasyBudget.Business.Factories
 {
-    //TODO: Please move to the Factories folder
     public class BudgetRequestListServiceFactory : IBudgetRequestListServiceFactory
     {
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
@@ -21,15 +20,12 @@ namespace EasyBudget.Business.Services
             switch (role.Name)
             {
                 case RoleNames.Requestor:
-                    budgetRequestListService= new BudgetRequestListRequestorService(_budgetRequestListQueries);
+                    budgetRequestListService= new BudgetRequestListRequesterService(_budgetRequestListQueries);
                     break;
                 case RoleNames.Approver:
                     budgetRequestListService = new BudgetRequestListApproverService(_budgetRequestListQueries);
                     break;
                 case RoleNames.Executor:
-                    budgetRequestListService = new BudgetRequestListExecutorService(_budgetRequestListQueries);
-                    break;
-                case RoleNames.ExecutorIT:
                     budgetRequestListService = new BudgetRequestListExecutorService(_budgetRequestListQueries);
                     break;
                 case RoleNames.Director:

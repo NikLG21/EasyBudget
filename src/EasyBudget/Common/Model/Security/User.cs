@@ -14,7 +14,6 @@ namespace EasyBudget.Common.Model.Security
         public bool IsDisabled { get; set; }
         
         public Unit Unit { get; set; }
-        //TODO: Drop set
-        public List<Role> Roles { get; set; }
+        public List<Role> Roles { get;}
     }
 }

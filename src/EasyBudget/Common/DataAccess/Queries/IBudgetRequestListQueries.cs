@@ -10,5 +10,6 @@ namespace EasyBudget.Common.DataAccess.Queries
         List<BudgetRequestMainListDto> GetAllRequestRequester(Guid userId, DateTime from);
         List<BudgetRequestMainListDto> GetAllRequestApprover(Guid unitId, DateTime from);
         List<BudgetRequestMainListDto> GetAllRequestExecutor(Guid departmentId, DateTime from);
+        List<BudgetRequestMainListDto> GetListByIds(List<Guid> ids);
     }
 }

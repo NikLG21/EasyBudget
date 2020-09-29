@@ -71,28 +71,6 @@ namespace DataAccess.Access
             throw new CriticalException(e);
         }
 
-        //TODO: You have to check SqlException. E.g. User try to delete department which has children records. My suggestion - remove this functions at all
-        public void Delete(Guid id)
-        {
-            using (BudgetRequestDbContext context = _factory.Create())
-            {
-                try
-                {
-                    Department department = context.Departments.FirstOrDefault(d => d.Id == id);
-                    if (department != null)
-                    {
-                        context.Departments.Attach(department);
-                        context.Departments.Remove(department);
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception e)
-                {
-                    throw new CriticalException(e);
-                }
-            }
-        }
-
         public Department Get(Guid id)
         {
             using (BudgetRequestDbContext context = _factory.Create())

@@ -7,11 +7,11 @@ using EasyBudget.Common.Exceptions;
 
 namespace EasyBudget.Business.Services
 {
-    public class BudgetRequestListRequestorService : IBudgetRequestListService
+    public class BudgetRequestListRequesterService : IBudgetRequestListService
     {
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
 
-        public BudgetRequestListRequestorService(IBudgetRequestListQueries budgetRequestListQueries)
+        public BudgetRequestListRequesterService(IBudgetRequestListQueries budgetRequestListQueries)
         {
             _budgetRequestListQueries = budgetRequestListQueries;
         }

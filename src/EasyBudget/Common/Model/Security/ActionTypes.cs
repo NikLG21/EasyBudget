@@ -2,10 +2,9 @@
 {
     public static class  ActionTypes
     {
-        //TODO: Could you put verb into past. E.g. RequestorAddedBudgetRequest
-        public const string RequestorAddBudgetRequest = "RequestorAddBudgetRequest";
-        public const string RequestorUpdateBudgetRequest = "RequestorUpdateBudgetRequest";
-        public const string RequestorDeleteBudgetRequest = "RequestorDeleteBudgetRequest";
-        public const string ApproverApproveBudgetRequest = "ApproverApproveBudgetRequest";
+        public const string RequestorAddedBudgetRequest = "RequestorAddedBudgetRequest";
+        public const string RequestorUpdatedBudgetRequest = "RequestorUpdatedBudgetRequest";
+        public const string RequestorDeletedBudgetRequest = "RequestorDeletedBudgetRequest";
+        public const string ApproverApprovedBudgetRequest = "ApproverApprovedBudgetRequest";
     }
 }

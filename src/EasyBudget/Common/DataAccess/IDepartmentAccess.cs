@@ -7,7 +7,6 @@ namespace EasyBudget.Common.DataAccess
     {
         void Add(Department department);
         void Update(Department department);
-        void Delete(Guid id);
         Department Get(Guid id);
     }
 }
