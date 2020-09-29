@@ -228,7 +228,7 @@ namespace EasyBudget.Business.Services
                  BudgetRequest request = _budgetRequestAccess.Get(id);
                 if (request.State == BudgetState.ApprovedDirector| request.State == BudgetState.PostpondFinDirector)
                  {
-                     request.State = BudgetState.Execution;
+                     request.State = BudgetState.Executing;
                      request.DateDeadlineExecution = deadline; 
                      request.DateStartExecution = DateTime.Today;
                      _budgetRequestAccess.Update(request);
@@ -278,7 +278,7 @@ namespace EasyBudget.Business.Services
              try
              {
                  BudgetRequest request = _budgetRequestAccess.Get(id);
-                if (request.State == BudgetState.Execution)
+                if (request.State == BudgetState.Executing)
                  {
                      request.State = BudgetState.Executed;
                      request.DateEndExecution = DateTime.Today;

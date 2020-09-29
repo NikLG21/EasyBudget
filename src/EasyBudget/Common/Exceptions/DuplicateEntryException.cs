@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EasyBudget.Common.Exceptions
 {
     public class DuplicateEntryException : Exception
     {
-        const string FormatMessageString = "Неможливо додати або оновити \"{0}\". Сутність з такими параметрами вже існує.";
+        private const string FormatMessageString = "Неможливо додати або оновити \"{0}\". Сутність з такими параметрами вже існує.";
 
-        public string EntityName { get; private set; }
+        public string EntityName { get; }
 
         public DuplicateEntryException(string entityName)
         {

@@ -1,19 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="EasyBudget.Common.Model.BudgetDescription">
-    <Position X="18.5" Y="2" Width="1.5" />
+    <Position X="18.25" Y="3.5" Width="1.75" />
+    <AssociationLine Name="User" Type="EasyBudget.Common.Model.Security.User" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.125" Y="3.5" />
+        <Point X="19.125" Y="2.913" />
+        <Point X="12.733" Y="2.913" />
+        <Point X="12.733" Y="3.5" />
+        <Point X="12.688" Y="3.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="BudgetRequest" Type="EasyBudget.Common.Model.BudgetRequest" FixedToPoint="true">
+      <Path>
+        <Point X="18.25" Y="4.23" />
+        <Point X="16.75" Y="4.23" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAAEAAAAAA=</HashCode>
       <FileName>Model\BudgetDescription.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="User" />
+      <Property Name="BudgetRequest" />
     </ShowAsAssociation>
   </Class>
   <Class Name="EasyBudget.Common.Model.BudgetRequest">
-    <Position X="14.75" Y="3.75" Width="2" />
+    <Position X="14.75" Y="3.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>JAAAAAAASAAAAAUAAAQACAQIECCACAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAQAAAAAcQIAAACAQIECCACAAAAAAIBCAAAAA=</HashCode>
       <FileName>Model\BudgetRequest.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -24,17 +43,14 @@
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="BudgetDescriptions" />
+      <Property Name="BudgetHistory" />
     </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="EasyBudget.Common.Model.ChainOfApprovals">
-    <Position X="12" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\ChainOfApprovals.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="EasyBudget.Common.Model.Security.Action">
     <Position X="7" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Security\Action.cs</FileName>
@@ -45,8 +61,11 @@
   </Class>
   <Class Name="EasyBudget.Common.Model.Security.Role">
     <Position X="9.5" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAACAAIAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAECAAIAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Security\Role.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -59,8 +78,11 @@
   </Class>
   <Class Name="EasyBudget.Common.Model.Security.User">
     <Position X="12" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAQAAgAAAAECAAAQAAAAAAA=</HashCode>
       <FileName>Model\Security\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -68,11 +90,22 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EasyBudget.Common.Model.Department">
-    <Position X="9.25" Y="1.75" Width="1.5" />
+    <Position X="9.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Department.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="EasyBudget.Common.Model.BudgetHistory">
+    <Position X="18.25" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAIEAAAAAAAAAABAACAEAAAAAA=</HashCode>
+      <FileName>Model\BudgetHistory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BudgetRequest" />
+      <Property Name="User" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

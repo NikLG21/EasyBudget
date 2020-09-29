@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EasyBudget.Common.Exceptions
 {
-    public class EntityUpdatedException:Exception
+    public class EntityUpdatedException : Exception
     {
-        const string FormatMessageString = "\"{0}\" в базі був кимось оновлений. Обновите \"{0}\" у себе в клієнті.";
-        public string EntityName { get; private set; }
+        private const string FormatMessageString = "\"{0}\" в базі був кимось оновлений або видалений. Будь ласка, обновіть дані.";
+
+        public string EntityName { get; }
 
         public EntityUpdatedException(string entityName)
         {

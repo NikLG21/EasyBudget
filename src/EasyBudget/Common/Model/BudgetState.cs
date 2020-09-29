@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EasyBudget.Common.Model
+﻿namespace EasyBudget.Common.Model
 {
     public enum BudgetState
     {
@@ -15,7 +11,7 @@ namespace EasyBudget.Common.Model
         RejectedDirector = 6,
         PostpondDirector = 7,
         PostpondFinDirector = 8,
-        Execution = 9,
+        Executing = 9,
         Executed = 10
     }
 }

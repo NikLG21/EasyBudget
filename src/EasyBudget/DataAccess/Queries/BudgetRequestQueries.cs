@@ -266,7 +266,7 @@ namespace DataAccess.Queries
                         .BudgetRequests
                         .AsNoTracking()
                         .Where(br => br.Department == department)
-                        .Where(br => br.State == BudgetState.Execution)
+                        .Where(br => br.State == BudgetState.Executing)
                         .Select(br => new BudgetRequestMainListDto
                         {
                             Name = br.Name,

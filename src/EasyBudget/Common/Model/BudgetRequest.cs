@@ -8,9 +8,9 @@ namespace EasyBudget.Common.Model
     {
         public BudgetRequest()
         {
-            //BudgetDescriptions = new HashSet<BudgetDescription>();
+            BudgetDescriptions = new List<BudgetDescription>();
+            BudgetHistory = new List<BudgetHistory>();
         }
-
 
         public string Name { get; set; }
 
@@ -34,8 +34,8 @@ namespace EasyBudget.Common.Model
 
         public BudgetState State { get; set; }
 
-        public List<BudgetDescription> BudgetDescriptions { get; } = new List<BudgetDescription>();
-
-        public List<BudgetHistory> BudgetHistory { get; } = new List<BudgetHistory>();
+        public List<BudgetDescription> BudgetDescriptions { get; }
+        //TODO: Bad name. Singular :-(
+        public List<BudgetHistory> BudgetHistory { get; }
     }
 }

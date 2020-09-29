@@ -104,7 +104,7 @@ namespace EasyBudget.Business.Services
                 }
                 else
                 {
-                    throw new WrongPasswordException("зміни пароля");
+                    throw new WrongPasswordException();
                 }
             }
             catch (CriticalException)

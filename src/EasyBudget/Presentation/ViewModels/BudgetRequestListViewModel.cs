@@ -181,7 +181,7 @@ namespace EasyBudget.Presentation.ViewModels
             //        case "Виконавець":
             //            foreach (BudgetRequestMainListDto request in BudgetRequests)
             //            {
-            //                if (request.State == BudgetState.ApprovedFirstLine|request.State == BudgetState.Execution)
+            //                if (request.State == BudgetState.ApprovedFirstLine|request.State == BudgetState.Executing)
             //                {
             //                    list.Add(request);
             //                }
@@ -190,7 +190,7 @@ namespace EasyBudget.Presentation.ViewModels
             //        case "Виконавець IT":
             //            foreach (BudgetRequestMainListDto request in BudgetRequests)
             //            {
-            //                if (request.State == BudgetState.Requested | request.State == BudgetState.Execution)
+            //                if (request.State == BudgetState.Requested | request.State == BudgetState.Executing)
             //                {
             //                    list.Add(request);
             //                }

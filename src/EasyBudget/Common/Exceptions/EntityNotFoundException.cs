@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EasyBudget.Common.Exceptions
 {
-    public class EntityNotFoundException:Exception
+    public class EntityNotFoundException : Exception
     {
-        const string FormatMessageString = "У базі об'єкт типу \"{0}\" не знайдений.";
-        public string EntityName { get; private set; }
+        private const string FormatMessageString = "У базі об'єкт типу \"{0}\" не знайдений.";
+
+        public string EntityName { get; }
 
         public EntityNotFoundException(string entityName) : base(string.Format(FormatMessageString, entityName))
         {

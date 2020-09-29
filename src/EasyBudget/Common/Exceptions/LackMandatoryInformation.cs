@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EasyBudget.Common.Exceptions
 {
-    public class LackMandatoryInformation:Exception
+    public class LackMandatoryInformation : Exception
     {
-        const string FormatMessageString = "Недостатньо обов'язкової інформації : \"{0}\"";
-        public string EntityName { get; private set; }
-        public LackMandatoryInformation(string entityName)
+        private const string FormatMessageString = "Недостатньо обов'язкової інформації: \"{0}\"";
+
+        public string Details { get; }
+
+        public LackMandatoryInformation(string details)
         {
-            EntityName = entityName;
+            Details = details;
         }
 
-        public LackMandatoryInformation(string entityName, Exception innerException) : base(string.Format(FormatMessageString, entityName), innerException)
+        public LackMandatoryInformation(string details, Exception innerException) : base(string.Format(FormatMessageString, details), innerException)
         {
-            EntityName = entityName;
+            Details = details;
         }
     }
 }

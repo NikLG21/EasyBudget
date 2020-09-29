@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using EasyBudget.Common.Model.Security;
 using EasyBudget.Common.Utils;
 
 namespace EasyBudget.Common.Business.Services
 {
+    //TODO: Very big service. Please, split it into several. E.g per role
     public interface IAgreementBudgetRequestService
     {
         void ApproveFirstLine(Guid userId, Guid id);

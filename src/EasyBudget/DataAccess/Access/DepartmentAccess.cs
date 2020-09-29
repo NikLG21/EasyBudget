@@ -61,7 +61,7 @@ namespace DataAccess.Access
                     SqlException sqlException = e.InnerException?.InnerException as SqlException;
                     if (sqlException != null && sqlException.Number == 2601)
                     {
-                        throw new DuplicateEntryException("Отдел", e);
+                        throw new DuplicateEntryException("Відділ", e);
                     }
 
                     throw new CriticalException(e);

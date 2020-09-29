@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
-using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.Business.Services
 {
+    //TODO: Very big service. Please, split it into several. E.g per role
+    //TODO: Why need IBudgetRequestListService?
     public interface IBudgetRequestService
     {
-        void AddRequest(Guid userId,BudgetRequest request);
+        void AddRequest(Guid userId, BudgetRequest request);
         void AddRequestByAdmin(Guid userId, Guid id, BudgetRequest request);
         void UpdateByRequestor(Guid userId,BudgetRequest request);
         void DeleteBudgetRequest(Guid userId,BudgetRequest request);
         BudgetRequest Get(Guid userId,Guid requestId);
+
         List<BudgetRequestMainListDto> GetListByRequestor(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByApprover(Guid userId, DateTime start, DateTime finish);
         List<BudgetRequestMainListDto> GetListByExecutor(Guid userId, DateTime start, DateTime finish);

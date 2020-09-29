@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using EasyBudget.Common.DataAccess.Dtos;
 
 namespace EasyBudget.Common.Business.Services

@@ -11,6 +11,7 @@ namespace EasyBudget.Common.DataAccess.Dtos
         {
             Roles = new List<Role>();
         }
+
         public string Name { get; set; }
         public string Login { get; set; }
         public List<Role> Roles { get; set; }
