@@ -39,9 +39,7 @@ namespace DataAccess.Queries
                 {
                     throw new CriticalException(e);
                 }
-
             }
-
         }
     }
 }

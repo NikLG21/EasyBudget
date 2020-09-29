@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace DataAccess
 {
     public class BudgetRequestDbContextFactory : IBudgetRequestDbContextFactory
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public BudgetRequestDbContextFactory(IConfiguration configuration)
         {
@@ -16,7 +13,6 @@ namespace DataAccess
 
         public BudgetRequestDbContext Create()
         {
-            string connectionString1 = _configuration["ConnectionStrings:BudgetRequestDbContext"];
             string connectionString = _configuration["BudgetRequestDbContext"];
             return new BudgetRequestDbContext(connectionString);
         }

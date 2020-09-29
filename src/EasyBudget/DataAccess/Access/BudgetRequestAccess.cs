@@ -58,9 +58,15 @@ namespace DataAccess.Access
             {
                 try
                 {
+                    //TODO: Please check my version
                     List<BudgetRequest> budgetRequests = context.BudgetRequests
                         .Where(br => requests.Select(r => r.Id).ToList().Contains(br.Id))
                         .ToList();
+                    //List<BudgetRequest> budgetRequests1 = context.BudgetRequests
+                    //    .Where(br => requests.Any(r => r.Id == br.Id))
+                    //    .ToList();
+
+                    //TODO: This is does not work. i is not changed. I think we need function with (List<Guid> requestIds, State newState)
                     int i;
                     foreach (BudgetRequest request in budgetRequests)
                     {
@@ -84,6 +90,7 @@ namespace DataAccess.Access
             {
                 try
                 {
+                    //TODO: You have to delete BudgedRequest with collection of history and description. Otherwise you you will get exception
                     BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == id);
                     if (request != null)
                     {

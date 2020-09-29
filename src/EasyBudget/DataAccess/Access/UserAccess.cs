@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model.Security;
@@ -31,13 +29,7 @@ namespace DataAccess.Access
                 }
                 catch (DbUpdateException e)
                 {
-                    SqlException sqlException = e.InnerException?.InnerException as SqlException;
-                    if (sqlException != null && sqlException.Number == 2601)
-                    {
-                        throw new DuplicateEntryException("Користувач", e);
-                    }
-
-                    throw new CriticalException(e);
+                    ProcessDbUpdateException(e);
                 }
                 catch (Exception e)
                 {
@@ -58,20 +50,24 @@ namespace DataAccess.Access
                 }
                 catch (DbUpdateException e)
                 {
-                    SqlException sqlException = e.InnerException?.InnerException as SqlException;
-                    if (sqlException != null && sqlException.Number == 2601)
-                    {
-                        throw new DuplicateEntryException("Користувач", e);
-                    }
-
-                    throw new CriticalException(e);
+                    ProcessDbUpdateException(e);
                 }
                 catch (Exception e)
                 {
                     throw new CriticalException(e);
                 }
-
             }
+        }
+
+        private static void ProcessDbUpdateException(DbUpdateException e)
+        {
+            SqlException sqlException = e.InnerException?.InnerException as SqlException;
+            if (sqlException != null && sqlException.Number == 2601)
+            {
+                throw new DuplicateEntryException("Користувач", e);
+            }
+
+            throw new CriticalException(e);
         }
 
         public User Get(Guid id)

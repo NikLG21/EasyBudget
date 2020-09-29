@@ -17,7 +17,6 @@ namespace EasyBudget.Ui
         public static void ConfigureContainer(this IUnityContainer container)
         {
             container.RegisterType<IUserService, UserService>();
-            container.RegisterType<IBudgetRequestService, BudgetRequestService>();
             container.RegisterType<IBudgetDescriptionService, BudgetDescriptionService>();
             container.RegisterType<IAgreementBudgetRequestService, AgreementBudgetRequestService>();
             container.RegisterType<IBudgetRequestListServiceFactory, BudgetRequestListServiceFactory>();
@@ -27,7 +26,6 @@ namespace EasyBudget.Ui
             container.RegisterType<IBudgetDescriptionAccess, BudgetDescriptionAccess>();
             container.RegisterType<IBudgetDescriptionQueries, BudgetDescriptionQueries>();
             container.RegisterType<IBudgetRequestAccess,BudgetRequestAccess>();
-            container.RegisterType<IBudgetRequestQueries, BudgetRequestQueries>();
             container.RegisterType<IDepartmentAccess, DepartmentAccess>();
             container.RegisterType<IBudgetRequestListQueries, BudgetRequestListQueries>();
 

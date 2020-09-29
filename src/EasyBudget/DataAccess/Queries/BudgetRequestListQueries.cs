@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
-using EasyBudget.Common.Model;
-using EasyBudget.Common.Model.Security;
 
 namespace DataAccess.Queries
 {
@@ -18,6 +15,7 @@ namespace DataAccess.Queries
         {
             _factory = factory;
         }
+
         public List<BudgetRequestMainListDto> GetAllRequestDirector(DateTime from)
         {
             using (BudgetRequestDbContext context = _factory.Create())
@@ -56,7 +54,7 @@ namespace DataAccess.Queries
                     List<BudgetRequestMainListDto> list = context
                         .BudgetRequests
                         .AsNoTracking()
-                        .Where(br =>br.Requester.Id == userId)
+                        .Where(br => br.Requester.Id == userId)
                         .Where(br => br.DateRequested >= from)
                         .Select(br => new BudgetRequestMainListDto
                         {
