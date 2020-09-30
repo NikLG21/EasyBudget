@@ -6,10 +6,13 @@ namespace EasyBudget.Presentation.Interfaces
 {
     public interface IBudgetRequestListViewModel
     {
+        event System.Action ViewModelChanged;
+
         int PageNumber { get; set; }
         int PageSize { get; set; }
         int Total { get; set; }
         List<BudgetRequestRowViewModel> BudgetRequests { get; }
+        List<BudgetRequestRowViewModel> BudgetRequestPage { get; }
         void LoadData();
         void ApproveRequests();
     }

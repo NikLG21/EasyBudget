@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EasyBudget.Common.Business;
 using EasyBudget.Common.Business.Factories;
 using EasyBudget.Common.Business.Outputs;
@@ -14,6 +15,8 @@ namespace EasyBudget.Presentation.ViewModels
 {
     public class BudgetRequestListViewModel: IBudgetRequestListViewModel
     {
+        public event System.Action ViewModelChanged;
+
         private UserMainInfoDto userInfo = new UserMainInfoDto()
         {
             Id = Guid.Parse("3148ce2c-540e-4cc4-a372-42e0c29a478b"),
@@ -30,13 +33,57 @@ namespace EasyBudget.Presentation.ViewModels
 
         private IBudgetRequestListServiceFactory _budgetRequestListServiceFactory;
         private IAgreementBaseService _agreementBaseService;
-        public int PageNumber { get; set; }
+        private int _pageNumber;
+
+        public int PageNumber
+        {
+            get
+            {
+                return _pageNumber;
+            }
+            set
+            {
+                if (_pageNumber == value)
+                    return;
+                _pageNumber = value;
+                ViewModelChanged?.Invoke();
+            }
+        }
+
         public int PageSize { get; set; }
         public int Total { get; set; }
-        public List<BudgetRequestRowViewModel> BudgetRequests { get; } = new List<BudgetRequestRowViewModel>();
+        public List<BudgetRequestRowViewModel> BudgetRequests { get; }
+        public List<BudgetRequestRowViewModel> BudgetRequestPage
+        {
+            get
+            {
+                if (Total - PageSize * PageNumber > 0)
+                {
+                    for (int i = PageSize * (PageNumber - 1); i < PageSize * PageNumber; i++)
+                    {
+                        return BudgetRequests.Skip(3).Take(PageSize).ToList();
+                    }
+                }
+                else
+                {
+                    for (int i = PageSize * (PageNumber - 1); i < Total; i++)
+                    {
+                        return BudgetRequests.Skip(3).Take(Total - PageSize * PageNumber).ToList();
+                    }
+                }
+
+                return null;
+            }
+            private set
+            {
+                BudgetRequestPage = value;
+            }
+        }
 
         public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService)
         {
+            BudgetRequests = new List<BudgetRequestRowViewModel>();
+            BudgetRequestPage  = new List<BudgetRequestRowViewModel>();
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             _agreementBaseService = agreementBaseService;
             PageNumber = 1;
@@ -139,5 +186,6 @@ namespace EasyBudget.Presentation.ViewModels
             }
 
         }
+
     }
 }

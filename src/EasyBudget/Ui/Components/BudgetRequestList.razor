@@ -8,30 +8,29 @@
 @using GridShared.Pagination
 @using GridShared.Totals
 @using Microsoft.Extensions.Primitives
+@using System.Data.SqlClient
 
 
 @if (true)
 {
     <div class="list-view-container">
-        <div class="list-view-table">
-            <table>
-                <tr>
-                    <th>
-                        <input type="checkbox" @onchange="args  => {MainCheckboxClicked(args); }">
-                    </th>
-                    <th>Назва</th>
-                    <th>Ініціатор</th>
-                    <th>Клініка</th>
-                    <th>Дата запиту</th>
-                    <th>Відділ</th>
-                    <th>State</th>
-                </tr>
-                @{
-                    if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
-                    {
-                        @for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.PageSize * ViewModel.PageNumber; i++)
+        <div class="list-view-top">
+            <div class="list-view-table">
+                <table>
+                    <tr>
+                        <th>
+                            <input type="checkbox" @onchange="args => { MainCheckboxClicked(args); }">
+                        </th>
+                        <th>Назва</th>
+                        <th>Ініціатор</th>
+                        <th>Клініка</th>
+                        <th>Дата запиту</th>
+                        <th>Відділ</th>
+                        <th>State</th>
+                    </tr>
+                    @{
+                        foreach (BudgetRequestRowViewModel budgetRequest in ViewModel.BudgetRequestPage)
                         {
-                            BudgetRequestRowViewModel budgetRequest = ViewModel.BudgetRequests[i];
                             <tr>
                                 <td>
                                     <input type="checkbox" @bind="budgetRequest.IsSelected" />
@@ -45,63 +44,68 @@
                             </tr>
                         }
                     }
-                    else
-                    {
-                        @for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.Total; i++)
-                        {
-                            BudgetRequestRowViewModel budgetRequest = ViewModel.BudgetRequests[i];
-                            <tr>
-                                <td>
-                                    <input type="checkbox" @bind="budgetRequest.IsSelected" />
-                                </td>
-                                <td>@budgetRequest.BudgetRequest.Name</td>
-                                <td>@budgetRequest.BudgetRequest.RequesterName</td>
-                                <td>@budgetRequest.BudgetRequest.UnitName</td>
-                                <td>@budgetRequest.BudgetRequest.DateRequested.ToString("d")</td>
-                                <td>@budgetRequest.BudgetRequest.DepartmentName</td>
-                                <td>@budgetRequest.BudgetRequest.State.ToString()</td>
-                            </tr>
-                        }
-                    }
-                }
-            </table>
+                </table>
+            </div>
+            <div class="list-view-filter">
+                <div>
+                    <span>Ініціатор</span>
+                    <select>
+
+                    </select>
+                </div>
+                <div>
+                    <span>Клініка</span>
+                    <select>
+
+                    </select>
+                </div>
+                <div>
+                    <span>Відділ</span>
+                    <select>
+
+                    </select>
+                </div>
+                <div>
+                    <span>State</span>
+                    <select>
+
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="list-view-bottom">
             <div class="list-view-combo">
-                <span style="color: red">Page</span>
+                <span style="color: red">Сторінка</span>
+                <div class="common-button-div">
+                    @if (ViewModel.PageNumber != 1)
+                    {
+                        <button @onclick="() => { ViewModel.PageNumber -= 1; }">Попередня</button>
+                    }
+                    else
+                    {
+                        <button disabled="disabled">Попередня</button>
+                    }
+                </div>
                 <select @bind="ViewModel.PageNumber">
-
                     @for (int i = 0; i < ViewModel.Total / ViewModel.PageSize; i++)
                     {
                         <option>@(i + 1)</option>
                     }
                     @if (ViewModel.Total / ViewModel.PageSize != (double)ViewModel.Total / (double)ViewModel.PageSize)
                     {
-                        <option>@(ViewModel.Total / ViewModel.PageSize +1)</option>
+                        <option>@(ViewModel.Total / ViewModel.PageSize + 1)</option>
                     }
                 </select>
-                    
-                <div class="common-button-div">
-                    @if (ViewModel.PageNumber != 1)
-                    {
-                        <button @onclick="() => { PageButtonCLicked(ViewModel.PageNumber-1); }">prev</button>
-                    }
-                    else
-                    {
-                        <button disabled="disabled">prev</button>
-                    }
-
-                </div>
                 <div class="common-button-div">
                     @if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
                     {
-                        <button @onclick="() => { PageButtonCLicked(ViewModel.PageNumber+1); }">next</button>
+                        <button @onclick="() => { ViewModel.PageNumber += 1; }">Наступна</button>
                     }
                     else
                     {
-                        <button disabled="disabled">next</button>
+                        <button disabled="disabled">Наступна</button>
                     }
-                    
+
                 </div>
             </div>
             <div class="list-view-buttons">
@@ -124,6 +128,16 @@ else
     [Parameter]
     public IBudgetRequestListViewModel ViewModel { get; set; }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            ViewModel.ViewModelChanged += () => this.InvokeAsync(StateHasChanged);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
     private Task _task;
     private void OngoingListButtonClick()
     {
@@ -141,27 +155,7 @@ else
         {
             row.IsSelected = value;
         }
-
         this.StateHasChanged();
     }
 
-    private void PageButtonCLicked(int k)
-    {
-        if (ViewModel.Total - ViewModel.PageSize * ViewModel.PageNumber > 0)
-        {
-            for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.PageSize * ViewModel.PageNumber; i++)
-            {
-                ViewModel.BudgetRequests[i].IsSelected = false;
-            }
-        }
-        else
-        {
-            for (int i = ViewModel.PageSize * (ViewModel.PageNumber - 1); i < ViewModel.Total; i++)
-            {
-                ViewModel.BudgetRequests[i].IsSelected = false;
-            }
-        }
-        ViewModel.PageNumber = k;
-        base.StateHasChanged();
-    }
 }
