@@ -69,10 +69,15 @@
         <div class="list-view-bottom">
             <div class="list-view-combo">
                 <span style="color: red">Page</span>
-                <select @bind="ViewModel.PageNumber" >
+                <select @bind="ViewModel.PageNumber">
+
                     @for (int i = 0; i < ViewModel.Total / ViewModel.PageSize; i++)
                     {
                         <option>@(i + 1)</option>
+                    }
+                    @if (ViewModel.Total / ViewModel.PageSize != (double)ViewModel.Total / (double)ViewModel.PageSize)
+                    {
+                        <option>@(ViewModel.Total / ViewModel.PageSize +1)</option>
                     }
                 </select>
                     

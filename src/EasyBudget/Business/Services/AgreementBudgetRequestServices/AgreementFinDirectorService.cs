@@ -99,28 +99,5 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
 
         }
-
-        //public BudgetRequestUpdateOutput ExecutionStartedListFinDirector(List<Guid> requestsIds)
-        //{
-        //    List<BudgetRequestMainListDto> budgetRequests = _budgetRequestListQueries.GetListByIds(requestsIds);
-        //    BudgetRequestUpdateOutput output = new BudgetRequestUpdateOutput();
-        //    List<Guid> ids = new List<Guid>();
-        //    foreach (BudgetRequestMainListDto request in budgetRequests)
-        //    {
-        //        if (request.State == BudgetState.ApprovedDirector | request.State == BudgetState.PostpondFinDirector)
-        //        {
-        //            request.State = BudgetState.Executing;
-        //            output.SuccessUpdatedBudgetRequests.Add(request);
-        //            ids.Add(request.Id);
-        //        }
-        //        else
-        //        {
-        //            output.SuccessUpdatedBudgetRequests.Add(request);
-        //            output.Messages.Add("\"" + request.Name + "\": неможливо затвердити. Запит був видалений або змінений");
-        //        }
-        //    }
-        //    _budgetRequestAccess.UpdateList(ids, BudgetState.Executing);
-        //    return output;
-        //}
     }
 }

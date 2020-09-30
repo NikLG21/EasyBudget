@@ -129,7 +129,7 @@ namespace EasyBudget.Business.Services.UserServices
         {
             foreach (Role role in user.Roles)
             {
-                if (role.Name == RoleNames.Requestor | role.Name == RoleNames.Approver)
+                if (role.Name == RoleNames.Requester | role.Name == RoleNames.Approver)
                 {
                     if (user.Unit != null)
                     {

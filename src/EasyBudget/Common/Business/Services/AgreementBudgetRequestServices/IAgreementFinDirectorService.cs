@@ -9,6 +9,5 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
         void PostponedFinDirector(Guid userId, Guid id);
         void ExecutionStartedFinDirector(Guid userId, Guid id, DateTime deadline);
         void ExecutionFinishedFinDirector(Guid userId, Guid id);
-        //BudgetRequestUpdateOutput ExecutionStartedListFinDirector(List<Guid> requestsIds);
     }
 }

@@ -8,6 +8,5 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
     {
         void ApproveFirstLine(Guid userId, Guid id);
         void RejectFirstLine(Guid userId, Guid id);
-        //BudgetRequestUpdateOutput ApproveListFirstLine(List<Guid> requestsIds);
     }
 }

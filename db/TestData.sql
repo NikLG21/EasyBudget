@@ -13,7 +13,7 @@ INSERT [dbo].[Unit] ([Id], [Name]) VALUES (N'30b0387a-9c39-45e4-88f6-9e9ce1b04e7
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'935d8abb-2e78-40ba-9b86-05d8a342d0fc','User', N'Користувач', NULL)
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'63193d69-d80d-4d43-bd43-1690e1731626','FinDirector', N'Фінансовий директор', NULL)
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'aab78899-6781-4a42-b7a0-18c18ca652d4','Director', N'Директор', NULL)
-INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'cb294f90-3cb6-4169-9916-1e39d7f4bd3d','Requestor', N'Ініціатор запиту', NULL)
+INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'cb294f90-3cb6-4169-9916-1e39d7f4bd3d','Requester', N'Ініціатор запиту', NULL)
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'111c670c-fc32-4101-8a90-421da79d708b','ExecutorIT', N'Виконавець IT', N'03de38f2-5445-4c9d-a039-2b47a1668a3f')
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'6594a73c-6bed-4a07-badd-6c32e730083e','Executor', N'Виконавець ', N'22946ba4-b06c-4d9e-a0d3-2e03b62afb5c')
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [Department_Id]) VALUES (N'3dfeb0d5-cbb7-4855-b882-760b3a912dcd','Approver', N'Затверджувач', NULL)
