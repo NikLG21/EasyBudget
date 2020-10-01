@@ -128,13 +128,23 @@ else
     [Parameter]
     public IBudgetRequestListViewModel ViewModel { get; set; }
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             ViewModel.ViewModelChanged += () => this.InvokeAsync(StateHasChanged);
         }
-
+        
         await base.OnAfterRenderAsync(firstRender);
     }
 

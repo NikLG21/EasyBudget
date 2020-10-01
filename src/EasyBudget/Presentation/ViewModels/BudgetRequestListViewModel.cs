@@ -57,33 +57,23 @@ namespace EasyBudget.Presentation.ViewModels
         {
             get
             {
-                if (Total - PageSize * PageNumber > 0)
+                if (Total - PageSize * (PageNumber-1) > 0)
                 {
-                    for (int i = PageSize * (PageNumber - 1); i < PageSize * PageNumber; i++)
-                    {
-                        return BudgetRequests.Skip(3).Take(PageSize).ToList();
-                    }
+                    return BudgetRequests.Skip(PageSize*(PageNumber-1)).Take(PageSize).ToList();
                 }
                 else
                 {
-                    for (int i = PageSize * (PageNumber - 1); i < Total; i++)
-                    {
-                        return BudgetRequests.Skip(3).Take(Total - PageSize * PageNumber).ToList();
-                    }
+                    return BudgetRequests.Skip(PageSize * (PageNumber - 1)).Take(Total - PageSize * PageNumber).ToList();
                 }
 
                 return null;
-            }
-            private set
-            {
-                BudgetRequestPage = value;
             }
         }
 
         public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService)
         {
             BudgetRequests = new List<BudgetRequestRowViewModel>();
-            BudgetRequestPage  = new List<BudgetRequestRowViewModel>();
+            
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             _agreementBaseService = agreementBaseService;
             PageNumber = 1;
