@@ -60,6 +60,7 @@ namespace EasyBudget.Presentation.ViewModels
             {
                 if (!FilterViewModel.IsActive)
                 {
+                    Total = BudgetRequests.Count;
                     if (Total - PageSize * (PageNumber - 1) > 0)
                     {
                         return BudgetRequests.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToList();
@@ -74,12 +75,14 @@ namespace EasyBudget.Presentation.ViewModels
                     List<BudgetRequestRowViewModel> list = BudgetRequests.RequesterFilter(FilterViewModel.Requester)
                         .DepartmentFilter(FilterViewModel.Department).UnitFilter(FilterViewModel.Unit)
                         .StateFilter(FilterViewModel.State).ToList();
+                    Total = list.Count;
                     if (list.Count - PageSize * (PageNumber - 1) > 0)
                     {
                         return list.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToList();
                     }
                     else
                     {
+                        
                         return list.Skip(PageSize * (PageNumber - 1)).Take(list.Count - PageSize * PageNumber).ToList();
                     }
                 }

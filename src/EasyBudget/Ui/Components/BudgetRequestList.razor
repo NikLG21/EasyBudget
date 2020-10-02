@@ -131,7 +131,15 @@
                     </select>
                 </div>
                 <div>
-                    <button @onclick="(() => {ViewModel.FilterViewModel.IsActive = !ViewModel.FilterViewModel.IsActive;})">Фільтр</button>
+                    @if (!ViewModel.FilterViewModel.IsActive)
+                    {
+                        <button @onclick="(() => { ViewModel.FilterViewModel.IsActive = true; ViewModel.PageNumber = 1; })">Ввімкнути фільтрування</button>
+                    }
+                    else
+                    {
+                        <button @onclick="(() => {ViewModel.FilterViewModel.IsActive = false; ViewModel.PageNumber = 1;})">Вимкнути фільтрування</button>
+                    }
+
                 </div>
             </div>
         </div>
@@ -149,11 +157,12 @@
                     }
                 </div>
                 <select @bind="ViewModel.PageNumber">
+                    
                     @for (int i = 0; i < ViewModel.Total / ViewModel.PageSize; i++)
                     {
                         <option>@(i + 1)</option>
                     }
-                    @if (ViewModel.Total / ViewModel.PageSize != (double)ViewModel.Total / (double)ViewModel.PageSize)
+                    @if (ViewModel.Total / ViewModel.PageSize != (double) ViewModel.Total / (double) ViewModel.PageSize)
                     {
                         <option>@(ViewModel.Total / ViewModel.PageSize + 1)</option>
                     }
