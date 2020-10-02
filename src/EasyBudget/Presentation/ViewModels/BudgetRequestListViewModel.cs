@@ -9,6 +9,7 @@ using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
+using EasyBudget.Presentation.Extensions;
 using EasyBudget.Presentation.Interfaces;
 
 namespace EasyBudget.Presentation.ViewModels
@@ -35,6 +36,7 @@ namespace EasyBudget.Presentation.ViewModels
         private IAgreementBaseService _agreementBaseService;
         private int _pageNumber;
 
+        public IFilterViewModel FilterViewModel { get; set; }
         public int PageNumber
         {
             get
@@ -49,7 +51,6 @@ namespace EasyBudget.Presentation.ViewModels
                 ViewModelChanged?.Invoke();
             }
         }
-
         public int PageSize { get; set; }
         public int Total { get; set; }
         public List<BudgetRequestRowViewModel> BudgetRequests { get; }
@@ -57,23 +58,39 @@ namespace EasyBudget.Presentation.ViewModels
         {
             get
             {
-                if (Total - PageSize * (PageNumber-1) > 0)
+                if (!FilterViewModel.IsActive)
                 {
-                    return BudgetRequests.Skip(PageSize*(PageNumber-1)).Take(PageSize).ToList();
+                    if (Total - PageSize * (PageNumber - 1) > 0)
+                    {
+                        return BudgetRequests.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToList();
+                    }
+                    else
+                    {
+                        return BudgetRequests.Skip(PageSize * (PageNumber - 1)).Take(Total - PageSize * PageNumber).ToList();
+                    }
                 }
                 else
                 {
-                    return BudgetRequests.Skip(PageSize * (PageNumber - 1)).Take(Total - PageSize * PageNumber).ToList();
+                    List<BudgetRequestRowViewModel> list = BudgetRequests.RequesterFilter(FilterViewModel.Requester)
+                        .DepartmentFilter(FilterViewModel.Department).UnitFilter(FilterViewModel.Unit)
+                        .StateFilter(FilterViewModel.State).ToList();
+                    if (list.Count - PageSize * (PageNumber - 1) > 0)
+                    {
+                        return list.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToList();
+                    }
+                    else
+                    {
+                        return list.Skip(PageSize * (PageNumber - 1)).Take(list.Count - PageSize * PageNumber).ToList();
+                    }
                 }
-
-                return null;
+                
             }
         }
 
         public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService)
         {
             BudgetRequests = new List<BudgetRequestRowViewModel>();
-            
+            FilterViewModel = new FilterViewModel();
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             _agreementBaseService = agreementBaseService;
             PageNumber = 1;
@@ -87,7 +104,7 @@ namespace EasyBudget.Presentation.ViewModels
             {
                 BudgetRequests.Add(new BudgetRequestRowViewModel(request));
             }
-
+            FilterCustomization();
             Total = BudgetRequests.Count;
         }
 
@@ -177,5 +194,12 @@ namespace EasyBudget.Presentation.ViewModels
 
         }
 
+        private void FilterCustomization()
+        {
+            FilterViewModel.RequesterIds.AddRange(BudgetRequests.Select(br=>br.BudgetRequest.RequesterId).ToList().Distinct());
+            FilterViewModel.States.AddRange(BudgetRequests.Select(br => br.BudgetRequest.State).ToList().Distinct());
+            FilterViewModel.DepartmentIds.AddRange(BudgetRequests.Select(br => br.BudgetRequest.DepartmentId).ToList().Distinct());
+            FilterViewModel.UnitIds.AddRange(BudgetRequests.Select(br => br.BudgetRequest.UnitId).ToList().Distinct());
+        }
     }
 }

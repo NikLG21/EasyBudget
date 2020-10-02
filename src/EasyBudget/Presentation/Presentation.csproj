@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="ViewModels\BudgetRequestListViewModel.cs~RFeba6773.TMP" />
+    <None Remove="ViewModels\FilterViewModel.cs~RF182be64b.TMP" />
   </ItemGroup>
 
   <ItemGroup>

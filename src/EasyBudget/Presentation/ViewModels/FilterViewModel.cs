@@ -8,17 +8,26 @@ namespace EasyBudget.Presentation.ViewModels
 {
     public class FilterViewModel : IFilterViewModel
     {
-        public List<string> RequesterNames { get; }
-        public List<string> DepartmentNames { get; }
-        public List<string> UnitNames { get; }
-        public List<BudgetState> States { get; }
-
+        public bool IsActive { get; set; }
+        public List<Guid> RequesterIds { get; private set; }
+        public List<Guid> DepartmentIds { get; private set; }
+        public List<Guid> UnitIds { get; private set; }
+        public List<BudgetState> States { get; private set; }
+        public Guid Requester { get; set; }
+        public Guid Department { get; set; }
+        public Guid Unit { get; set; }
+        public BudgetState State { get; set; }
         public FilterViewModel()
         {
-            RequesterNames = new List<string>();
-            DepartmentNames = new List<string>();
-            UnitNames = new List<string>();
+            RequesterIds = new List<Guid>();
+            DepartmentIds = new List<Guid>();
+            UnitIds = new List<Guid>();
             States = new List<BudgetState>();
+            Requester = Guid.Empty;
+            Department = Guid.Empty;
+            Unit = Guid.Empty;
+            State = BudgetState.Undefined;
+            IsActive = false;
         }
 
     }

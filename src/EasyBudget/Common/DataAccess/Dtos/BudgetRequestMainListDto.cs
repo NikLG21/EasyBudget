@@ -11,6 +11,9 @@ namespace EasyBudget.Common.DataAccess.Dtos
         public string UnitName { get; set; }
         public DateTime DateRequested { get; set; }
         public BudgetState State { get; set; }
+        public Guid RequesterId { get; set; }
+        public Guid UnitId { get; set; }
+        public Guid DepartmentId { get; set; }
         public decimal? RealPrice { get; set; }
     }
 }

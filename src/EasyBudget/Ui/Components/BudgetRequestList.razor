@@ -9,6 +9,8 @@
 @using GridShared.Totals
 @using Microsoft.Extensions.Primitives
 @using System.Data.SqlClient
+@using EasyBudget.Common.Model
+@using EasyBudget.Common.Model.Security
 
 
 @if (true)
@@ -33,7 +35,7 @@
                         {
                             <tr>
                                 <td>
-                                    <input type="checkbox" @bind="budgetRequest.IsSelected" />
+                                    <input type="checkbox" @bind="budgetRequest.IsSelected"/>
                                 </td>
                                 <td>@budgetRequest.BudgetRequest.Name</td>
                                 <td>@budgetRequest.BudgetRequest.RequesterName</td>
@@ -49,27 +51,87 @@
             <div class="list-view-filter">
                 <div>
                     <span>Ініціатор</span>
-                    <select>
+                    <select @bind="ViewModel.FilterViewModel.Requester">
+                        <option value="@Guid.Empty"></option>
+                        @{
+                            IEnumerable<User> requesters = ViewModel.BudgetRequests
+                                .Where(br => ViewModel.FilterViewModel.RequesterIds.Contains(br.BudgetRequest.RequesterId))
+                                .Select(br => new User()
+                                {
+                                    Id = br.BudgetRequest.RequesterId,
+                                    Name = br.BudgetRequest.RequesterName
+                                })
+                                .GroupBy(br => br.Name)
+                                .Select(br =>br.First())
+                                .ToList();
+                            foreach (User user in requesters)
+                            {
+                                <option value="@user.Id">@user.Name</option>
+                            }
+                        }
 
                     </select>
                 </div>
                 <div>
                     <span>Клініка</span>
-                    <select>
+                    <select @bind="ViewModel.FilterViewModel.Unit">
+                        <option value="@Guid.Empty"></option>
+                        @{
+                            IEnumerable<Unit> units = ViewModel.BudgetRequests
+                                .Where(br => ViewModel.FilterViewModel.UnitIds.Contains(br.BudgetRequest.UnitId))
+                                .Select(br => new Unit()
+                                {
+                                    Id = br.BudgetRequest.UnitId,
+                                    Name = br.BudgetRequest.UnitName
+                                })
+                                .GroupBy(u => u.Name)
+                                .Select(u =>u.First())
+                                .ToList();
+                            @foreach (Unit unit in units)
+                            {
+                                <option value="@unit.Id">@unit.Name</option>
+                            }
+                        }
 
                     </select>
                 </div>
                 <div>
                     <span>Відділ</span>
-                    <select>
-
+                    <select @bind="ViewModel.FilterViewModel.Department">
+                        <option value="@Guid.Empty"></option>
+                        @{
+                            IEnumerable<Department> departments = ViewModel.BudgetRequests
+                                .Where(br => ViewModel.FilterViewModel.DepartmentIds.Contains(br.BudgetRequest.DepartmentId))
+                                .Select(br => new Department()
+                                {
+                                    Id = br.BudgetRequest.DepartmentId,
+                                    Name = br.BudgetRequest.DepartmentName
+                                })
+                                .GroupBy(d => d.Name)
+                                .Select(d => d.First())
+                                .ToList();
+                            foreach (Department department in departments)
+                            {
+                                <option value="@department.Id">@department.Name</option>
+                            }
+                        }
                     </select>
                 </div>
                 <div>
                     <span>State</span>
-                    <select>
+                    <select @bind="ViewModel.FilterViewModel.State">
+                        <option>@BudgetState.Undefined.ToString()</option>
+                        @{
+                            foreach (BudgetState state in ViewModel.FilterViewModel.States)
+                            {
+                                <option>@state.ToString()</option>
+                            }
+                        }
 
                     </select>
+                </div>
+                <div>
+                    <button @onclick="(() => {ViewModel.FilterViewModel.IsActive = !ViewModel.FilterViewModel.IsActive;})">Фільтр</button>
                 </div>
             </div>
         </div>
@@ -127,16 +189,6 @@ else
 @code {
     [Parameter]
     public IBudgetRequestListViewModel ViewModel { get; set; }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

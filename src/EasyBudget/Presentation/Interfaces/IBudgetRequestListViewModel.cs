@@ -8,6 +8,7 @@ namespace EasyBudget.Presentation.Interfaces
     {
         event System.Action ViewModelChanged;
 
+        IFilterViewModel FilterViewModel { get; set; }
         int PageNumber { get; set; }
         int PageSize { get; set; }
         int Total { get; set; }

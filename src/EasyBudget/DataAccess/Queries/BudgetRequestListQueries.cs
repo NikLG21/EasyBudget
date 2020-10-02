@@ -35,7 +35,10 @@ namespace DataAccess.Queries
                             DateRequested = br.DateRequested,
                             State = br.State,
                             RealPrice = br.RealPrice,
-                            UnitName = br.Unit.Name
+                            UnitName = br.Unit.Name,
+                            RequesterId = br.Requester.Id,
+                            UnitId = br.Unit.Id,
+                            DepartmentId = br.Department.Id,
                         }).ToList();
                     return list;
                 }
@@ -65,7 +68,10 @@ namespace DataAccess.Queries
                             DateRequested = br.DateRequested,
                             State = br.State,
                             RealPrice = br.RealPrice,
-                            UnitName = br.Unit.Name
+                            UnitName = br.Unit.Name,
+                            RequesterId = br.Requester.Id,
+                            UnitId = br.Unit.Id,
+                            DepartmentId = br.Department.Id,
                         }).ToList();
                     return list;
                 }
@@ -95,7 +101,10 @@ namespace DataAccess.Queries
                             DateRequested = br.DateRequested,
                             State = br.State,
                             RealPrice = br.RealPrice,
-                            UnitName = br.Unit.Name
+                            UnitName = br.Unit.Name,
+                            RequesterId = br.Requester.Id,
+                            UnitId = br.Unit.Id,
+                            DepartmentId = br.Department.Id,
                         }).ToList();
                     return list;
                 }
@@ -126,7 +135,10 @@ namespace DataAccess.Queries
                             DateRequested = br.DateRequested,
                             State = br.State,
                             RealPrice = br.RealPrice,
-                            UnitName = br.Unit.Name
+                            UnitName = br.Unit.Name,
+                            RequesterId = br.Requester.Id,
+                            UnitId = br.Unit.Id,
+                            DepartmentId = br.Department.Id,
                         }).ToList();
                     return list;
                 }
@@ -154,7 +166,10 @@ namespace DataAccess.Queries
                             DateRequested = br.DateRequested,
                             State = br.State,
                             RealPrice = br.RealPrice,
-                            UnitName = br.Unit.Name
+                            UnitName = br.Unit.Name,
+                            RequesterId = br.Requester.Id,
+                            UnitId = br.Unit.Id,
+                            DepartmentId = br.Department.Id,
                         })
                         .ToList();
                     return list;

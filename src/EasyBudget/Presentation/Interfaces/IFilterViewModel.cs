@@ -7,9 +7,14 @@ namespace EasyBudget.Presentation.Interfaces
 {
      public interface IFilterViewModel
     {
-        List<string> RequesterNames { get; }
-        List<string> DepartmentNames { get; }
-        List<string> UnitNames { get; }
+        bool IsActive { get; set; }
+        List<Guid> RequesterIds { get; }
+        List<Guid> DepartmentIds { get; }
+        List<Guid> UnitIds { get; }
         List<BudgetState> States { get; }
+        public Guid Requester { get; set; }
+        public Guid Department { get; set; }
+        public Guid Unit { get; set; }
+        public BudgetState State { get; set; }
     }
 }
