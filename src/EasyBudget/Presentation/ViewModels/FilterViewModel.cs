@@ -8,7 +8,8 @@ namespace EasyBudget.Presentation.ViewModels
 {
     public class FilterViewModel : IFilterViewModel
     {
-        public bool IsActive { get; set; }
+        public bool OnGoingFilterIsActive { get; set; }
+        public bool SelectedFilterIsActive { get; set; }
         public List<Guid> RequesterIds { get; private set; }
         public List<Guid> DepartmentIds { get; private set; }
         public List<Guid> UnitIds { get; private set; }
@@ -27,7 +28,8 @@ namespace EasyBudget.Presentation.ViewModels
             Department = Guid.Empty;
             Unit = Guid.Empty;
             State = BudgetState.Undefined;
-            IsActive = false;
+            OnGoingFilterIsActive = false;
+            SelectedFilterIsActive = false;
         }
 
     }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
+using EasyBudget.Common.Model.Security;
 using EasyBudget.Presentation.ViewModels;
 
 namespace EasyBudget.Presentation.Extensions
@@ -56,6 +58,39 @@ namespace EasyBudget.Presentation.Extensions
             {
                 return list.Where(br => br.BudgetRequest.UnitId.Equals(unitId));
             }
+        }
+
+        public static IEnumerable<BudgetRequestRowViewModel> OnGoingFilter(this IEnumerable<BudgetRequestRowViewModel> list, Role role, UserMainInfoDto userInfo)
+        {
+            switch (role.Name)
+            {
+                case RoleNames.Approver:
+                    return list.Where(br => br.BudgetRequest.UnitId.Equals(userInfo.UnitId)
+                                            &&br.BudgetRequest.State.Equals(BudgetState.Requested))
+                        .ToList();
+                case RoleNames.Director:
+                    return list.Where(br => br.BudgetRequest.State.Equals(BudgetState.PostpondDirector) 
+                                            |br.BudgetRequest.State.Equals(BudgetState.ExecutorEstimated))
+                        .ToList();
+                case RoleNames.FinDirector:
+                    return list.Where(br => br.BudgetRequest.State.Equals(BudgetState.ApprovedDirector)
+                                            | br.BudgetRequest.State.Equals(BudgetState.PostpondFinDirector))
+                        .ToList();
+                case RoleNames.Executor:
+                    return list.Where(br => br.BudgetRequest.DepartmentId.Equals(userInfo.DepartmentId)
+                                            && (br.BudgetRequest.State.Equals(BudgetState.ApprovedFirstLine)| br.BudgetRequest.State.Equals(BudgetState.Executing)))
+                        .ToList();
+                case RoleNames.Requester:
+                    return list.Where(br => br.BudgetRequest.State.Equals(BudgetState.Requested))
+                        .ToList();
+                default:
+                    return list;
+            }
+        }
+
+        public static IEnumerable<BudgetRequestRowViewModel> SelectedRowsFilter(this IEnumerable<BudgetRequestRowViewModel> list)
+        {
+            return list.Where(br => br.IsSelected.Equals(true));
         }
     }
 }

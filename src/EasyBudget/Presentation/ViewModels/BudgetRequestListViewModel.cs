@@ -53,45 +53,45 @@ namespace EasyBudget.Presentation.ViewModels
         }
         public int PageSize { get; set; }
         public int Total { get; set; }
+        private List<BudgetRequestRowViewModel> allBudgetRequests;
         public List<BudgetRequestRowViewModel> BudgetRequests { get; }
         public List<BudgetRequestRowViewModel> BudgetRequestPage
         {
             get
             {
-                if (!FilterViewModel.IsActive)
+                List<BudgetRequestRowViewModel> list;
+                if (FilterViewModel.OnGoingFilterIsActive)
                 {
-                    Total = BudgetRequests.Count;
-                    if (Total - PageSize * (PageNumber - 1) > 0)
-                    {
-                        return BudgetRequests.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToList();
-                    }
-                    else
-                    {
-                        return BudgetRequests.Skip(PageSize * (PageNumber - 1)).Take(Total - PageSize * PageNumber).ToList();
-                    }
+                    list = BudgetRequests.OnGoingFilter(role, userInfo).ToList();
+                    Total = list.Count;
+                    return list;
+                }
+
+                if (FilterViewModel.SelectedFilterIsActive)
+                {
+                    list = BudgetRequests.SelectedRowsFilter().ToList();
+                    Total = list.Count;
+                    return list;
+                }
+                list = BudgetRequests.RequesterFilter(FilterViewModel.Requester)
+                    .DepartmentFilter(FilterViewModel.Department).UnitFilter(FilterViewModel.Unit)
+                    .StateFilter(FilterViewModel.State).ToList();
+                Total = list.Count;
+                if (list.Count - PageSize * (PageNumber - 1) > 0)
+                {
+                    return list.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToList();
                 }
                 else
                 {
-                    List<BudgetRequestRowViewModel> list = BudgetRequests.RequesterFilter(FilterViewModel.Requester)
-                        .DepartmentFilter(FilterViewModel.Department).UnitFilter(FilterViewModel.Unit)
-                        .StateFilter(FilterViewModel.State).ToList();
-                    Total = list.Count;
-                    if (list.Count - PageSize * (PageNumber - 1) > 0)
-                    {
-                        return list.Skip(PageSize * (PageNumber - 1)).Take(PageSize).ToList();
-                    }
-                    else
-                    {
-                        
-                        return list.Skip(PageSize * (PageNumber - 1)).Take(list.Count - PageSize * PageNumber).ToList();
-                    }
+
+                    return list.Skip(PageSize * (PageNumber - 1)).Take(list.Count - PageSize * PageNumber).ToList();
                 }
-                
             }
         }
 
         public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService)
         {
+            allBudgetRequests = new List<BudgetRequestRowViewModel>();
             BudgetRequests = new List<BudgetRequestRowViewModel>();
             FilterViewModel = new FilterViewModel();
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
@@ -114,28 +114,14 @@ namespace EasyBudget.Presentation.ViewModels
         public void ApproveRequests()
         {
             List<Guid> ids = new List<Guid>();
-            if (Total - PageSize * PageNumber > 0)
+            foreach (BudgetRequestRowViewModel row in BudgetRequests)
             {
-                for (int i = PageSize * (PageNumber - 1); i < PageSize * PageNumber; i++)
+                if (row.IsApproveable && row.IsSelected)
                 {
-                    if (BudgetRequests[i].IsApproveable && BudgetRequests[i].IsSelected)
-                    {
-                        ids.Add(BudgetRequests[i].BudgetRequest.Id);
-                    }
+                    ids.Add(row.BudgetRequest.Id);
                 }
             }
-            else
-            {
-                for (int i = PageSize * (PageNumber - 1); i < Total; i++)
-                {
-                    if (BudgetRequests[i].IsApproveable && BudgetRequests[i].IsSelected)
-                    {
-                        ids.Add(BudgetRequests[i].BudgetRequest.Id);
-                    }
-                }
-
-            }
-
+            
             if (ids.Count == 0)
             {
                 return;
@@ -144,53 +130,25 @@ namespace EasyBudget.Presentation.ViewModels
 
             foreach (BudgetRequestMainListDto request in output.SuccessUpdatedBudgetRequests)
             {
-                if (Total - PageSize * PageNumber > 0)
+                
+                for (int i = 0; i < BudgetRequests.Count; i++)
                 {
-                    for (int i = PageSize * (PageNumber - 1); i < PageSize * PageNumber; i++)
+                    if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
                     {
-                        if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
-                        {
-                            BudgetRequests[i] = new BudgetRequestRowViewModel(request);
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = PageSize * (PageNumber - 1); i < Total; i++)
-                    {
-                        if (BudgetRequests[i].IsApproveable && BudgetRequests[i].IsSelected)
-                        {
-                            if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
-                            {
-                                BudgetRequests[i] = new BudgetRequestRowViewModel(request);
-                            }
-                        }
+                        BudgetRequests[i]=new BudgetRequestRowViewModel(request);
+                        break;
                     }
                 }
             }
 
             foreach (BudgetRequestMainListDto request in output.FailedUpdatedBudgetRequests)
             {
-                if (Total - PageSize * PageNumber > 0)
+                for (int i = 0; i < BudgetRequests.Count; i++)
                 {
-                    for (int i = PageSize * (PageNumber - 1); i < PageSize * PageNumber; i++)
+                    if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
                     {
-                        if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
-                        {
-                            BudgetRequests[i] = new BudgetRequestRowViewModel(request);
-
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = PageSize * (PageNumber - 1); i < Total; i++)
-                    {
-                        if (request.Id.Equals(BudgetRequests[i].BudgetRequest.Id)) 
-                        { 
-                            BudgetRequests[i] = new BudgetRequestRowViewModel(request);
-
-                        }
+                        BudgetRequests[i] = new BudgetRequestRowViewModel(request);
+                        break;
                     }
                 }
             }

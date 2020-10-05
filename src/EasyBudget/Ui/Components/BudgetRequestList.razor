@@ -131,15 +131,14 @@
                     </select>
                 </div>
                 <div>
-                    @if (!ViewModel.FilterViewModel.IsActive)
+                    @if (!ViewModel.FilterViewModel.SelectedFilterIsActive)
                     {
-                        <button @onclick="(() => { ViewModel.FilterViewModel.IsActive = true; ViewModel.PageNumber = 1; })">Ввімкнути фільтрування</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = true; })">Вибрані в окремий список</button>
                     }
                     else
                     {
-                        <button @onclick="(() => {ViewModel.FilterViewModel.IsActive = false; ViewModel.PageNumber = 1;})">Вимкнути фільтрування</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = false;})">Повний список</button>
                     }
-
                 </div>
             </div>
         </div>
@@ -181,7 +180,14 @@
             </div>
             <div class="list-view-buttons">
                 <div class="common-button-div">
-                    <button @onclick="OngoingListButtonClick">Button1</button>
+                    @if (!ViewModel.FilterViewModel.OnGoingFilterIsActive)
+                    {
+                        <button @onclick="(() => { ViewModel.FilterViewModel.OnGoingFilterIsActive = true; })">OnGoingList</button>
+                    }
+                    else
+                    {
+                        <button @onclick="(() => { ViewModel.FilterViewModel.OnGoingFilterIsActive = false;})">Повний список</button>
+                    }
                 </div>
                 <div class="common-button-div">
                     <button @onclick="ApproveCheckedListButtonCLick">Затвердити</button>
