@@ -29,6 +29,8 @@
                         <th>Дата запиту</th>
                         <th>Відділ</th>
                         <th>State</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     @{
                         foreach (BudgetRequestRowViewModel budgetRequest in ViewModel.BudgetRequestPage)
@@ -37,19 +39,31 @@
                                 <td>
                                     <input type="checkbox" @bind="budgetRequest.IsSelected"/>
                                 </td>
-                                <td>@budgetRequest.BudgetRequest.Name</td>
+                                <td >@budgetRequest.BudgetRequest.Name</td>
                                 <td>@budgetRequest.BudgetRequest.RequesterName</td>
                                 <td>@budgetRequest.BudgetRequest.UnitName</td>
                                 <td>@budgetRequest.BudgetRequest.DateRequested.ToString("d")</td>
                                 <td>@budgetRequest.BudgetRequest.DepartmentName</td>
                                 <td>@budgetRequest.BudgetRequest.State.ToString()</td>
+                                <td>
+                                    <button >Показати</button>
+                                </td>
+                                <td>
+                                    @{
+                                        if (budgetRequest.IsApproveable)
+                                        {
+                                            <button @onclick="">Затвердити</button>
+                                        }
+
+                                    }
+                                </td>
                             </tr>
                         }
                     }
                 </table>
             </div>
-            <div class="list-view-filter">
-                <div>
+            <div class="list-view-filters">
+                <div class="list-view-filter">
                     <span>Ініціатор</span>
                     <select @bind="ViewModel.FilterViewModel.Requester">
                         <option value="@Guid.Empty"></option>
@@ -72,7 +86,7 @@
 
                     </select>
                 </div>
-                <div>
+                <div class="list-view-filter">
                     <span>Клініка</span>
                     <select @bind="ViewModel.FilterViewModel.Unit">
                         <option value="@Guid.Empty"></option>
@@ -95,7 +109,7 @@
 
                     </select>
                 </div>
-                <div>
+                <div class="list-view-filter">
                     <span>Відділ</span>
                     <select @bind="ViewModel.FilterViewModel.Department">
                         <option value="@Guid.Empty"></option>
@@ -117,7 +131,7 @@
                         }
                     </select>
                 </div>
-                <div>
+                <div class="list-view-filter">
                     <span>State</span>
                     <select @bind="ViewModel.FilterViewModel.State">
                         <option>@BudgetState.Undefined.ToString()</option>
@@ -130,14 +144,14 @@
 
                     </select>
                 </div>
-                <div>
+                <div class="list-view-filter">
                     @if (!ViewModel.FilterViewModel.SelectedFilterIsActive)
                     {
-                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = true; })">Вибрані в окремий список</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = true;  ViewModel.ApplySelection(); })">Вибрані в окремий список</button>
                     }
                     else
                     {
-                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = false;})">Повний список</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = false; ViewModel.ApplySelection();})">Повний список</button>
                     }
                 </div>
             </div>
@@ -156,12 +170,12 @@
                     }
                 </div>
                 <select @bind="ViewModel.PageNumber">
-                    
+
                     @for (int i = 0; i < ViewModel.Total / ViewModel.PageSize; i++)
                     {
                         <option>@(i + 1)</option>
                     }
-                    @if (ViewModel.Total / ViewModel.PageSize != (double) ViewModel.Total / (double) ViewModel.PageSize)
+                    @if (ViewModel.Total / ViewModel.PageSize != (double)ViewModel.Total / (double)ViewModel.PageSize)
                     {
                         <option>@(ViewModel.Total / ViewModel.PageSize + 1)</option>
                     }
@@ -175,18 +189,25 @@
                     {
                         <button disabled="disabled">Наступна</button>
                     }
-
                 </div>
+                <span style="color: red">На сторінці:</span>
+                <select @bind="ViewModel.PageSize">
+                    <option>2</option>
+                    <option>3</option>
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                </select>
             </div>
             <div class="list-view-buttons">
                 <div class="common-button-div">
                     @if (!ViewModel.FilterViewModel.OnGoingFilterIsActive)
                     {
-                        <button @onclick="(() => { ViewModel.FilterViewModel.OnGoingFilterIsActive = true; })">OnGoingList</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.OnGoingFilterIsActive = true; ViewModel.OnGoingList(); })">OnGoingList</button>
                     }
                     else
                     {
-                        <button @onclick="(() => { ViewModel.FilterViewModel.OnGoingFilterIsActive = false;})">Повний список</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.OnGoingFilterIsActive = false; ViewModel.OnGoingList();})">Повний список</button>
                     }
                 </div>
                 <div class="common-button-div">

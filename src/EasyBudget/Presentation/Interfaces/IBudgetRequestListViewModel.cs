@@ -16,5 +16,7 @@ namespace EasyBudget.Presentation.Interfaces
         List<BudgetRequestRowViewModel> BudgetRequestPage { get; }
         void LoadData();
         void ApproveRequests();
+        void ApplySelection();
+        public void OnGoingList();
     }
 }

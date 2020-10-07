@@ -7,13 +7,20 @@
     display: flex;
     flex-direction: row;
 }
-.list-view-filter {
+.list-view-filters {
     padding: 10px;
-
+    display: flex;
+    flex-direction: column;
+}
+.list-view-filter {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 .list-view-table {
     padding: 10px;
+    width: 80%;
 }
 
 .list-view-bottom {
@@ -35,15 +42,16 @@
     padding: 10px;
 }
 
-table, td {
+table, td, th {
     border: 1px solid black;
-    border-collapse: collapse;
-    padding: 15px;
+    padding: 10px;
+    text-align: center;
 }
 
-th {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 15px;
-    text-align: center;
+th:nth-child(2) {
+   width: 20%;
+   border: 1px solid black;
+   border-collapse: collapse;
+   padding: 10px;
+   text-align: center;
 }

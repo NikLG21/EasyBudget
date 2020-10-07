@@ -53,29 +53,22 @@ namespace EasyBudget.Presentation.ViewModels
         }
         public int PageSize { get; set; }
         public int Total { get; set; }
-        private List<BudgetRequestRowViewModel> allBudgetRequests;
         public List<BudgetRequestRowViewModel> BudgetRequests { get; }
+
+        public List<BudgetRequestRowViewModel> DisplayBudgetRequests { get; }
+
         public List<BudgetRequestRowViewModel> BudgetRequestPage
         {
             get
             {
-                List<BudgetRequestRowViewModel> list;
-                if (FilterViewModel.OnGoingFilterIsActive)
-                {
-                    list = BudgetRequests.OnGoingFilter(role, userInfo).ToList();
-                    Total = list.Count;
-                    return list;
-                }
+                FilterCustomization();
+                List<BudgetRequestRowViewModel> list = DisplayBudgetRequests
+                    .RequesterFilter(FilterViewModel.Requester)
+                    .DepartmentFilter(FilterViewModel.Department)
+                    .UnitFilter(FilterViewModel.Unit)
+                    .StateFilter(FilterViewModel.State)
+                    .ToList();
 
-                if (FilterViewModel.SelectedFilterIsActive)
-                {
-                    list = BudgetRequests.SelectedRowsFilter().ToList();
-                    Total = list.Count;
-                    return list;
-                }
-                list = BudgetRequests.RequesterFilter(FilterViewModel.Requester)
-                    .DepartmentFilter(FilterViewModel.Department).UnitFilter(FilterViewModel.Unit)
-                    .StateFilter(FilterViewModel.State).ToList();
                 Total = list.Count;
                 if (list.Count - PageSize * (PageNumber - 1) > 0)
                 {
@@ -83,21 +76,53 @@ namespace EasyBudget.Presentation.ViewModels
                 }
                 else
                 {
-
                     return list.Skip(PageSize * (PageNumber - 1)).Take(list.Count - PageSize * PageNumber).ToList();
                 }
             }
         }
 
+        public void ApplySelection()
+        {
+            if (FilterViewModel.SelectedFilterIsActive)
+            {
+                List<BudgetRequestRowViewModel> list = DisplayBudgetRequests.SelectedRowsFilter().ToList();
+                DisplayBudgetRequests.Clear();
+                DisplayBudgetRequests.AddRange(list);
+            }
+            else
+            {
+                DisplayBudgetRequests.Clear();
+                DisplayBudgetRequests.AddRange(BudgetRequests);
+            }
+            
+        }
+
+        public void OnGoingList()
+        {
+            if (FilterViewModel.OnGoingFilterIsActive)
+            {
+                List<BudgetRequestRowViewModel> list = DisplayBudgetRequests.OnGoingFilter(role, userInfo).ToList();
+                DisplayBudgetRequests.Clear();
+                DisplayBudgetRequests.AddRange(list);
+
+            }
+            else
+            {
+                DisplayBudgetRequests.Clear();
+                DisplayBudgetRequests.AddRange(BudgetRequests);
+            }
+            
+        }
+
         public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService)
         {
-            allBudgetRequests = new List<BudgetRequestRowViewModel>();
             BudgetRequests = new List<BudgetRequestRowViewModel>();
+            DisplayBudgetRequests = new List<BudgetRequestRowViewModel>();
             FilterViewModel = new FilterViewModel();
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             _agreementBaseService = agreementBaseService;
             PageNumber = 1;
-            PageSize = 3;
+            PageSize = 10;
         }
 
         public void LoadData()
@@ -107,6 +132,8 @@ namespace EasyBudget.Presentation.ViewModels
             {
                 BudgetRequests.Add(new BudgetRequestRowViewModel(request));
             }
+            DisplayBudgetRequests.Clear();
+            DisplayBudgetRequests.AddRange(BudgetRequests);
             FilterCustomization();
             Total = BudgetRequests.Count;
         }
