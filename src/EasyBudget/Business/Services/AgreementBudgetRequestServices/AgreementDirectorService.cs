@@ -47,7 +47,6 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
 
         }
-        
         public void RejectDirector(Guid userId, Guid id)
         {
             try

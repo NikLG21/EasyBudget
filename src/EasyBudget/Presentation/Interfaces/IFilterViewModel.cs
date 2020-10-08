@@ -13,9 +13,11 @@ namespace EasyBudget.Presentation.Interfaces
         List<Guid> DepartmentIds { get; }
         List<Guid> UnitIds { get; }
         List<BudgetState> States { get; }
-        public Guid Requester { get; set; }
-        public Guid Department { get; set; }
-        public Guid Unit { get; set; }
-        public BudgetState State { get; set; }
+        Guid Requester { get; set; }
+        Guid Department { get; set; }
+        Guid Unit { get; set; }
+        BudgetState State { get; set; }
+        DateTime From { get; set; }
+        DateTime To { get; set; }
     }
 }

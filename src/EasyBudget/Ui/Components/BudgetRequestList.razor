@@ -1,12 +1,5 @@
-﻿@using GridBlazor.Pagination
-@using EasyBudget.Common.DataAccess.Dtos
-@using GridShared.Utility
-@using DocumentFormat.OpenXml.Drawing.Charts
-@using DocumentFormat.OpenXml.Office2016.Drawing.Charts
+﻿@using EasyBudget.Common.DataAccess.Dtos
 @using EasyBudget.Business.Services
-@using GridShared
-@using GridShared.Pagination
-@using GridShared.Totals
 @using Microsoft.Extensions.Primitives
 @using System.Data.SqlClient
 @using EasyBudget.Common.Model
@@ -52,7 +45,7 @@
                                     @{
                                         if (budgetRequest.IsApproveable)
                                         {
-                                            <button @onclick="">Затвердити</button>
+                                            <button>Затвердити</button>
                                         }
 
                                     }
@@ -145,6 +138,12 @@
                     </select>
                 </div>
                 <div class="list-view-filter">
+                    <label>З</label>
+                    <input type="date" @bind-value="ViewModel.FilterViewModel.From"/>
+                    <label>До</label>
+                    <input type="date" @bind-value="ViewModel.FilterViewModel.To"/>
+                </div>
+                <div >
                     @if (!ViewModel.FilterViewModel.SelectedFilterIsActive)
                     {
                         <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = true;  ViewModel.ApplySelection(); })">Вибрані в окремий список</button>

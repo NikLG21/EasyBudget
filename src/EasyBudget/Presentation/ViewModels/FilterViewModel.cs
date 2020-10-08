@@ -18,6 +18,8 @@ namespace EasyBudget.Presentation.ViewModels
         public Guid Department { get; set; }
         public Guid Unit { get; set; }
         public BudgetState State { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
         public FilterViewModel()
         {
             RequesterIds = new List<Guid>();
@@ -28,6 +30,7 @@ namespace EasyBudget.Presentation.ViewModels
             Department = Guid.Empty;
             Unit = Guid.Empty;
             State = BudgetState.Undefined;
+            To = DateTime.Today;
             OnGoingFilterIsActive = false;
             SelectedFilterIsActive = false;
         }

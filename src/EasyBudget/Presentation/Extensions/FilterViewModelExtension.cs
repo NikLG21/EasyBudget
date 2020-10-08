@@ -92,5 +92,10 @@ namespace EasyBudget.Presentation.Extensions
         {
             return list.Where(br => br.IsSelected.Equals(true));
         }
+
+        public static IEnumerable<BudgetRequestRowViewModel> DateFilter(this IEnumerable<BudgetRequestRowViewModel> list, DateTime from, DateTime to)
+        {
+            return list.Where(br => br.BudgetRequest.DateRequested >= from && br.BudgetRequest.DateRequested <= to);
+        }
     }
 }

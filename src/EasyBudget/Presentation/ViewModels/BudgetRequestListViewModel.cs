@@ -67,6 +67,7 @@ namespace EasyBudget.Presentation.ViewModels
                     .DepartmentFilter(FilterViewModel.Department)
                     .UnitFilter(FilterViewModel.Unit)
                     .StateFilter(FilterViewModel.State)
+                    .DateFilter(FilterViewModel.From, FilterViewModel.To)
                     .ToList();
 
                 Total = list.Count;
@@ -136,6 +137,7 @@ namespace EasyBudget.Presentation.ViewModels
             DisplayBudgetRequests.AddRange(BudgetRequests);
             FilterCustomization();
             Total = BudgetRequests.Count;
+            FilterViewModel.From = BudgetRequests.Select(br => br.BudgetRequest.DateRequested).ToList().Min();
         }
 
         public void ApproveRequests()
@@ -184,10 +186,11 @@ namespace EasyBudget.Presentation.ViewModels
 
         private void FilterCustomization()
         {
-            FilterViewModel.RequesterIds.AddRange(BudgetRequests.Select(br=>br.BudgetRequest.RequesterId).ToList().Distinct());
-            FilterViewModel.States.AddRange(BudgetRequests.Select(br => br.BudgetRequest.State).ToList().Distinct());
-            FilterViewModel.DepartmentIds.AddRange(BudgetRequests.Select(br => br.BudgetRequest.DepartmentId).ToList().Distinct());
-            FilterViewModel.UnitIds.AddRange(BudgetRequests.Select(br => br.BudgetRequest.UnitId).ToList().Distinct());
+            FilterViewModel.RequesterIds.AddRange(DisplayBudgetRequests.Select(br=>br.BudgetRequest.RequesterId).ToList().Distinct());
+            FilterViewModel.States.AddRange(DisplayBudgetRequests.Select(br => br.BudgetRequest.State).ToList().Distinct());
+            FilterViewModel.DepartmentIds.AddRange(DisplayBudgetRequests.Select(br => br.BudgetRequest.DepartmentId).ToList().Distinct());
+            FilterViewModel.UnitIds.AddRange(DisplayBudgetRequests.Select(br => br.BudgetRequest.UnitId).ToList().Distinct());
+            
         }
     }
 }
