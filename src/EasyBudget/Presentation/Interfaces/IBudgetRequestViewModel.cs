@@ -7,7 +7,8 @@ namespace EasyBudget.Presentation.Interfaces
 {
     public interface IBudgetRequestViewModel
     {
-        BudgetRequest BudgetRequest { get; }
-        void LoadData();
+        BudgetRequest BudgetRequest { get; set; }
+        bool IsEditable { get; set; }
+        bool InEditMode { get; set; }
     }
 }

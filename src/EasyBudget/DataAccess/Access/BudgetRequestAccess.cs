@@ -100,6 +100,11 @@ namespace DataAccess.Access
                 {
                     BudgetRequest request = context.BudgetRequests
                         .AsNoTracking()
+                        .Include(br => br.Approver)
+                        .Include(br => br.Requester)
+                        .Include(br => br.Executor)
+                        .Include(br => br.Unit)
+                        .Include(br => br.Department)
                         .FirstOrDefault(e => e.Id.Equals(id));
                     if (request == null)
                     {

@@ -39,7 +39,7 @@
                                 <td>@budgetRequest.BudgetRequest.DepartmentName</td>
                                 <td>@budgetRequest.BudgetRequest.State.ToString()</td>
                                 <td>
-                                    <button >Показати</button>
+                                    <button @onclick="()=> ViewModel.OpenBudgetRequest(budgetRequest.BudgetRequest.Id)">Показати</button>
                                 </td>
                                 <td>
                                     @{
@@ -236,10 +236,6 @@ else
     }
 
     private Task _task;
-    private void OngoingListButtonClick()
-    {
-
-    }
     private void ApproveCheckedListButtonCLick()
     {
         ViewModel.ApproveRequests();

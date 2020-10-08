@@ -34,9 +34,11 @@ namespace EasyBudget.Presentation.ViewModels
 
         private IBudgetRequestListServiceFactory _budgetRequestListServiceFactory;
         private IAgreementBaseService _agreementBaseService;
+        private IBudgetRequestService _budgetRequestService;
         private int _pageNumber;
 
         public IFilterViewModel FilterViewModel { get; set; }
+        public IBudgetRequestViewModel BudgetRequestViewModel { get; set; }
         public int PageNumber
         {
             get
@@ -115,15 +117,17 @@ namespace EasyBudget.Presentation.ViewModels
             
         }
 
-        public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService)
+        public BudgetRequestListViewModel(IBudgetRequestListServiceFactory budgetRequestListServiceFactory, IAgreementBaseService agreementBaseService,IBudgetRequestService budgetRequestService)
         {
             BudgetRequests = new List<BudgetRequestRowViewModel>();
             DisplayBudgetRequests = new List<BudgetRequestRowViewModel>();
             FilterViewModel = new FilterViewModel();
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             _agreementBaseService = agreementBaseService;
+            _budgetRequestService = budgetRequestService;
             PageNumber = 1;
             PageSize = 10;
+            
         }
 
         public void LoadData()
@@ -191,6 +195,11 @@ namespace EasyBudget.Presentation.ViewModels
             FilterViewModel.DepartmentIds.AddRange(DisplayBudgetRequests.Select(br => br.BudgetRequest.DepartmentId).ToList().Distinct());
             FilterViewModel.UnitIds.AddRange(DisplayBudgetRequests.Select(br => br.BudgetRequest.UnitId).ToList().Distinct());
             
+        }
+
+        public void OpenBudgetRequest(Guid id)
+        {
+            BudgetRequestViewModel = new BudgetRequestViewModel(id, budgetRequestService:);
         }
     }
 }

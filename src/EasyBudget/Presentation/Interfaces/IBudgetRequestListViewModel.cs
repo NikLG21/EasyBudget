@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Presentation.ViewModels;
 
@@ -7,7 +8,7 @@ namespace EasyBudget.Presentation.Interfaces
     public interface IBudgetRequestListViewModel
     {
         event System.Action ViewModelChanged;
-
+        IBudgetRequestViewModel BudgetRequestViewModel { get; set; }
         IFilterViewModel FilterViewModel { get; set; }
         int PageNumber { get; set; }
         int PageSize { get; set; }
@@ -18,5 +19,6 @@ namespace EasyBudget.Presentation.Interfaces
         void ApproveRequests();
         void ApplySelection();
         public void OnGoingList();
+        public void OpenBudgetRequest(Guid id);
     }
 }
