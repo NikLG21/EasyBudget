@@ -127,7 +127,7 @@ namespace EasyBudget.Presentation.ViewModels
             _budgetRequestService = budgetRequestService;
             PageNumber = 1;
             PageSize = 10;
-            
+            IsListVisible = true;
         }
 
         public void LoadData()
@@ -199,7 +199,7 @@ namespace EasyBudget.Presentation.ViewModels
 
         public void OpenBudgetRequest(Guid id)
         {
-            BudgetRequestViewModel = new BudgetRequestViewModel(id, budgetRequestService:);
+            BudgetRequestViewModel = new BudgetRequestViewModel(id, _budgetRequestService);
         }
     }
 }

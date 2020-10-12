@@ -2,7 +2,7 @@
 @inject IBudgetRequestListViewModel BudgetRequestListViewModel
 <div>
     @{
-        if (IsListVisible)
+        if (BudgetRequestListViewModel.BudgetRequestViewModel == null)
         {
             <BudgetRequestList ViewModel="BudgetRequestListViewModel"></BudgetRequestList>
         }
@@ -14,9 +14,8 @@
 </div>
 
 @code {
-    private bool IsListVisible { get; set; } = true;
-
-
+    
+    
     protected override async Task OnInitializedAsync()
     {
         BudgetRequestListViewModel.LoadData();   

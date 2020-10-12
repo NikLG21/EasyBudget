@@ -8,6 +8,7 @@ namespace EasyBudget.Presentation.Interfaces
     public interface IBudgetRequestListViewModel
     {
         event System.Action ViewModelChanged;
+
         IBudgetRequestViewModel BudgetRequestViewModel { get; set; }
         IFilterViewModel FilterViewModel { get; set; }
         int PageNumber { get; set; }

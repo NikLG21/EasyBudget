@@ -3,7 +3,31 @@
 @if (true)
 {
     <div>
+        <div>
+            @{
+                if (ViewModel.BudgetRequestViewModel.IsEditable&&!ViewModel.BudgetRequestViewModel.InEditMode)
+                {
+                    <button>Редагувати</button>
+                }
+                else
+                {
+                    <button disabled="disabled">Редагувати</button>
+                }
+            }
+        </div>
+        <div>
+            @{
+                <span>@ViewModel.BudgetRequestViewModel.BudgetRequest.Name</span>
+            }
+        </div>
+        <div>
+            <div>
+                <label>Ініціатор</label>
+                <label>@ViewModel.BudgetRequestViewModel.BudgetRequest.Requester.Name</label>
+            </div>
+            
 
+        </div>
     </div>
 }
 else

@@ -23,6 +23,7 @@ namespace EasyBudget.Ui
         public static void ConfigureContainer(this IUnityContainer container)
         {
             //business
+            container.RegisterType<IBudgetRequestService, BudgetRequestService>();
             container.RegisterType<IBaseUserService, BaseUserService>();
             container.RegisterType<IAdminUserService, AdminUserService>();
             container.RegisterType<IBudgetDescriptionService, BudgetDescriptionService>();
