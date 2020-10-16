@@ -11,15 +11,16 @@ namespace EasyBudget.Presentation.ViewModels
 {
     public class BudgetRequestRowViewModel : IBudgetRequestRowViewModel
     {
+        public BudgetRequestMainListDto BudgetRequest { get; }
+        public bool IsApproveable { get; set; }
+        public bool IsSelected { get; set; }
+
         private Role currentRole = new Role()
         {
             Department = null,
             Id = Guid.Parse("aab78899-6781-4a42-b7a0-18c18ca652d4"),
             Name = "Director"
         };
-        public BudgetRequestMainListDto BudgetRequest { get; private set; }
-        public bool IsApproveable { get; set; }
-        public bool IsSelected { get; set; }
 
         public BudgetRequestRowViewModel(BudgetRequestMainListDto budgetRequest)
         {
@@ -38,7 +39,7 @@ namespace EasyBudget.Presentation.ViewModels
                     }
                     break;
                 case RoleNames.Director:
-                    if (BudgetRequest.State == BudgetState.ExecutorEstimated|BudgetRequest.State == BudgetState.PostpondDirector)
+                    if (BudgetRequest.State == BudgetState.ExecutorEstimated | BudgetRequest.State == BudgetState.PostpondDirector)
                     {
                         IsApproveable = true;
                     }

@@ -58,7 +58,6 @@ namespace EasyBudget.Business.Services.UserServices
             {
                 throw new CriticalException(e);
             }
-
         }
 
         public void UpdateByAdmin(Guid userId, User user)

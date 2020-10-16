@@ -11,12 +11,12 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Business.Services.UserServices
 {
-    public class BaseUserService : IBaseUserService
+    public class UserService : IUserService
     {
         private readonly IUserAccess _userAccess;
         private readonly IUserQueries _userQueries;
 
-        public BaseUserService(IUserAccess userAccess, IUserQueries userQueries)
+        public UserService(IUserAccess userAccess, IUserQueries userQueries)
         {
             _userAccess = userAccess;
             _userQueries = userQueries;

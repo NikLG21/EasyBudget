@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess;
-using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
@@ -15,11 +11,13 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
+
         public AgreementDirectorService(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries)
         {
             _budgetRequestAccess = budgetRequestAccess;
             _budgetRequestListQueries = budgetRequestListQueries;
         }
+
         public void ApproveDirector(Guid userId, Guid id)
         {
             try
@@ -31,7 +29,6 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     request.DateDirectorApprove = DateTime.Today;
                     _budgetRequestAccess.Update(request);
                 }
-
             }
             catch (EntityNotFoundException)
             {
@@ -71,6 +68,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 throw new CriticalException(e);
             }
         }
+
         public void PostponedDirector(Guid userId, Guid id)
         {
             try
@@ -95,7 +93,6 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             {
                 throw new CriticalException(e);
             }
-
         }
     }
 }

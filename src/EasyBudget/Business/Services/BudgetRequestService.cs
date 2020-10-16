@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess;
-using EasyBudget.Common.DataAccess.Dtos;
-using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
@@ -50,11 +46,11 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public void AddRequestByAdmin(Guid userId, Guid id, BudgetRequest request)
+        public void AddRequestByAdmin(Guid userId, Guid requestorUserId, BudgetRequest request)
         {
             try
             {
-                User user = _userAccess.Get(id);
+                User user = _userAccess.Get(requestorUserId);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
@@ -74,7 +70,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public void UpdateByRequester(Guid userId,BudgetRequest request)
+        public void UpdateByRequester(Guid userId, BudgetRequest request)
         {
             try
             {
@@ -128,6 +124,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
+
         public BudgetRequest Get(Guid userId,Guid requestId)
         {
             try

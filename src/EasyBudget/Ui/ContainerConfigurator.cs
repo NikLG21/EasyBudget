@@ -24,7 +24,7 @@ namespace EasyBudget.Ui
         {
             //business
             container.RegisterType<IBudgetRequestService, BudgetRequestService>();
-            container.RegisterType<IBaseUserService, BaseUserService>();
+            container.RegisterType<IUserService, UserService>();
             container.RegisterType<IAdminUserService, AdminUserService>();
             container.RegisterType<IBudgetDescriptionService, BudgetDescriptionService>();
             container.RegisterType<IAgreementDirectorService, AgreementDirectorService>();

@@ -1,25 +1,24 @@
 ﻿@page "/budgetRequest"
 @inject IBudgetRequestListViewModel BudgetRequestListViewModel
+
 <div>
     @{
         if (BudgetRequestListViewModel.BudgetRequestViewModel == null)
         {
-            <BudgetRequestList ViewModel="BudgetRequestListViewModel"></BudgetRequestList>
+            <BudgetRequestList ViewModel="@BudgetRequestListViewModel"></BudgetRequestList>
         }
         else
         {
-            <BudgetRequestEntity ViewModel="BudgetRequestListViewModel"></BudgetRequestEntity>
+            <BudgetRequestEntity ViewModel="@BudgetRequestListViewModel"></BudgetRequestEntity>
         }
     }
 </div>
 
 @code {
     
-    
     protected override async Task OnInitializedAsync()
     {
         BudgetRequestListViewModel.LoadData();   
         await base.OnInitializedAsync();
     }
-
 }

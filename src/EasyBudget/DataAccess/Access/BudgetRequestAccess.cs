@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using EasyBudget.Common.DataAccess;
-using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 
@@ -116,9 +114,7 @@ namespace DataAccess.Access
                 {
                     throw new CriticalException(e);
                 }
-
             }
         }
-
     }
 }

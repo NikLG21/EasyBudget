@@ -56,7 +56,6 @@ namespace DataAccess.Access
                 {
                     throw new CriticalException(e);
                 }
-
             }
         }
 
@@ -88,7 +87,6 @@ namespace DataAccess.Access
                 {
                     throw new CriticalException(e);
                 }
-
             }
         }
     }

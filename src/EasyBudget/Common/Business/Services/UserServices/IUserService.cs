@@ -6,7 +6,7 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.Business.Services.UserServices
 {
-    public interface IBaseUserService
+    public interface IUserService
     {
         Guid LogInUser(Guid userId, string login, string password);
         void ChangePasswordByUser(Guid userId, string oldPassword, string newPassword);
