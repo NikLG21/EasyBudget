@@ -19,6 +19,7 @@ namespace EasyBudget.Presentation.ViewModels
         private readonly IBudgetRequestService _budgetRequestService;
 
         private int _pageNumber;
+        private int _pageSize;
         private List<BudgetRequestRowViewModel> _displayBudgetRequests;
 
         private UserMainInfoDto userInfo = new UserMainInfoDto()
@@ -74,7 +75,20 @@ namespace EasyBudget.Presentation.ViewModels
             }
         }
 
-        public int PageSize { get; }
+        public int PageSize
+        {
+            get
+            {
+                return _pageSize;
+            }
+            set
+            {
+                if (_pageSize == value)
+                    return;
+                _pageSize = value;
+                ViewModelChanged?.Invoke();
+            }
+        }
 
         public int Total { get; private set; }
 

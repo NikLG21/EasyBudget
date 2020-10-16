@@ -12,7 +12,7 @@ namespace EasyBudget.Presentation.Interfaces
         IFilterViewModel FilterViewModel { get; }
 
         int PageNumber { get; set; }
-        int PageSize { get; }
+        int PageSize { get; set; }
         int Total { get; }
 
         List<BudgetRequestRowViewModel> BudgetRequests { get; }

@@ -10,16 +10,20 @@ namespace EasyBudget.Presentation.ViewModels
     {
         public bool OnGoingFilterIsActive { get; set; }
         public bool SelectedFilterIsActive { get; set; }
+
         public List<Guid> RequesterIds { get; private set; }
         public List<Guid> DepartmentIds { get; private set; }
         public List<Guid> UnitIds { get; private set; }
         public List<BudgetState> States { get; private set; }
+
         public Guid Requester { get; set; }
         public Guid Department { get; set; }
         public Guid Unit { get; set; }
         public BudgetState State { get; set; }
+
         public DateTime From { get; set; }
         public DateTime To { get; set; }
+
         public FilterViewModel()
         {
             RequesterIds = new List<Guid>();

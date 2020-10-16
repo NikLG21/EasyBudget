@@ -23,6 +23,7 @@ namespace EasyBudget.Presentation.Extensions
                 return list.Where(br => br.BudgetRequest.RequesterId.Equals(requesterId));
             }
         }
+
         public static IEnumerable<BudgetRequestRowViewModel> StateFilter(
             this IEnumerable<BudgetRequestRowViewModel> list, BudgetState state)
         {
@@ -35,6 +36,7 @@ namespace EasyBudget.Presentation.Extensions
                 return list.Where(br => br.BudgetRequest.State.Equals(state));
             }
         }
+
         public static IEnumerable<BudgetRequestRowViewModel> DepartmentFilter(
             this IEnumerable<BudgetRequestRowViewModel> list, Guid departmentId)
         {
@@ -47,6 +49,7 @@ namespace EasyBudget.Presentation.Extensions
                 return list.Where(br => br.BudgetRequest.DepartmentId.Equals(departmentId));
             }
         }
+
         public static IEnumerable<BudgetRequestRowViewModel> UnitFilter(
             this IEnumerable<BudgetRequestRowViewModel> list, Guid unitId)
         {
