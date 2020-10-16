@@ -6,7 +6,11 @@ namespace EasyBudget.Common.Exceptions
     {
         private const string FormatMessageString = "Логін змінювати не можна.";
 
-        public NonChangedLoginException() : base(FormatMessageString)
+        public NonChangedLoginException() : this(null)
+        {
+        }
+
+        public NonChangedLoginException(Exception innerException) : base(FormatMessageString, innerException)
         {
         }
     }

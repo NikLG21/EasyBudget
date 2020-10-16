@@ -8,7 +8,12 @@ namespace EasyBudget.Common.Exceptions
 
         public string EntityName { get; }
 
-        public EntityNotFoundException(string entityName) : base(string.Format(FormatMessageString, entityName))
+        public EntityNotFoundException(string entityName) : this(entityName, null)
+        {
+            EntityName = entityName;
+        }
+
+        public EntityNotFoundException(string entityName, Exception innerException) : base(string.Format(FormatMessageString, entityName), innerException)
         {
             EntityName = entityName;
         }

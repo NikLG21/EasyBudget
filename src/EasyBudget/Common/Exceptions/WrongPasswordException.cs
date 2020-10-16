@@ -6,7 +6,11 @@ namespace EasyBudget.Common.Exceptions
     {
         private const string FormatMessageString = "Неправильно введений пароль.";
 
-        public WrongPasswordException() : base(FormatMessageString)
+        public WrongPasswordException() : this(null)
+        {
+        }
+
+        public WrongPasswordException(Exception innerException) : base(FormatMessageString, innerException)
         {
         }
     }

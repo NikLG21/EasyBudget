@@ -12,10 +12,9 @@ namespace EasyBudget.Common.Model.Security
         }
 
         public string Name { get; set; }
-
         public string DisplayName { get; set; }
-
         public Department Department { get; set; }
+
         public List<User> Users { get; }
         public List<Action> Actions { get;}
     }

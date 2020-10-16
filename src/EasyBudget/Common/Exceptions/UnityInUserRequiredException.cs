@@ -6,7 +6,11 @@ namespace EasyBudget.Common.Exceptions
     {
         private const string FormatMessageString = "Тільки користувачі з ролями \"Ініціатор запиту\" або \"Затверджувач\" можуть та повинні мати підрозділ.";
 
-        public UnityInUserRequiredException() : base(FormatMessageString)
+        public UnityInUserRequiredException() : this(null)
+        {
+        }
+
+        public UnityInUserRequiredException(Exception innerException) : base(FormatMessageString, innerException)
         {
         }
     }

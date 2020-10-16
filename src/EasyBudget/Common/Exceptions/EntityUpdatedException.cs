@@ -8,7 +8,7 @@ namespace EasyBudget.Common.Exceptions
 
         public string EntityName { get; }
 
-        public EntityUpdatedException(string entityName)
+        public EntityUpdatedException(string entityName) : this(entityName, null)
         {
             EntityName = entityName;
         }

@@ -8,7 +8,7 @@ namespace EasyBudget.Common.Exceptions
 
         public string Details { get; }
 
-        public LackMandatoryInformation(string details)
+        public LackMandatoryInformation(string details) : this(details, null)
         {
             Details = details;
         }

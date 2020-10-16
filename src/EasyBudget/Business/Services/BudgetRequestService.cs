@@ -84,7 +84,7 @@ namespace EasyBudget.Business.Services
                 }
                 else
                 {
-                    throw new NonDeletedUpdatedRequestException("Оновлення");
+                    throw new NonDeletedUpdatedRequestException();
                 }
                 
             }
@@ -116,7 +116,7 @@ namespace EasyBudget.Business.Services
                 }
                 else
                 {
-                    throw new NonDeletedUpdatedRequestException("Видалення");
+                    throw new NonDeletedUpdatedRequestException();
                 }
             }
             catch (CriticalException)

@@ -4,18 +4,14 @@ namespace EasyBudget.Common.Exceptions
 {
     public class NonDeletedUpdatedRequestException : Exception
     {
-        private const string FormatMessageString = "Запит вже був затверджений. \"{0}\" неможливо.";
+        private const string FormatMessageString = "Запит вже був затверджений. Зміни неможливі.";
 
-        public string Details { get; }
-
-        public NonDeletedUpdatedRequestException(string details)
+        public NonDeletedUpdatedRequestException() : this(null)
         {
-            Details = details;
         }
 
-        public NonDeletedUpdatedRequestException(string details, Exception innerException) : base(string.Format(FormatMessageString, details), innerException)
+        public NonDeletedUpdatedRequestException(Exception innerException) : base(FormatMessageString, innerException)
         {
-            Details = details;
         }
     }
 }

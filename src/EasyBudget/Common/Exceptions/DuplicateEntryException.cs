@@ -8,7 +8,7 @@ namespace EasyBudget.Common.Exceptions
 
         public string EntityName { get; }
 
-        public DuplicateEntryException(string entityName)
+        public DuplicateEntryException(string entityName) : this(entityName, null)
         {
             EntityName = entityName;
         }
