@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Presentation.ViewModels;
 
 namespace EasyBudget.Presentation.Interfaces
 {
     public interface IBudgetRequestListViewModel
     {
-        event System.Action ViewModelChanged;
+        event Action ViewModelChanged;
 
-        IBudgetRequestViewModel BudgetRequestViewModel { get; set; }
-        IFilterViewModel FilterViewModel { get; set; }
+        IBudgetRequestViewModel BudgetRequestViewModel { get; }
+        IFilterViewModel FilterViewModel { get; }
+
         int PageNumber { get; set; }
-        int PageSize { get; set; }
-        int Total { get; set; }
+        int PageSize { get; }
+        int Total { get; }
+
         List<BudgetRequestRowViewModel> BudgetRequests { get; }
-        List<BudgetRequestRowViewModel> BudgetRequestPage { get; }
+        List<BudgetRequestRowViewModel> PageBudgetRequests { get; }
+
         void LoadData();
         void ApproveRequests();
         void ApplySelection();
