@@ -6,9 +6,11 @@ using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess.Dtos;
+using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using EasyBudget.Presentation.Extensions;
 using EasyBudget.Presentation.Interfaces;
+using EasyBudget.Presentation.Utils;
 
 namespace EasyBudget.Presentation.ViewModels
 {
@@ -216,10 +218,26 @@ namespace EasyBudget.Presentation.ViewModels
 
         private void FilterCustomization()
         {
-            FilterViewModel.RequesterIds.AddRange(_displayBudgetRequests.Select(br=>br.BudgetRequest.RequesterId).ToList().Distinct());
-            FilterViewModel.States.AddRange(_displayBudgetRequests.Select(br => br.BudgetRequest.State).ToList().Distinct());
-            FilterViewModel.DepartmentIds.AddRange(_displayBudgetRequests.Select(br => br.BudgetRequest.DepartmentId).ToList().Distinct());
-            FilterViewModel.UnitIds.AddRange(_displayBudgetRequests.Select(br => br.BudgetRequest.UnitId).ToList().Distinct());
+            FilterViewModel.Requesters
+                .AddRange(_displayBudgetRequests
+                    .Select(br => new PairGuid(br.BudgetRequest.RequesterId,br.BudgetRequest.RequesterName))
+                    .ToList()
+                    .Distinct());
+            FilterViewModel.Departments
+                .AddRange(_displayBudgetRequests
+                    .Select(br => new PairGuid(br.BudgetRequest.DepartmentId, br.BudgetRequest.DepartmentName))
+                    .ToList()
+                    .Distinct());
+            FilterViewModel.Units
+                .AddRange(_displayBudgetRequests
+                    .Select(br => new PairGuid(br.BudgetRequest.UnitId, br.BudgetRequest.UnitName))
+                    .ToList()
+                    .Distinct());
+            FilterViewModel.States
+                .AddRange(_displayBudgetRequests
+                    .Select(br => new PairEnum<BudgetState>(br.BudgetRequest.State,null))
+                    .ToList()
+                    .Distinct());
         }
     }
 }

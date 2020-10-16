@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using EasyBudget.Common.Model;
 using EasyBudget.Presentation.Interfaces;
+using EasyBudget.Presentation.Utils;
 
 namespace EasyBudget.Presentation.ViewModels
 {
@@ -10,11 +11,10 @@ namespace EasyBudget.Presentation.ViewModels
     {
         public bool OnGoingFilterIsActive { get; set; }
         public bool SelectedFilterIsActive { get; set; }
-
-        public List<Guid> RequesterIds { get; private set; }
-        public List<Guid> DepartmentIds { get; private set; }
-        public List<Guid> UnitIds { get; private set; }
-        public List<BudgetState> States { get; private set; }
+        public List<PairGuid> Requesters { get; private set; }
+        public List<PairGuid> Departments { get; private set; }
+        public List<PairGuid> Units { get; private set; }
+        public List<PairEnum<BudgetState>> States { get; private set; }
 
         public Guid Requester { get; set; }
         public Guid Department { get; set; }
@@ -26,10 +26,14 @@ namespace EasyBudget.Presentation.ViewModels
 
         public FilterViewModel()
         {
-            RequesterIds = new List<Guid>();
-            DepartmentIds = new List<Guid>();
-            UnitIds = new List<Guid>();
-            States = new List<BudgetState>();
+            Requesters = new List<PairGuid>();
+            Departments = new List<PairGuid>();
+            Units = new List<PairGuid>();
+            States = new List<PairEnum<BudgetState>>();
+            //RequesterIds = new List<Guid>();
+            //DepartmentIds = new List<Guid>();
+            //UnitIds = new List<Guid>();
+            //States = new List<BudgetState>();
             Requester = Guid.Empty;
             Department = Guid.Empty;
             Unit = Guid.Empty;

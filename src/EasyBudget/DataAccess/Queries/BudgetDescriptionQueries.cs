@@ -31,7 +31,9 @@ namespace DataAccess.Queries
                                 Id = bd.Id,
                                 UserName = bd.User.Name,
                                 Date = bd.Date,
-                                Description = bd.Description
+                                Description = bd.Description,
+                                BudgetRequestId =bd.BudgetRequest.Id
+                                
                             }).ToList();
                     return list;
                 }
