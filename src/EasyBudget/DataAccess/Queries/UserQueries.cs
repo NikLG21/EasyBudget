@@ -84,13 +84,13 @@ namespace DataAccess.Queries
             }
         }
 
-        public UserMainInfoDto GetMainInfo(Guid id)
+        public UserMainInfoDto GetMainInfo(Guid userId)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
                 try
                 {
-                    return context.Users.AsNoTracking().Where(u => u.Id == id).Select(u =>
+                    return context.Users.AsNoTracking().Where(u => u.Id == userId).Select(u =>
                         new UserMainInfoDto
                         {
                             Id = u.Id,

@@ -20,7 +20,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return _budgetRequestListQueries.GetAllRequestDirector(DateTime.MinValue);
+                return _budgetRequestListQueries.GetAllDirectorRequests(DateTime.MinValue);
             }
             catch (CriticalException)
             {

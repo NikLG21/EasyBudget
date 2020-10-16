@@ -16,7 +16,7 @@ namespace DataAccess.Queries
             _factory = factory;
         }
 
-        public List<BudgetDescriptionMainListDto> GetBudgetDescriptionByRequest(Guid budgetRequestId)
+        public List<BudgetDescriptionMainListDto> GetBudgetDescriptionsByRequest(Guid budgetRequestId)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {

@@ -6,10 +6,10 @@ namespace EasyBudget.Common.DataAccess.Queries
 {
     public interface IBudgetRequestListQueries
     {
-        List<BudgetRequestMainListDto> GetAllRequestDirector(DateTime from);
-        List<BudgetRequestMainListDto> GetAllRequestRequester(Guid userId, DateTime from);
-        List<BudgetRequestMainListDto> GetAllRequestApprover(Guid unitId, DateTime from);
-        List<BudgetRequestMainListDto> GetAllRequestExecutor(Guid departmentId, DateTime from);
+        List<BudgetRequestMainListDto> GetAllDirectorRequests(DateTime from);
+        List<BudgetRequestMainListDto> GetAllRequesterRequests(Guid userId, DateTime from);
+        List<BudgetRequestMainListDto> GetAllApproverRequests(Guid unitId, DateTime from);
+        List<BudgetRequestMainListDto> GetAllExecutorRequests(Guid departmentId, DateTime from);
         List<BudgetRequestMainListDto> GetListByIds(List<Guid> ids);
     }
 }

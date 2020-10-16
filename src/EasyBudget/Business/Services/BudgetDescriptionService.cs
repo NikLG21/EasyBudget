@@ -76,7 +76,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return _budgetDescriptionQueries.GetBudgetDescriptionByRequest(budgetRequestId);
+                return _budgetDescriptionQueries.GetBudgetDescriptionsByRequest(budgetRequestId);
             }
             catch (CriticalException)
             {

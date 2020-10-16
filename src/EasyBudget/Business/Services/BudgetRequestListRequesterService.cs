@@ -20,7 +20,7 @@ namespace EasyBudget.Business.Services
         {
             try
             {
-                return _budgetRequestListQueries.GetAllRequestRequester(userInfo.Id,DateTime.MinValue);
+                return _budgetRequestListQueries.GetAllRequesterRequests(userInfo.Id,DateTime.MinValue);
             }
             catch (CriticalException)
             {

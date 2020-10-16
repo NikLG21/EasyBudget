@@ -16,7 +16,7 @@ namespace DataAccess.Queries
             _factory = factory;
         }
 
-        public List<BudgetRequestMainListDto> GetAllRequestDirector(DateTime from)
+        public List<BudgetRequestMainListDto> GetAllDirectorRequests(DateTime from)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
@@ -48,7 +48,7 @@ namespace DataAccess.Queries
                 }
             }
         }
-        public List<BudgetRequestMainListDto> GetAllRequestRequester(Guid userId, DateTime from)
+        public List<BudgetRequestMainListDto> GetAllRequesterRequests(Guid userId, DateTime from)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
@@ -81,7 +81,7 @@ namespace DataAccess.Queries
                 }
             }
         }
-        public List<BudgetRequestMainListDto> GetAllRequestApprover(Guid unitId, DateTime from)
+        public List<BudgetRequestMainListDto> GetAllApproverRequests(Guid unitId, DateTime from)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
@@ -115,7 +115,7 @@ namespace DataAccess.Queries
             }
 
         }
-        public List<BudgetRequestMainListDto> GetAllRequestExecutor(Guid departmentId, DateTime from)
+        public List<BudgetRequestMainListDto> GetAllExecutorRequests(Guid departmentId, DateTime from)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {

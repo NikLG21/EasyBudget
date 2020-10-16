@@ -39,6 +39,9 @@ namespace EasyBudget.Presentation.ViewModels
 
         public IFilterViewModel FilterViewModel { get; set; }
         public IBudgetRequestViewModel BudgetRequestViewModel { get; set; }
+
+        public bool IsListVisible { get; set; }
+
         public int PageNumber
         {
             get

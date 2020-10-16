@@ -19,7 +19,7 @@ namespace EasyBudget.Presentation.Interfaces
         void LoadData();
         void ApproveRequests();
         void ApplySelection();
-        public void OnGoingList();
-        public void OpenBudgetRequest(Guid id);
+        void OnGoingList();
+        void OpenBudgetRequest(Guid id);
     }
 }
