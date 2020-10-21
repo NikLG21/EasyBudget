@@ -15,10 +15,19 @@
 </div>
 
 @code {
-    
+
     protected override async Task OnInitializedAsync()
     {
-        BudgetRequestListViewModel.LoadData();   
+        BudgetRequestListViewModel.LoadData();
         await base.OnInitializedAsync();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            BudgetRequestListViewModel.ViewModelChanged += () => this.InvokeAsync(StateHasChanged);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 }

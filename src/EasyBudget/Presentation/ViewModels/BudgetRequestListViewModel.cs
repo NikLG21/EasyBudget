@@ -214,6 +214,7 @@ namespace EasyBudget.Presentation.ViewModels
         public void OpenBudgetRequest(Guid id)
         {
             BudgetRequestViewModel = new BudgetRequestViewModel(id, _budgetRequestService);
+            ViewModelChanged?.Invoke();
         }
 
         private void FilterCustomization()
