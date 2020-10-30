@@ -19,6 +19,7 @@ namespace EasyBudget.Presentation.ViewModels
         private readonly IBudgetRequestListServiceFactory _budgetRequestListServiceFactory;
         private readonly IAgreementBaseService _agreementBaseService;
         private readonly IBudgetRequestService _budgetRequestService;
+        private readonly IAgreementServiceFactory _agreementServiceFactory;
 
         private int _pageNumber;
         private int _pageSize;
@@ -41,11 +42,13 @@ namespace EasyBudget.Presentation.ViewModels
         public BudgetRequestListViewModel(
             IBudgetRequestListServiceFactory budgetRequestListServiceFactory,
             IAgreementBaseService agreementBaseService,
-            IBudgetRequestService budgetRequestService)
+            IBudgetRequestService budgetRequestService,
+            IAgreementServiceFactory agreementServiceFactory)
         {
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             _agreementBaseService = agreementBaseService;
             _budgetRequestService = budgetRequestService;
+            _agreementServiceFactory = agreementServiceFactory;
 
             BudgetRequests = new List<BudgetRequestRowViewModel>();
             _displayBudgetRequests = new List<BudgetRequestRowViewModel>();
@@ -213,7 +216,7 @@ namespace EasyBudget.Presentation.ViewModels
 
         public void OpenBudgetRequest(Guid id)
         {
-            BudgetRequestViewModel = new BudgetRequestViewModel(id, _budgetRequestService);
+            BudgetRequestViewModel = new BudgetRequestViewModel(id, _budgetRequestService, _agreementServiceFactory);
             ViewModelChanged?.Invoke();
         }
 

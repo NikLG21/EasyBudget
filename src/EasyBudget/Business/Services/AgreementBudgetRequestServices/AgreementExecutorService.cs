@@ -16,7 +16,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
         {
             _budgetRequestAccess = budgetRequestAccess;
         }
-        public void RealPriceAdded(Guid userId, Guid id, decimal realPrice)
+        public void RealPriceAdded(Guid userId, Guid id, decimal? realPrice)
         {
             try
             {

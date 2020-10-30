@@ -39,7 +39,7 @@ namespace DataAccess.Access
             {
                 try
                 {
-                    context.BudgetRequests.Add(request);
+                    context.BudgetRequests.Attach(request);
                     context.Entry(request).State = EntityState.Modified;
                     context.SaveChanges();
                 }

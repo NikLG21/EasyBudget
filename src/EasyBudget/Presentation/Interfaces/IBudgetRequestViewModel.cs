@@ -20,5 +20,8 @@ namespace EasyBudget.Presentation.Interfaces
         bool IsEditable { get; set; }
         bool ApproveAble { get; set; }
         bool InEditMode { get; set; }
+        
+        void ChangeMode();
+        void ApproveRequest();
     }
 }

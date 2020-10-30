@@ -45,7 +45,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
         }
 
-        public void ExecutionStartedFinDirector(Guid userId, Guid id, DateTime deadline)
+        public void ExecutionStartedFinDirector(Guid userId, Guid id, DateTime? deadline)
         {
             try
             {

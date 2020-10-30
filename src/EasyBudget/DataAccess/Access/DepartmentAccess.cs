@@ -44,7 +44,7 @@ namespace DataAccess.Access
             {
                 try
                 {
-                    context.Departments.Add(department);
+                    context.Departments.Attach(department);
                     context.Entry(department).State = EntityState.Modified;
                     context.SaveChanges();
                 }
