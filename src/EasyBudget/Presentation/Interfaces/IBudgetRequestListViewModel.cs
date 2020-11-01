@@ -23,5 +23,6 @@ namespace EasyBudget.Presentation.Interfaces
         void ApplySelection();
         void OnGoingList();
         void OpenBudgetRequest(Guid id);
+        void NewBudgetRequest();
     }
 }

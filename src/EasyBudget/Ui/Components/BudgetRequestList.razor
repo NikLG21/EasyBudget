@@ -11,6 +11,9 @@
 {
     <div class="list-view-container">
         <div class="list-view-top">
+            <div>
+                <button >Створити новий запит</button>
+            </div>
             <div class="list-view-table">
                 <table>
                     <tr>
@@ -40,7 +43,7 @@
                                 <td>@budgetRequest.BudgetRequest.DepartmentName</td>
                                 <td>@budgetRequest.BudgetRequest.State.ToString()</td>
                                 <td>
-                                    <button @onclick="()=> ViewModel.OpenBudgetRequest(budgetRequest.BudgetRequest.Id)">Показати</button>
+                                    <button @onclick="() => ViewModel.OpenBudgetRequest(budgetRequest.BudgetRequest.Id)">Показати</button>
                                 </td>
                                 <td>
                                     @{
@@ -117,11 +120,11 @@
                 <div >
                     @if (!ViewModel.FilterViewModel.SelectedFilterIsActive)
                     {
-                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = true;  ViewModel.ApplySelection(); })">Вибрані в окремий список</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = true;ViewModel.ApplySelection(); })">Вибрані в окремий список</button>
                     }
                     else
                     {
-                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = false; ViewModel.ApplySelection();})">Повний список</button>
+                        <button @onclick="(() => { ViewModel.FilterViewModel.SelectedFilterIsActive = false;ViewModel.ApplySelection(); })">Повний список</button>
                     }
                 </div>
             </div>

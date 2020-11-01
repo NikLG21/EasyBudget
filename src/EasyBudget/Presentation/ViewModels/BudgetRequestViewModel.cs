@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EasyBudget.Common.Business.Factories;
+using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
@@ -15,6 +16,7 @@ namespace EasyBudget.Presentation.ViewModels
     {
         private readonly IBudgetRequestService _budgetRequestService;
         private readonly IAgreementServiceFactory _agreementServiceFactory;
+        private readonly IDepartmentService _departmentService;
 
         private UserMainInfoDto userInfo = new UserMainInfoDto()
         {
@@ -32,6 +34,8 @@ namespace EasyBudget.Presentation.ViewModels
         public BudgetRequest BudgetRequest { get; set; }
         public BudgetRequest ChangedBudgetRequest { get; set; }
 
+        public List<Department> Departments { get; private set; }
+
         public FieldsStates NameField { get; set; }
         public FieldsStates DateRequestedDeadlineField { get; set; }
         public FieldsStates DateDeadlineExecutionField { get; set; }
@@ -41,7 +45,7 @@ namespace EasyBudget.Presentation.ViewModels
         public bool IsEditable { get; set; }
         public bool InEditMode { get; set; }
         public bool ApproveAble { get; set; }
-        
+        public bool NewRequestMode { get; set; }
 
         public BudgetRequestViewModel(Guid id,
             IBudgetRequestService budgetRequestService,
@@ -54,12 +58,14 @@ namespace EasyBudget.Presentation.ViewModels
             ExistedRequestMode();
         }
         public BudgetRequestViewModel(IBudgetRequestService budgetRequestService,
-            IAgreementServiceFactory agreementServiceFactory)
+            IAgreementServiceFactory agreementServiceFactory,
+            IDepartmentService departmentService)
         {
             _budgetRequestService = budgetRequestService;
             _agreementServiceFactory = agreementServiceFactory;
+            _departmentService = departmentService;
             BudgetRequest = new BudgetRequest();
-            NewRequestMode();
+            NewRequestModeStart();
         }
 
 
@@ -73,21 +79,30 @@ namespace EasyBudget.Presentation.ViewModels
         }
         public void ApproveRequest()
         {
+            BudgetRequestUpdateOutput output;
             switch (role.Name)
             {
                 case RoleNames.Approver:
-                    _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo.Id,BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo.Id,BudgetRequest.Id);
+                    BudgetRequest = output.Request;
+                    ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.Director:
-                    _agreementServiceFactory.GetDirector().ApproveDirector(userInfo.Id,BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetDirector().ApproveDirector(userInfo.Id,BudgetRequest.Id);
+                    BudgetRequest = output.Request;
+                    ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.FinDirector:
-                    _agreementServiceFactory.GetFinDirector().ExecutionStartedFinDirector(userInfo.Id,BudgetRequest.Id,ChangedBudgetRequest.DateDeadlineExecution);
+                    output = _agreementServiceFactory.GetFinDirector().ExecutionStartedFinDirector(userInfo.Id,BudgetRequest.Id,ChangedBudgetRequest.DateDeadlineExecution);
+                    BudgetRequest = output.Request;
+                    ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.Executor:
                     if (ChangedBudgetRequest.RealPrice != null)
                     {
-                        _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo.Id, BudgetRequest.Id, ChangedBudgetRequest.RealPrice);
+                        output = _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo.Id, BudgetRequest.Id, ChangedBudgetRequest.RealPrice);
+                        BudgetRequest = output.Request;
+                        ChangedBudgetRequest = output.Request;
                     } 
                     break;
             }
@@ -95,11 +110,29 @@ namespace EasyBudget.Presentation.ViewModels
 
         public void CreateNewRequest()
         {
-            if (ChangedBudgetRequest.Name != null)
+            //if (role.Name!=RoleNames.Requester)
+            //{
+            //    return;
+            //}
+            if (ChangedBudgetRequest.Name != null|ChangedBudgetRequest.Department!=null)
             {
-                _budgetRequestService.AddRequest(userInfo.Id, ChangedBudgetRequest);
+                BudgetRequestUpdateOutput output = _budgetRequestService.AddRequest(userInfo.Id, ChangedBudgetRequest);
+                BudgetRequest = output.Request;
+                ChangedBudgetRequest = output.Request;
+                ExistedRequestMode();
+            }
+            else
+            {
+                
             }
         }
+
+        public void CancelChanges()
+        {
+            ChangedBudgetRequest = BudgetRequest;
+            FieldStatesEditMode();
+        }
+
 
         private void CheckEditable()
         {
@@ -140,6 +173,7 @@ namespace EasyBudget.Presentation.ViewModels
                     break;
             }
         }
+
         private void CheckApproveAble()
         {
             switch (role.Name)
@@ -172,6 +206,7 @@ namespace EasyBudget.Presentation.ViewModels
                 
             }
         }
+
         private void FieldStatesEditMode()
         {
 
@@ -204,8 +239,10 @@ namespace EasyBudget.Presentation.ViewModels
             }
         }
 
-        private void NewRequestMode()
+        private void NewRequestModeStart()
         {
+            Departments = _departmentService.GetAllDepartments();
+            NewRequestMode = true;
             InEditMode = true;
             IsEditable = false;
             ApproveAble = false;
@@ -218,6 +255,7 @@ namespace EasyBudget.Presentation.ViewModels
 
         private void ExistedRequestMode()
         {
+            NewRequestMode = false;
             InEditMode = false;
             IsEditable = false;
             ApproveAble = false;
@@ -229,5 +267,6 @@ namespace EasyBudget.Presentation.ViewModels
             RealPriceField = FieldsStates.NotEditable;
             EstimatedPriceField = FieldsStates.NotEditable;
         }
+        
     }
 }

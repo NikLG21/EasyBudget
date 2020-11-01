@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
-using EasyBudget.Common.DataAccess.Dtos;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using EasyBudget.Common.Model;
 
 namespace EasyBudget.Common.Business.Outputs
 {
     public class BudgetRequestUpdateOutput
     {
-        public List<BudgetRequestMainListDto> SuccessUpdatedBudgetRequests { get; set; }
-        public List<BudgetRequestMainListDto> FailedUpdatedBudgetRequests { get; set; }
-        public List<string> Messages { get; set; }
+        public BudgetRequest Request { get; private set; }
+        public string Message { get; private set; }
 
-        public BudgetRequestUpdateOutput()
+        public BudgetRequestUpdateOutput(BudgetRequest request, string message)
         {
-            SuccessUpdatedBudgetRequests = new List<BudgetRequestMainListDto>();
-            FailedUpdatedBudgetRequests = new List<BudgetRequestMainListDto>();
-            Messages = new List<string>();
+            Request = request;
+            Message = message;
         }
     }
 }
