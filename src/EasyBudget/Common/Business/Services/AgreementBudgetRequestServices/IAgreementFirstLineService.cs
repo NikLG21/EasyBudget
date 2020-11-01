@@ -6,7 +6,7 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
 {
     public interface IAgreementFirstLineService
     {
-        void ApproveFirstLine(Guid userId, Guid id);
-        void RejectFirstLine(Guid userId, Guid id);
+        BudgetRequestUpdateOutput ApproveFirstLine(Guid userId, Guid id);
+        BudgetRequestUpdateOutput RejectFirstLine(Guid userId, Guid id);
     }
 }

@@ -20,10 +20,10 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             _budgetRequestAccess = budgetRequestAccess;
             _budgetRequestListQueries = budgetRequestListQueries;
         }
-        public BudgetRequestUpdateOutput ApproveListByRole(List<Guid> requestsIds, Role role)
+        public BudgetRequestListUpdateOutput ApproveListByRole(List<Guid> requestsIds, Role role)
         {
             List<BudgetRequestMainListDto> budgetRequests = _budgetRequestListQueries.GetListByIds(requestsIds);
-            BudgetRequestUpdateOutput output = new BudgetRequestUpdateOutput();
+            BudgetRequestListUpdateOutput output = new BudgetRequestListUpdateOutput();
             List<Guid> ids = new List<Guid>();
             switch (role.Name)
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.DataAccess.Queries;
@@ -18,7 +19,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             _budgetRequestListQueries = budgetRequestListQueries;
         }
 
-        public void ApproveDirector(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput ApproveDirector(Guid userId, Guid id)
         {
             try
             {
@@ -28,6 +29,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     request.State = BudgetState.ApprovedDirector;
                     request.DateDirectorApprove = DateTime.Today;
                     _budgetRequestAccess.Update(request);
+                    return new BudgetRequestUpdateOutput(request,"Запит було успішно затверджено");
+                }
+                else
+                {
+                    return new BudgetRequestUpdateOutput(request,"Не вдалося затвердити запит");
                 }
             }
             catch (EntityNotFoundException)
@@ -44,7 +50,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
 
         }
-        public void RejectDirector(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput RejectDirector(Guid userId, Guid id)
         {
             try
             {
@@ -53,6 +59,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.RejectedDirector;
                     _budgetRequestAccess.Update(request);
+                    return new BudgetRequestUpdateOutput(request, "Запит було успішно відхилено");
+                }
+                else
+                {
+                    return new BudgetRequestUpdateOutput(request,"Відхилити неможливо");
                 }
             }
             catch (EntityNotFoundException)
@@ -69,7 +80,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
         }
 
-        public void PostponedDirector(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput PostponedDirector(Guid userId, Guid id)
         {
             try
             {
@@ -78,6 +89,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.PostpondDirector;
                     _budgetRequestAccess.Update(request);
+                    return new BudgetRequestUpdateOutput(request,"Запит було відкладено");
+                }
+                else
+                {
+                    return new BudgetRequestUpdateOutput(request,"відкласти неможливо");
                 }
 
             }

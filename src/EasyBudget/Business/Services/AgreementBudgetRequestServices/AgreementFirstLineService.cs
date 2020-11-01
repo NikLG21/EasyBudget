@@ -21,7 +21,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             _budgetRequestListQueries = budgetRequestListQueries;
         }
 
-        public void ApproveFirstLine(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput ApproveFirstLine(Guid userId, Guid id)
         {
             try
             {
@@ -30,6 +30,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.ApprovedFirstLine;
                     _budgetRequestAccess.Update(request);
+                    return new BudgetRequestUpdateOutput(request, "Запит успішно затверджено");
+                }
+                else
+                {
+                    return new BudgetRequestUpdateOutput(request, "Неможливо затвердити");
                 }
             }
             catch (EntityNotFoundException)
@@ -46,7 +51,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
         }
 
-        public void RejectFirstLine(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput RejectFirstLine(Guid userId, Guid id)
         {
             try
             {
@@ -55,9 +60,12 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.RejectedFirstLine;
                     _budgetRequestAccess.Update(request);
+                    return new BudgetRequestUpdateOutput(request, "Запит успішно відхилено");
                 }
-                request.State = BudgetState.RejectedFirstLine;
-                _budgetRequestAccess.Update(request);
+                else
+                {
+                    return new BudgetRequestUpdateOutput(request, "Неможливо відхилити");
+                }
             }
             catch (EntityNotFoundException)
             {

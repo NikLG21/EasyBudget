@@ -26,6 +26,11 @@ namespace EasyBudget.Business.Services
                 {
                     throw new LackMandatoryInformation("Назва запиту");
                 }
+
+                if (request.Department == null)
+                {
+                    throw new LackMandatoryInformation("Відділ");
+                }
                 User user = _userAccess.Get(userId);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;

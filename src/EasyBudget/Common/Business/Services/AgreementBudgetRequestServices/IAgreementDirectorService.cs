@@ -6,8 +6,8 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
 {
     public interface IAgreementDirectorService
     {
-        void ApproveDirector(Guid userId, Guid id);
-        void RejectDirector(Guid userId, Guid id);
-        void PostponedDirector(Guid userId, Guid id);
+        BudgetRequestUpdateOutput ApproveDirector(Guid userId, Guid id);
+        BudgetRequestUpdateOutput RejectDirector(Guid userId, Guid id);
+        BudgetRequestUpdateOutput PostponedDirector(Guid userId, Guid id);
     }
 }
