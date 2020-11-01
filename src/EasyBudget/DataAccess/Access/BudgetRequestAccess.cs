@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Text;
+using DataAccess.Utils;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
+using EasyBudget.Common.Model.Security;
+using Action = EasyBudget.Common.Model.Security.Action;
 
 namespace DataAccess.Access
 {
@@ -23,7 +28,26 @@ namespace DataAccess.Access
             {
                 try
                 {
+                    string s1 = DataAccessUtils.Dump(context);
+
+                    context.Departments.AsNoTracking().FirstOrDefault(e => e.Id == request.Department.Id);
+                    context.Units.AsNoTracking().FirstOrDefault(e => e.Id == request.Unit.Id);
+                    context.Users.AsNoTracking().FirstOrDefault(e => e.Id == request.Requester.Id);
+
+                    string s2 = DataAccessUtils.Dump(context);
+
                     context.BudgetRequests.Add(request);
+
+                    DbEntityEntry<User> requestor = context.Entry(request.Requester);
+                    DbEntityEntry<Department> department = context.Entry(request.Department);
+                    DbEntityEntry<Unit> unit = context.Entry(request.Unit);
+
+                    //requestor.State = EntityState.Detached;
+                    //department.State = EntityState.Detached;
+                    //unit.State = EntityState.Detached;
+
+                    string s3 = DataAccessUtils.Dump(context);
+
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -32,6 +56,7 @@ namespace DataAccess.Access
                 }
             }
         }
+
 
         public void Update(BudgetRequest request)
         {

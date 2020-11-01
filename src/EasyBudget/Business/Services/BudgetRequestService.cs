@@ -36,6 +36,7 @@ namespace EasyBudget.Business.Services
                 }
                 User user = _userAccess.Get(userId);
                 Department department = _departmentAccess.Get(request.Department.Id);
+                request.Id=Guid.NewGuid();
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
@@ -62,10 +63,13 @@ namespace EasyBudget.Business.Services
             try
             {
                 User user = _userAccess.Get(requestorUserId);
+                Department department = _departmentAccess.Get(request.Department.Id);
+                request.Id = new Guid();
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
                 request.Unit = user.Unit;
+                request.Department = department;
                 _budgetRequestAccess.Add(request);
             }
             catch (DuplicateEntryException)

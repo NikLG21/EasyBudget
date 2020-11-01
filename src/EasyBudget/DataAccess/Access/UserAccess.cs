@@ -76,7 +76,10 @@ namespace DataAccess.Access
             {
                 try
                 {
-                    User user = context.Users.AsNoTracking().FirstOrDefault(u => u.Id == id);
+                    User user = context.Users.AsNoTracking()
+                        .Include(u=>u.Unit)
+                        .Include(u=>u.Roles)
+                        .FirstOrDefault(u => u.Id == id);
                     if (user == null)
                     {
                         throw new EntityNotFoundException("Користувач");

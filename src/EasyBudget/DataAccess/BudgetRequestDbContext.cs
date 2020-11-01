@@ -25,6 +25,7 @@ namespace DataAccess
             OnModelCreating_ActionConfig(modelBuilder);
             OnModelCreating_DepartmentConfig(modelBuilder);
             OnModelCreating_BudgetHistoryConfig(modelBuilder);
+            OnModelCreating_UnitConfig(modelBuilder);
         }
 
         private static void OnModelCreating_MainConfig(DbModelBuilder modelBuilder)
@@ -44,7 +45,7 @@ namespace DataAccess
             modelBuilder.Entity<User>().HasIndex(u => u.Login).IsUnique();
             modelBuilder.Entity<User>().Property(u => u.Name).HasMaxLength(40);
             modelBuilder.Entity<User>().Property(u => u.Password).HasMaxLength(100);
-            modelBuilder.Entity<User>().HasOptional(u => u.Unit).WithMany().WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User>().HasOptional(u => u.Unit).WithMany().WillCascadeOnDelete(false);
         }
 
         private static void OnModelCreating_BudgetRequestConfig(DbModelBuilder modelBuilder)
@@ -84,6 +85,11 @@ namespace DataAccess
         private static void OnModelCreating_BudgetHistoryConfig(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BudgetHistory>().HasRequired(b =>b.User).WithMany().WillCascadeOnDelete(false);
+        }
+
+        private static void OnModelCreating_UnitConfig(DbModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Unit>().HasIndex(u => u.Name).IsUnique();
         }
 
         public DbSet<Action> Actions { get; set; }
