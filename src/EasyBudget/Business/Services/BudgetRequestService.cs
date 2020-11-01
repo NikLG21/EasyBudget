@@ -1,4 +1,5 @@
 ﻿using System;
+using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.Exceptions;
@@ -18,7 +19,7 @@ namespace EasyBudget.Business.Services
             _userAccess = userAccess;
         }
 
-        public void AddRequest(Guid userId,BudgetRequest request)
+        public BudgetRequestUpdateOutput AddRequest(Guid userId,BudgetRequest request)
         {
             try
             {
@@ -37,6 +38,7 @@ namespace EasyBudget.Business.Services
                 request.Requester = user;
                 request.Unit = user.Unit;
                 _budgetRequestAccess.Add(request);
+                return new BudgetRequestUpdateOutput(request,"Запит успішно додано");
             }
             catch (DuplicateEntryException)
             {
