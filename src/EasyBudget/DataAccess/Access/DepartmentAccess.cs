@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
@@ -89,5 +90,22 @@ namespace DataAccess.Access
                 }
             }
         }
+
+        public List<Department> GetAll()
+        {
+            using (BudgetRequestDbContext context = _factory.Create())
+            {
+                try
+                {
+                    return context.Departments.AsNoTracking().ToList();
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+            }
+        }
+
+
     }
 }

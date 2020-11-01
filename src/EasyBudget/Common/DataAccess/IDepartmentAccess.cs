@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EasyBudget.Common.Model;
 
 namespace EasyBudget.Common.DataAccess
@@ -8,5 +9,6 @@ namespace EasyBudget.Common.DataAccess
         void Add(Department department);
         void Update(Department department);
         Department Get(Guid id);
+        List<Department> GetAll();
     }
 }
