@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using EasyBudget.Common.Model;
 using EasyBudget.Presentation.Enums;
+using EasyBudget.Presentation.Utils;
 
 namespace EasyBudget.Presentation.Interfaces
 {
@@ -10,9 +11,8 @@ namespace EasyBudget.Presentation.Interfaces
     {
         BudgetRequest BudgetRequest { get; set; }
         BudgetRequest ChangedBudgetRequest { get; set; }
-        //TODO: I think this is not enough. We need flags for editing different fields
         
-        List<Department> Departments { get; }
+        List<PairGuid> Departments { get; }
 
         FieldsStates NameField { get; set; }
         FieldsStates DateRequestedDeadlineField { get; set; }

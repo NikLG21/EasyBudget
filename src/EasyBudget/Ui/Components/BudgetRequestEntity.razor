@@ -1,5 +1,6 @@
 ﻿@using EasyBudget.Presentation.Enums
 @using EasyBudget.Common.Model
+@using EasyBudget.Presentation.Utils
 <h3>BudgetRequestEntity</h3>
 
 @if (true)
@@ -158,12 +159,12 @@
                 </div>
                 <div>
                     <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline"/>
-                    <select @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Department">
-                        <option value="null">Виберіть відділ</option>
+                    <select @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Department.Id">
+                        <option value="@Guid.Empty">Виберіть відділ</option>
                         @{
-                            foreach (Department department in ViewModel.BudgetRequestViewModel.Departments)
+                            foreach (PairGuid pair in ViewModel.BudgetRequestViewModel.Departments)
                             {
-                                <option value="@department">@department.Name</option>
+                                <option value="@pair.Key">@pair.Value.ToString()</option>
                             }
                         }
                     </select>

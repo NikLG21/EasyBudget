@@ -12,11 +12,13 @@ namespace EasyBudget.Business.Services
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
         private readonly IUserAccess _userAccess;
+        private readonly IDepartmentAccess _departmentAccess;
 
-        public BudgetRequestService(IBudgetRequestAccess budgetRequestAccess, IUserAccess userAccess)
+        public BudgetRequestService(IBudgetRequestAccess budgetRequestAccess, IUserAccess userAccess,IDepartmentAccess departmentAccess)
         {
             _budgetRequestAccess = budgetRequestAccess;
             _userAccess = userAccess;
+            _departmentAccess = departmentAccess;
         }
 
         public BudgetRequestUpdateOutput AddRequest(Guid userId,BudgetRequest request)
@@ -28,15 +30,17 @@ namespace EasyBudget.Business.Services
                     throw new LackMandatoryInformation("Назва запиту");
                 }
 
-                if (request.Department == null)
+                if (request.Department.Id.Equals(Guid.Empty))
                 {
                     throw new LackMandatoryInformation("Відділ");
                 }
                 User user = _userAccess.Get(userId);
+                Department department = _departmentAccess.Get(request.Department.Id);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
                 request.Unit = user.Unit;
+                request.Department = department;
                 _budgetRequestAccess.Add(request);
                 return new BudgetRequestUpdateOutput(request,"Запит успішно додано");
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using EasyBudget.Common.Business.Factories;
 using EasyBudget.Common.Business.Outputs;
@@ -9,6 +10,7 @@ using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using EasyBudget.Presentation.Enums;
 using EasyBudget.Presentation.Interfaces;
+using EasyBudget.Presentation.Utils;
 
 namespace EasyBudget.Presentation.ViewModels
 {
@@ -34,7 +36,7 @@ namespace EasyBudget.Presentation.ViewModels
         public BudgetRequest BudgetRequest { get; set; }
         public BudgetRequest ChangedBudgetRequest { get; set; }
 
-        public List<Department> Departments { get; private set; }
+        public List<PairGuid> Departments { get; private set; }
 
         public FieldsStates NameField { get; set; }
         public FieldsStates DateRequestedDeadlineField { get; set; }
@@ -65,6 +67,9 @@ namespace EasyBudget.Presentation.ViewModels
             _agreementServiceFactory = agreementServiceFactory;
             _departmentService = departmentService;
             BudgetRequest = new BudgetRequest();
+            BudgetRequest.Department = new Department();
+            BudgetRequest.Department.Id= Guid.Empty;
+            ChangedBudgetRequest = BudgetRequest;
             NewRequestModeStart();
         }
 
@@ -114,7 +119,7 @@ namespace EasyBudget.Presentation.ViewModels
             //{
             //    return;
             //}
-            if (ChangedBudgetRequest.Name != null|ChangedBudgetRequest.Department!=null)
+            if (ChangedBudgetRequest.Name != null|ChangedBudgetRequest.Department.Id!=Guid.Empty)
             {
                 BudgetRequestUpdateOutput output = _budgetRequestService.AddRequest(userInfo.Id, ChangedBudgetRequest);
                 BudgetRequest = output.Request;
@@ -241,7 +246,11 @@ namespace EasyBudget.Presentation.ViewModels
 
         private void NewRequestModeStart()
         {
-            Departments = _departmentService.GetAllDepartments();
+            
+            Departments= new List<PairGuid>();
+            Departments.AddRange(_departmentService.GetAllDepartments()
+                .Select(br=>new PairGuid(br.Id,br.Name))
+                .ToList());
             NewRequestMode = true;
             InEditMode = true;
             IsEditable = false;

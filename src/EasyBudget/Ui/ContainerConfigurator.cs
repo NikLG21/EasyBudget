@@ -12,6 +12,7 @@ using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.Business.Services.UserServices;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.DataAccess.Queries;
+using EasyBudget.Presentation.Factory;
 using EasyBudget.Presentation.Interfaces;
 using EasyBudget.Presentation.ViewModels;
 using Unity;
@@ -47,6 +48,8 @@ namespace EasyBudget.Ui
             //Presentation
             container.RegisterType<IBudgetRequestViewModel,BudgetRequestViewModel>();
             container.RegisterType<IBudgetRequestListViewModel, BudgetRequestListViewModel>();
+            container.RegisterType<IBudgetRequestEntityFactory, BudgetRequestEntityFactory>();
+            
             
         }
     }
