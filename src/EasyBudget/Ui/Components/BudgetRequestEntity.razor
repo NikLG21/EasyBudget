@@ -53,11 +53,27 @@
                 </div>
                 <div>
                     <label>Затверджувач: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Approver.Name</label>
+                    @if (ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Approver != null)
+                    {
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Approver.Name</label>
+                    }
+                    else
+                    {
+                        <label></label>
+                    }
+
                 </div>
                 <div>
                     <label>Виконавець: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Executor.Name</label>
+                    @if (ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Executor != null)
+                    {
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Executor.Name</label>
+                    }
+                    else
+                    {
+                        <label></label>
+                    }
+                    
                 </div>
                 <div>
                     <label>Стан: </label>

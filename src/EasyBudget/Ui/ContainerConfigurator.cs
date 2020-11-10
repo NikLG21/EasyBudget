@@ -1,6 +1,9 @@
 ﻿using DataAccess;
 using DataAccess.Access;
 using DataAccess.Queries;
+using DataAccessCore;
+using DataAccessCore.Access;
+using DataAccessCore.Queries;
 using EasyBudget.Business.Factories;
 using EasyBudget.Business.Services;
 using EasyBudget.Business.Services.AgreementBudgetRequestServices;
@@ -37,14 +40,24 @@ namespace EasyBudget.Ui
             container.RegisterType<IAgreementServiceFactory, AgreementServiceFactory>();
             container.RegisterType<IDepartmentService, DepartmentService>();
             //dataAccess
-            container.RegisterType<IBudgetRequestDbContextFactory, BudgetRequestDbContextFactory>();
-            container.RegisterType<IUserAccess, UserAccess>();
-            container.RegisterType<IUserQueries, UserQueries>();
+
+            //container.RegisterType<IBudgetRequestDbContextFactory, BudgetRequestDbContextFactory>();
+            //container.RegisterType<IUserAccess, UserAccess>();
+            //container.RegisterType<IUserQueries, UserQueries>();
+            //container.RegisterType<IBudgetDescriptionAccess, BudgetDescriptionAccess>();
+            //container.RegisterType<IBudgetDescriptionQueries, BudgetDescriptionQueries>();
+            //container.RegisterType<IBudgetRequestAccess, BudgetRequestAccess>();
+            //container.RegisterType<IDepartmentAccess, DepartmentAccess>();
+            //container.RegisterType<IBudgetRequestListQueries, BudgetRequestListQueries>();
+
+            container.RegisterType<IBudgetRequestDbContextCoreFactory, BudgetRequestDbContextCoreFactory>();
+            container.RegisterType<IUserAccess, UserAccessCore>();
+            //container.RegisterType<IUserQueries, UserQueries>();
             container.RegisterType<IBudgetDescriptionAccess, BudgetDescriptionAccess>();
-            container.RegisterType<IBudgetDescriptionQueries, BudgetDescriptionQueries>();
-            container.RegisterType<IBudgetRequestAccess,BudgetRequestAccess>();
-            container.RegisterType<IDepartmentAccess, DepartmentAccess>();
-            container.RegisterType<IBudgetRequestListQueries, BudgetRequestListQueries>();
+            //container.RegisterType<IBudgetDescriptionQueries, BudgetDescriptionQueries>();
+            container.RegisterType<IBudgetRequestAccess, BudgetRequestAccessCore>();
+            container.RegisterType<IDepartmentAccess, DepartmentAccessCore>();
+            container.RegisterType<IBudgetRequestListQueries, BudgetRequestListQueriesCore>();
             //Presentation
             container.RegisterType<IBudgetRequestViewModel,BudgetRequestViewModel>();
             container.RegisterType<IBudgetRequestListViewModel, BudgetRequestListViewModel>();

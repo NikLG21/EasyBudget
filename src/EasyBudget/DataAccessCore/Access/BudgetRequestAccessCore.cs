@@ -4,50 +4,43 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
-using DataAccess.Utils;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
-using Action = EasyBudget.Common.Model.Security.Action;
+using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
-namespace DataAccess.Access
+namespace DataAccessCore.Access
 {
-    public class BudgetRequestAccess : IBudgetRequestAccess
+    public class BudgetRequestAccessCore :IBudgetRequestAccess
     {
-        private readonly IBudgetRequestDbContextFactory _factory;
+        private readonly IBudgetRequestDbContextCoreFactory _factory;
 
-        public BudgetRequestAccess(IBudgetRequestDbContextFactory factory)
+        public BudgetRequestAccessCore(IBudgetRequestDbContextCoreFactory factory)
         {
             _factory = factory;
         }
-
         public void Add(BudgetRequest request)
         {
-            using (BudgetRequestDbContext context = _factory.Create())
+            using (BudgetRequestDbContextCore context = _factory.Create())
             {
                 try
                 {
-                    string s1 = DataAccessUtils.Dump(context);
+                    //string s1 = DataAccessUtils.Dump(context);
 
                     context.Departments.AsNoTracking().FirstOrDefault(e => e.Id == request.Department.Id);
                     context.Units.AsNoTracking().FirstOrDefault(e => e.Id == request.Unit.Id);
                     context.Users.AsNoTracking().FirstOrDefault(e => e.Id == request.Requester.Id);
 
-                    string s2 = DataAccessUtils.Dump(context);
+                    //string s2 = DataAccessUtils.Dump(context);
 
                     context.BudgetRequests.Add(request);
 
-                    DbEntityEntry<User> requestor = context.Entry(request.Requester);
-                    DbEntityEntry<Department> department = context.Entry(request.Department);
-                    DbEntityEntry<Unit> unit = context.Entry(request.Unit);
-                    
-                    requestor.State = EntityState.Unchanged;
-                    department.State = EntityState.Unchanged;
-                    unit.State = EntityState.Unchanged;
-                    
+                    context.Entry(request.Requester).State = EntityState.Unchanged;
+                    context.Entry(request.Department).State = EntityState.Unchanged;
+                    context.Entry(request.Unit).State = EntityState.Unchanged;
 
-                    string s3 = DataAccessUtils.Dump(context);
+                    //string s3 = DataAccessUtils.Dump(context);
 
                     context.SaveChanges();
                 }
@@ -58,10 +51,9 @@ namespace DataAccess.Access
             }
         }
 
-
         public void Update(BudgetRequest request)
         {
-            using (BudgetRequestDbContext context = _factory.Create())
+            using (BudgetRequestDbContextCore context = _factory.Create())
             {
                 try
                 {
@@ -78,7 +70,7 @@ namespace DataAccess.Access
 
         public void UpdateList(List<Guid> ids, BudgetState newState)
         {
-            using (BudgetRequestDbContext context = _factory.Create())
+            using (BudgetRequestDbContextCore context = _factory.Create())
             {
                 try
                 {
@@ -95,14 +87,14 @@ namespace DataAccess.Access
 
         public void Delete(Guid id)
         {
-            using (BudgetRequestDbContext context = _factory.Create())
+            using (BudgetRequestDbContextCore context = _factory.Create())
             {
                 try
                 {
                     BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == id);
                     if (request != null)
                     {
-                        context.BudgetRequests.Attach(request).BudgetHistories.RemoveAll(h =>h.BudgetRequest.Id.Equals(request.Id));
+                        context.BudgetRequests.Attach(request).BudgetHistories.RemoveAll(h => h.BudgetRequest.Id.Equals(request.Id));
                         context.BudgetRequests.Attach(request).BudgetDescriptions.RemoveAll(d => d.BudgetRequest.Id.Equals(request.Id));
                         context.BudgetRequests.Attach(request);
                         context.BudgetRequests.Remove(request);
@@ -118,7 +110,7 @@ namespace DataAccess.Access
 
         public BudgetRequest Get(Guid id)
         {
-            using (BudgetRequestDbContext context = _factory.Create())
+            using (BudgetRequestDbContextCore context = _factory.Create())
             {
                 try
                 {
