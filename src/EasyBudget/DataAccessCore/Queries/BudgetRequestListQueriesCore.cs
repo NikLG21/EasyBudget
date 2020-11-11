@@ -5,6 +5,7 @@ using System.Text;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessCore.Queries
 {

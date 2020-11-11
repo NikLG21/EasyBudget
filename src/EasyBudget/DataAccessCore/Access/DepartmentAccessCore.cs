@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace DataAccessCore.Access

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
 using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
-using EasyBudget.Common.Model.Security;
+using Microsoft.EntityFrameworkCore;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace DataAccessCore.Access
@@ -94,8 +91,9 @@ namespace DataAccessCore.Access
                     BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == id);
                     if (request != null)
                     {
-                        context.BudgetRequests.Attach(request).BudgetHistories.RemoveAll(h => h.BudgetRequest.Id.Equals(request.Id));
-                        context.BudgetRequests.Attach(request).BudgetDescriptions.RemoveAll(d => d.BudgetRequest.Id.Equals(request.Id));
+                        //TODO: Core Changes
+                        //context.BudgetRequests.Attach(request).BudgetHistories.RemoveAll(h => h.BudgetRequest.Id.Equals(request.Id));
+                        //context.BudgetRequests.Attach(request).BudgetDescriptions.RemoveAll(d => d.BudgetRequest.Id.Equals(request.Id));
                         context.BudgetRequests.Attach(request);
                         context.BudgetRequests.Remove(request);
                         context.SaveChanges();
