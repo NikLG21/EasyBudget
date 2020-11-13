@@ -91,9 +91,9 @@ namespace DataAccessCore.Access
                     BudgetRequest request = context.BudgetRequests.FirstOrDefault(e => e.Id == id);
                     if (request != null)
                     {
-                        //TODO: Core Changes
-                        //context.BudgetRequests.Attach(request).BudgetHistories.RemoveAll(h => h.BudgetRequest.Id.Equals(request.Id));
-                        //context.BudgetRequests.Attach(request).BudgetDescriptions.RemoveAll(d => d.BudgetRequest.Id.Equals(request.Id));
+                        context.BudgetRequests.Attach(request).Entity.BudgetHistories
+                            .RemoveAll(h => h.BudgetRequest.Id.Equals(request.Id));
+                        context.BudgetRequests.Attach(request).Entity.BudgetDescriptions.RemoveAll(d => d.BudgetRequest.Id.Equals(request.Id));
                         context.BudgetRequests.Attach(request);
                         context.BudgetRequests.Remove(request);
                         context.SaveChanges();
