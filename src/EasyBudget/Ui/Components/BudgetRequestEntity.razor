@@ -5,17 +5,17 @@
 
 @if (true)
 {
-<div>
+<div class="entity-view-container">
     @{
         if (!ViewModel.BudgetRequestViewModel.NewRequestMode)
         {
-        <div>
-            <div>
+        <div class="entity-view-existed">
+            <div class="entity-view-existed-top">
 
                 @{
                     if (ViewModel.BudgetRequestViewModel.IsEditable)
                     {
-                        <button @onclick="ViewModel.BudgetRequestViewModel.ChangeMode">Редагувати</button>
+                        <button @onclick="ViewModel.BudgetRequestViewModel.ChangeEditMode">Редагувати</button>
                     }
                     else
                     {
@@ -32,127 +32,132 @@
 
                 }
             </div>
-            <div>
-                @{
-                    <label>Назва: </label>
-                    if (ViewModel.BudgetRequestViewModel.NameField == FieldsStates.NotEditable)
-                    {
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Name</label>
-                    }
-                    else
-                    {
-                        <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Name">
-                    }
+            <div class="entity-view-existed-main">
+                <div class="entity-view-existed-main-name">
+                    @{
+                        
+                        if (ViewModel.BudgetRequestViewModel.NameField == FieldsStates.NotEditable)
+                        {
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Name</label>
+                        }
+                        else
+                        {
+                            <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Name">
+                        }
 
-                }
-            </div>
-            <div>
-                <div>
-                    <label>Ініціатор: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Requester.Name</label>
+                    }
                 </div>
-                <div>
-                    <label>Затверджувач: </label>
-                    @if (ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Approver != null)
-                    {
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Approver.Name</label>
-                    }
-                    else
-                    {
-                        <label></label>
-                    }
+                <div class="entity-view-existed-main-users">
+                    <div>
+                        <label>Ініціатор: </label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Requester.Name</label>
+                    </div>
+                    <div>
+                        <label>Затверджувач: </label>
+                        @if (ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Approver != null)
+                        {
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Approver.Name</label>
+                        }
+                        else
+                        {
+                            <label></label>
+                        }
 
+                    </div>
+                    <div>
+                        <label>Виконавець: </label>
+                        @if (ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Executor != null)
+                        {
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Executor.Name</label>
+                        }
+                        else
+                        {
+                            <label></label>
+                        }
+
+                    </div>
+                    <div>
+                        <label>Стан: </label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.State.ToString()</label>
+                    </div>
                 </div>
-                <div>
-                    <label>Виконавець: </label>
-                    @if (ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Executor != null)
-                    {
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Executor.Name</label>
-                    }
-                    else
-                    {
-                        <label></label>
-                    }
-                    
+                <div class="entity-view-existed-main-prices">
+                    <div>
+                        <label>Орієнтовна ціна:</label>
+                        @if (ViewModel.BudgetRequestViewModel.EstimatedPriceField == FieldsStates.NotEditable)
+                        {
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice</label>
+                        }
+                        else
+                        {
+                            <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice" />
+                        }
+                    </div>
+                    <div>
+                        <label>Точна ціна: </label>
+                        @if (ViewModel.BudgetRequestViewModel.RealPriceField == FieldsStates.NotEditable)
+                        {
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice</label>
+                        }
+                        else
+                        {
+                            <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice" />
+                        }
+                    </div>
                 </div>
-                <div>
-                    <label>Стан: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.State.ToString()</label>
+                <div class="entity-view-existed-main-info">
+                    <div>
+                        <label>Відділ:</label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Department.Name</label>
+                    </div>
+                    <div>
+                        <label>Юніт:</label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Unit.Name</label>
+                    </div>
+                </div>
+                <div class="entity-view-existed-main-dates">
+                    <div>
+                        <label>Дата запиту: </label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequested</label>
+                    </div>
+                    <div>
+                        <label>Запрошений дедлайн: </label>
+                        @if (ViewModel.BudgetRequestViewModel.DateRequestedDeadlineField == FieldsStates.NotEditable)
+                        {
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline</label>
+                        }
+                        else
+                        {
+                            <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline" />
+                        }
+                    </div>
+                    <div>
+                        <label>Дата затвердження директором: </label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDirectorApprove</label>
+                    </div>
+                    <div>
+                        <label>Дата початку виконання: </label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateStartExecution</label>
+                    </div>
+                    <div>
+                        <label>Встановлений дедлайн: </label>
+                        @if (ViewModel.BudgetRequestViewModel.DateDeadlineExecutionField == FieldsStates.NotEditable)
+                        {
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDeadlineExecution</label>
+                        }
+                        else
+                        {
+                            <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDeadlineExecution" />
+                        }
+                    </div>
+                    <div>
+                        <label>Дата завершення виконання: </label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateEndExecution</label>
+                    </div>
                 </div>
             </div>
-            <div>
-                <div>
-                    <label>Орієнтовна ціна:</label>
-                    @if (ViewModel.BudgetRequestViewModel.EstimatedPriceField == FieldsStates.NotEditable)
-                    {
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice</label>
-                    }
-                    else
-                    {
-                        <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice" />
-                    }
-                </div>
-                <div>
-                    <label>Точна ціна: </label>
-                    @if (ViewModel.BudgetRequestViewModel.RealPriceField == FieldsStates.NotEditable)
-                    {
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice</label>
-                    }
-                    else
-                    {
-                        <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice" />
-                    }
-                </div>
-                <div>
-                    <label>Відділ:</label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Department.Name</label>
-                </div>
-                <div>
-                    <label>Юніт:</label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Unit.Name</label>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <label>Дата запиту: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequested</label>
-                </div>
-                <div>
-                    <label>Запрошений дедлайн: </label>
-                    @if (ViewModel.BudgetRequestViewModel.DateRequestedDeadlineField == FieldsStates.NotEditable)
-                    {
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline</label>
-                    }
-                    else
-                    {
-                        <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline" />
-                    }
-                </div>
-                <div>
-                    <label>Дата затвердження директором: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDirectorApprove</label>
-                </div>
-                <div>
-                    <label>Дата початку виконання: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateStartExecution</label>
-                </div>
-                <div>
-                    <label>Встановлений дедлайн: </label>
-                    @if (ViewModel.BudgetRequestViewModel.DateDeadlineExecutionField == FieldsStates.NotEditable)
-                    {
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDeadlineExecution</label>
-                    }
-                    else
-                    {
-                        <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDeadlineExecution" />
-                    }
-                </div>
-                <div>
-                    <label>Дата завершення виконання: </label>
-                    <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateEndExecution</label>
-                </div>
-            </div>
-            <div>
+            
+            <div class="entity-view-existed-bottom">
                 @{
                     if (ViewModel.BudgetRequestViewModel.InEditMode)
                     {
@@ -169,7 +174,7 @@
         }
         else
         {
-            <div>
+            <div class="entity-view-new">
                 <div>
                     <input type="text" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Name"/>
                 </div>

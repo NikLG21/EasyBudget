@@ -39,13 +39,13 @@ namespace EasyBudget.Presentation.ViewModels
                     }
                     break;
                 case RoleNames.Director:
-                    if (BudgetRequest.State == BudgetState.ExecutorEstimated | BudgetRequest.State == BudgetState.PostpondDirector)
+                    if (BudgetRequest.State == BudgetState.ExecutorEstimated | BudgetRequest.State == BudgetState.PostponedDirector)
                     {
                         IsApproveable = true;
                     }
                     break;
                 case RoleNames.FinDirector:
-                    if (BudgetRequest.State == BudgetState.ApprovedDirector| BudgetRequest.State == BudgetState.PostpondFinDirector)
+                    if (BudgetRequest.State == BudgetState.ApprovedDirector| BudgetRequest.State == BudgetState.PostponedFinDirector)
                     {
                         IsApproveable = true;
                     }

@@ -226,21 +226,25 @@ namespace EasyBudget.Presentation.ViewModels
 
         private void FilterCustomization()
         {
+            FilterViewModel.Requesters.Clear();
             FilterViewModel.Requesters
                 .AddRange(_displayBudgetRequests
                     .Select(br => new PairGuid(br.BudgetRequest.RequesterId,br.BudgetRequest.RequesterName))
                     .ToList()
                     .Distinct());
+            FilterViewModel.Departments.Clear();
             FilterViewModel.Departments
                 .AddRange(_displayBudgetRequests
                     .Select(br => new PairGuid(br.BudgetRequest.DepartmentId, br.BudgetRequest.DepartmentName))
                     .ToList()
                     .Distinct());
+            FilterViewModel.Units.Clear();
             FilterViewModel.Units
                 .AddRange(_displayBudgetRequests
                     .Select(br => new PairGuid(br.BudgetRequest.UnitId, br.BudgetRequest.UnitName))
                     .ToList()
                     .Distinct());
+            FilterViewModel.States.Clear();
             FilterViewModel.States
                 .AddRange(_displayBudgetRequests
                     .Select(br => new PairEnum<BudgetState>(br.BudgetRequest.State,null))

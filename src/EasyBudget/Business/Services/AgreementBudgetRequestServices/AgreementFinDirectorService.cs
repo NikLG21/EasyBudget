@@ -27,7 +27,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 BudgetRequest request = _budgetRequestAccess.Get(id);
                 if (request.State == BudgetState.ApprovedDirector)
                 {
-                    request.State = BudgetState.PostpondFinDirector;
+                    request.State = BudgetState.PostponedFinDirector;
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request, "Запит було успішно відкладено");
                 }
@@ -55,7 +55,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             try
             {
                 BudgetRequest request = _budgetRequestAccess.Get(id);
-                if (request.State == BudgetState.ApprovedDirector | request.State == BudgetState.PostpondFinDirector)
+                if (request.State == BudgetState.ApprovedDirector | request.State == BudgetState.PostponedFinDirector)
                 {
                     request.State = BudgetState.Executing;
                     request.DateDeadlineExecution = deadline;

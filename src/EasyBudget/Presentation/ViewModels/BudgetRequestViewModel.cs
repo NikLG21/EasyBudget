@@ -6,6 +6,7 @@ using EasyBudget.Common.Business.Factories;
 using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess.Dtos;
+using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using EasyBudget.Presentation.Enums;
@@ -74,7 +75,7 @@ namespace EasyBudget.Presentation.ViewModels
         }
 
 
-        public void ChangeMode()
+        public void ChangeEditMode()
         {
             if (IsEditable == true)
             {
@@ -82,6 +83,7 @@ namespace EasyBudget.Presentation.ViewModels
                 FieldStatesEditMode();
             }
         }
+
         public void ApproveRequest()
         {
             BudgetRequestUpdateOutput output;
@@ -115,10 +117,10 @@ namespace EasyBudget.Presentation.ViewModels
 
         public void CreateNewRequest()
         {
-            //if (role.Name!=RoleNames.Requester)
-            //{
-            //    return;
-            //}
+            if (role.Name != RoleNames.Requester)
+            {
+                return;
+            }
             if (ChangedBudgetRequest.Name != null|ChangedBudgetRequest.Department.Id!=Guid.Empty)
             {
                 BudgetRequestUpdateOutput output = _budgetRequestService.AddRequest(userInfo.Id, ChangedBudgetRequest);
@@ -128,6 +130,15 @@ namespace EasyBudget.Presentation.ViewModels
             }
             else
             {
+                if (ChangedBudgetRequest.Name == null)
+                {
+                    throw new LackMandatoryInformation("Назва");
+                }
+
+                if (ChangedBudgetRequest.Department.Id == Guid.Empty)
+                {
+                    throw new LackMandatoryInformation("Відділ");
+                }
                 
             }
         }
@@ -156,13 +167,13 @@ namespace EasyBudget.Presentation.ViewModels
                     }
                     break;
                 case RoleNames.Director:
-                    if (BudgetRequest.State == BudgetState.ExecutorEstimated | BudgetRequest.State == BudgetState.PostpondDirector)
+                    if (BudgetRequest.State == BudgetState.ExecutorEstimated | BudgetRequest.State == BudgetState.PostponedDirector)
                     {
                         IsEditable = true;
                     }
                     break;
                 case RoleNames.FinDirector:
-                    if (BudgetRequest.State == BudgetState.ApprovedDirector | BudgetRequest.State == BudgetState.PostpondFinDirector)
+                    if (BudgetRequest.State == BudgetState.ApprovedDirector | BudgetRequest.State == BudgetState.PostponedFinDirector)
                     {
                         IsEditable = true;
                     }
@@ -191,13 +202,13 @@ namespace EasyBudget.Presentation.ViewModels
                     break;
                 case RoleNames.Director:
                     if (BudgetRequest.State == BudgetState.ExecutorEstimated |
-                        BudgetRequest.State == BudgetState.PostpondDirector)
+                        BudgetRequest.State == BudgetState.PostponedDirector)
                     {
                         ApproveAble = true;
                     }
                     break;
                 case RoleNames.FinDirector:
-                    if (BudgetRequest.State == BudgetState.ApprovedDirector | BudgetRequest.State == BudgetState.PostpondFinDirector)
+                    if (BudgetRequest.State == BudgetState.ApprovedDirector | BudgetRequest.State == BudgetState.PostponedFinDirector)
                     {
                         ApproveAble = true;
                     }
@@ -227,7 +238,7 @@ namespace EasyBudget.Presentation.ViewModels
                 case RoleNames.Director:
                     break;
                 case RoleNames.FinDirector:
-                    if (BudgetRequest.State == BudgetState.ApprovedDirector | BudgetRequest.State == BudgetState.PostpondFinDirector)
+                    if (BudgetRequest.State == BudgetState.ApprovedDirector | BudgetRequest.State == BudgetState.PostponedFinDirector)
                     {
                         DateDeadlineExecutionField = FieldsStates.UnChanged;
                     }

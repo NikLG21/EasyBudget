@@ -23,7 +23,7 @@ namespace EasyBudget.Presentation.Interfaces
         bool ApproveAble { get; set; }
         bool InEditMode { get; set; }
         bool NewRequestMode { get; set; }
-        void ChangeMode();
+        void ChangeEditMode();
         void ApproveRequest();
         void CreateNewRequest();
         void CancelChanges();

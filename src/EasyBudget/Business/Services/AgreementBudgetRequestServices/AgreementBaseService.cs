@@ -47,7 +47,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 case RoleNames.Director:
                     foreach (BudgetRequestMainListDto request in budgetRequests)
                     {
-                        if (request.State == BudgetState.ExecutorEstimated | request.State == BudgetState.PostpondDirector)
+                        if (request.State == BudgetState.ExecutorEstimated | request.State == BudgetState.PostponedDirector)
                         {
                             request.State = BudgetState.ApprovedDirector;
                             output.SuccessUpdatedBudgetRequests.Add(request);
@@ -64,7 +64,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 case RoleNames.FinDirector:
                     foreach (BudgetRequestMainListDto request in budgetRequests)
                     {
-                        if (request.State == BudgetState.ApprovedDirector | request.State == BudgetState.PostpondFinDirector)
+                        if (request.State == BudgetState.ApprovedDirector | request.State == BudgetState.PostponedFinDirector)
                         {
                             request.State = BudgetState.Executing;
                             output.SuccessUpdatedBudgetRequests.Add(request);

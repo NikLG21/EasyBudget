@@ -72,12 +72,12 @@ namespace EasyBudget.Presentation.Extensions
                                             &&br.BudgetRequest.State.Equals(BudgetState.Requested))
                         .ToList();
                 case RoleNames.Director:
-                    return list.Where(br => br.BudgetRequest.State.Equals(BudgetState.PostpondDirector) 
+                    return list.Where(br => br.BudgetRequest.State.Equals(BudgetState.PostponedDirector) 
                                             |br.BudgetRequest.State.Equals(BudgetState.ExecutorEstimated))
                         .ToList();
                 case RoleNames.FinDirector:
                     return list.Where(br => br.BudgetRequest.State.Equals(BudgetState.ApprovedDirector)
-                                            | br.BudgetRequest.State.Equals(BudgetState.PostpondFinDirector))
+                                            | br.BudgetRequest.State.Equals(BudgetState.PostponedFinDirector))
                         .ToList();
                 case RoleNames.Executor:
                     return list.Where(br => br.BudgetRequest.DepartmentId.Equals(userInfo.DepartmentId)

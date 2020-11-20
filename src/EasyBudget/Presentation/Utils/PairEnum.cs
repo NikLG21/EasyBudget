@@ -21,6 +21,21 @@ namespace EasyBudget.Presentation.Utils
 
         public T Key { get; }
         public string Value { get; }
+
+        public override bool Equals(object obj)
+        {
+            PairEnum<T> pairEnum = (PairEnum<T>)obj;
+            if (pairEnum.Key.Equals(Key) && pairEnum.Value == Value)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Value.GetHashCode() * Key.GetHashCode();
+        }
     }
 
 }

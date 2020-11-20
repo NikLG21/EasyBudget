@@ -24,7 +24,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             try
             {
                 BudgetRequest request = _budgetRequestAccess.Get(id);
-                if (request.State == BudgetState.ExecutorEstimated | request.State == BudgetState.PostpondDirector)
+                if (request.State == BudgetState.ExecutorEstimated | request.State == BudgetState.PostponedDirector)
                 {
                     request.State = BudgetState.ApprovedDirector;
                     request.DateDirectorApprove = DateTime.Today;
@@ -55,7 +55,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             try
             {
                 BudgetRequest request = _budgetRequestAccess.Get(id);
-                if (request.State == BudgetState.ExecutorEstimated | request.State == BudgetState.PostpondDirector)
+                if (request.State == BudgetState.ExecutorEstimated | request.State == BudgetState.PostponedDirector)
                 {
                     request.State = BudgetState.RejectedDirector;
                     _budgetRequestAccess.Update(request);
@@ -87,7 +87,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 BudgetRequest request = _budgetRequestAccess.Get(id);
                 if (request.State == BudgetState.ExecutorEstimated)
                 {
-                    request.State = BudgetState.PostpondDirector;
+                    request.State = BudgetState.PostponedDirector;
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request,"Запит було відкладено");
                 }
