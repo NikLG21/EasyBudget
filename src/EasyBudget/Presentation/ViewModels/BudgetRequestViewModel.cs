@@ -149,7 +149,6 @@ namespace EasyBudget.Presentation.ViewModels
             FieldStatesEditMode();
         }
 
-
         private void CheckEditable()
         {
             switch (role.Name)

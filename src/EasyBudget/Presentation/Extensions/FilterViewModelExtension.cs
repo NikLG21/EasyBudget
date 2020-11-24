@@ -5,6 +5,8 @@ using System.Text;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
+using EasyBudget.Presentation.Enums;
+using EasyBudget.Presentation.Utils;
 using EasyBudget.Presentation.ViewModels;
 
 namespace EasyBudget.Presentation.Extensions
@@ -99,6 +101,52 @@ namespace EasyBudget.Presentation.Extensions
         public static IEnumerable<BudgetRequestRowViewModel> DateFilter(this IEnumerable<BudgetRequestRowViewModel> list, DateTime from, DateTime to)
         {
             return list.Where(br => br.BudgetRequest.DateRequested >= from && br.BudgetRequest.DateRequested <= to);
+        }
+
+        public static IEnumerable<BudgetRequestRowViewModel> SortingList(this IEnumerable<BudgetRequestRowViewModel> list,SortingList sorting)
+        {
+            switch (sorting.Entity)
+            {
+                case SortingEntity.DateRequested:
+                    if (sorting.Direction)
+                    {
+                        return list.OrderBy(b => b.BudgetRequest.DateRequested);
+                    }
+                    else
+                    {
+                        return list.OrderByDescending(b => b.BudgetRequest.DateRequested);
+                    }
+                case SortingEntity.Department:
+                    if (sorting.Direction)
+                    {
+                        return list.OrderBy(b => b.BudgetRequest.DepartmentName);
+                    }
+                    else
+                    {
+                        return list.OrderByDescending(b => b.BudgetRequest.DepartmentName);
+                    }
+                case SortingEntity.Requester:
+                    if (sorting.Direction)
+                    {
+                        return list.OrderBy(b => b.BudgetRequest.RequesterName);
+                    }
+                    else
+                    {
+                        return list.OrderByDescending(b => b.BudgetRequest.RequesterName);
+                    }
+                case SortingEntity.Unit:
+                    if (sorting.Direction)
+                    {
+                        return list.OrderBy(b => b.BudgetRequest.UnitName);
+                    }
+                    else
+                    {
+                        return list.OrderByDescending(b => b.BudgetRequest.UnitName);
+                    }
+                default:
+                    return list;
+                    
+            }
         }
     }
 }

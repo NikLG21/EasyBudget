@@ -30,10 +30,6 @@ namespace EasyBudget.Presentation.ViewModels
             Departments = new List<PairGuid>();
             Units = new List<PairGuid>();
             States = new List<PairEnum<BudgetState>>();
-            //RequesterIds = new List<Guid>();
-            //DepartmentIds = new List<Guid>();
-            //UnitIds = new List<Guid>();
-            //States = new List<BudgetState>();
             Requester = Guid.Empty;
             Department = Guid.Empty;
             Unit = Guid.Empty;
@@ -42,6 +38,5 @@ namespace EasyBudget.Presentation.ViewModels
             OnGoingFilterIsActive = false;
             SelectedFilterIsActive = false;
         }
-
     }
 }

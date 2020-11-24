@@ -6,6 +6,7 @@ using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess.Dtos;
+using EasyBudget.Common.Localization;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using EasyBudget.Presentation.Extensions;
@@ -51,6 +52,7 @@ namespace EasyBudget.Presentation.ViewModels
             BudgetRequests = new List<BudgetRequestRowViewModel>();
             _displayBudgetRequests = new List<BudgetRequestRowViewModel>();
             FilterViewModel = new FilterViewModel();
+            Sorting = new SortingList();
 
             PageNumber = 1;
             PageSize = 10;
@@ -60,6 +62,7 @@ namespace EasyBudget.Presentation.ViewModels
         public event System.Action ViewModelChanged;
 
         public IFilterViewModel FilterViewModel { get; }
+        public SortingList Sorting { get; set; }
 
         public IBudgetRequestViewModel BudgetRequestViewModel { get; private set; }
 
@@ -109,6 +112,7 @@ namespace EasyBudget.Presentation.ViewModels
                     .UnitFilter(FilterViewModel.Unit)
                     .StateFilter(FilterViewModel.State)
                     .DateFilter(FilterViewModel.From, FilterViewModel.To)
+                    .SortingList(Sorting)
                     .ToList();
 
                 Total = list.Count;
@@ -130,6 +134,7 @@ namespace EasyBudget.Presentation.ViewModels
             }
             _displayBudgetRequests.Clear();
             _displayBudgetRequests.AddRange(BudgetRequests);
+            
             FilterCustomization();
             Total = BudgetRequests.Count;
             FilterViewModel.From = BudgetRequests.Select(br => br.BudgetRequest.DateRequested).ToList().Min();
@@ -224,6 +229,12 @@ namespace EasyBudget.Presentation.ViewModels
             ViewModelChanged?.Invoke();
         }
 
+        public void ReturnToList()
+        {
+            BudgetRequestViewModel = null;
+            ViewModelChanged?.Invoke();
+        }
+
         private void FilterCustomization()
         {
             FilterViewModel.Requesters.Clear();
@@ -247,7 +258,7 @@ namespace EasyBudget.Presentation.ViewModels
             FilterViewModel.States.Clear();
             FilterViewModel.States
                 .AddRange(_displayBudgetRequests
-                    .Select(br => new PairEnum<BudgetState>(br.BudgetRequest.State,null))
+                    .Select(br => new PairEnum<BudgetState>(br.BudgetRequest.State, br.BudgetRequest.State.GetLocalizationState()))
                     .ToList()
                     .Distinct());
         }

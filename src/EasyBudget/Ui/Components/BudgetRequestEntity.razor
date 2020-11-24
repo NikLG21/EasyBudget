@@ -1,7 +1,6 @@
 ﻿@using EasyBudget.Presentation.Enums
 @using EasyBudget.Common.Model
 @using EasyBudget.Presentation.Utils
-<h3>BudgetRequestEntity</h3>
 
 @if (true)
 {
@@ -78,7 +77,7 @@
                     </div>
                     <div>
                         <label>Стан: </label>
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.State.ToString()</label>
+                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.State.GetLocalizationState()</label>
                     </div>
                 </div>
                 <div class="entity-view-existed-main-prices">
@@ -159,6 +158,9 @@
             
             <div class="entity-view-existed-bottom">
                 @{
+                    <div>
+                        <button @onclick="ViewModel.ReturnToList">Назад</button>
+                    </div>
                     if (ViewModel.BudgetRequestViewModel.InEditMode)
                     {
                         <button @onclick="ViewModel.BudgetRequestViewModel.CancelChanges">Скасувати зміни</button>
@@ -192,6 +194,9 @@
                 </div>
                 <div>
                     <button @onclick="ViewModel.BudgetRequestViewModel.CreateNewRequest">Створити запит</button>
+                </div>
+                <div>
+                    <button @onclick="ViewModel.ReturnToList">Назад</button>
                 </div>
             </div>
         }

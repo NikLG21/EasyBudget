@@ -23,5 +23,6 @@ namespace EasyBudget.Presentation.Interfaces
 
         DateTime From { get; set; }
         DateTime To { get; set; }
+
     }
 }

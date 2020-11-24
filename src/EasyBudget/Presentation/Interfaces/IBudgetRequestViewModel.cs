@@ -27,6 +27,6 @@ namespace EasyBudget.Presentation.Interfaces
         void ApproveRequest();
         void CreateNewRequest();
         void CancelChanges();
-        
+
     }
 }

@@ -24,5 +24,6 @@ namespace EasyBudget.Presentation.Interfaces
         void OnGoingList();
         void OpenBudgetRequest(Guid id);
         void NewBudgetRequest();
+        void ReturnToList();
     }
 }
