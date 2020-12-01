@@ -9,6 +9,7 @@ using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Localization;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
+using EasyBudget.Presentation.Enums;
 using EasyBudget.Presentation.Extensions;
 using EasyBudget.Presentation.Interfaces;
 using EasyBudget.Presentation.Utils;
@@ -233,6 +234,12 @@ namespace EasyBudget.Presentation.ViewModels
         {
             BudgetRequestViewModel = null;
             ViewModelChanged?.Invoke();
+        }
+
+        public void ChangeSorting(SortingEntity entity, bool direction)
+        {
+            Sorting.Entity = entity;
+            Sorting.Direction = direction;
         }
 
         private void FilterCustomization()

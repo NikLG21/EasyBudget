@@ -39,6 +39,10 @@
     width: 60%;
 }
 
+.common-button-icon-sort {
+    font-size: 16px;
+}
+
 .common-button-div {
     padding: 10px;
 }
@@ -51,10 +55,29 @@ table, td, th {
 
 th:nth-child(2) {
    width: 30%;
-   border: 1px solid black;
-   border-collapse: collapse;
    padding: 10px;
    text-align: center;
+}
+
+th:nth-child(3) {
+    width: 10%;
+    padding: 10px;
+    text-align: center;
+}
+th:nth-child(4) {
+    width: 10%;
+    padding: 10px;
+    text-align: center;
+}
+th:nth-child(5) {
+    width: 15%;
+    padding: 10px;
+    text-align: center;
+}
+th:nth-child(6) {
+    width: 10%;
+    padding: 10px;
+    text-align: center;
 }
 
 .entity-view-container {

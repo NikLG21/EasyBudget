@@ -4,7 +4,7 @@
 @using System.Data.SqlClient
 @using EasyBudget.Common.Model
 @using EasyBudget.Common.Model.Security
-@using EasyBudget.Presentation.Utils
+@using EasyBudget.Presentation.Enums
 
 
 @if (true)
@@ -18,11 +18,73 @@
                             <input type="checkbox" @onchange="args => { MainCheckboxClicked(args); }">
                         </th>
                         <th>Назва</th>
-                        <th>Ініціатор</th>
-                        <th>Клініка</th>
-                        <th>Дата запиту</th>
-                        <th>Відділ</th>
-                        <th>State</th>
+                        @{
+                            if (ViewModel.Sorting.Entity == SortingEntity.Requester)
+                            {
+                                if (ViewModel.Sorting.Direction)
+                                {
+                                    <th>Ініціатор<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Requester, false); })"><i class='fas fa-sort-up'></i></button></th>
+                                }
+                                else
+                                {
+                                    <th>Ініціатор<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Requester, true); })"><i class="fa fa-sort-down"></i></button></th>
+                                }
+
+                            }
+                            else
+                            {
+                                <th>Ініціатор<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Requester, false); })"><i class="fa fa-sort"></i></button></th>
+                            }
+                            if (ViewModel.Sorting.Entity == SortingEntity.Unit)
+                            {
+                                if (ViewModel.Sorting.Direction)
+                                {
+                                    <th>Клініка<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Unit, false); })"><i class='fas fa-sort-up'></i></button></th>
+                                }
+                                else
+                                {
+                                    <th>Клініка<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Unit, true); })"><i class="fa fa-sort-down"></i></button></th>
+                                }
+
+                            }
+                            else
+                            {
+                                <th>Клініка<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Unit, false); })"><i class="fa fa-sort"></i></button></th>
+                            }
+                            if (ViewModel.Sorting.Entity == SortingEntity.DateRequested)
+                            {
+                                if (ViewModel.Sorting.Direction)
+                                {
+                                    <th>Дата запиту<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.DateRequested, false); })"><i class='fas fa-sort-up'></i></button></th>
+                                }
+                                else
+                                {
+                                    <th>Дата запиту<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.DateRequested, true); })"><i class="fa fa-sort-down"></i></button></th>
+                                }
+
+                            }
+                            else
+                            {
+                                <th>Дата запиту<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.DateRequested, false); })"><i class="fa fa-sort"></i></button></th>
+                            }
+                            if (ViewModel.Sorting.Entity == SortingEntity.Department)
+                            {
+                                if (ViewModel.Sorting.Direction)
+                                {
+                                    <th>Відділ<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Department, false); })"><i class='fas fa-sort-up'></i></button></th>
+                                }
+                                else
+                                {
+                                    <th>Відділ<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Department, true); })"><i class="fa fa-sort-down"></i></button></th>
+                                }
+
+                            }
+                            else
+                            {
+                                <th>Відділ<button class="common-button-icon-sort" @onclick="(() => { ViewModel.ChangeSorting(SortingEntity.Department, false); })"><i class="fa fa-sort"></i></button></th>
+                            }
+                        }
+                        <th>Стадія</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -40,13 +102,14 @@
                                 <td>@budgetRequest.BudgetRequest.DepartmentName</td>
                                 <td>@budgetRequest.BudgetRequest.State.GetLocalizationState()</td>
                                 <td>
-                                    <button @onclick="() => ViewModel.OpenBudgetRequest(budgetRequest.BudgetRequest.Id)">Показати</button>
+                                    
+                                    <button class="common-button-icon-sort" @onclick="() => ViewModel.OpenBudgetRequest(budgetRequest.BudgetRequest.Id)"><i class="material-icons">pageview</i></button>
                                 </td>
                                 <td>
                                     @{
                                         if (budgetRequest.IsApproveable)
                                         {
-                                            <button>Затвердити</button>
+                                            <button>&#9989;</button>
                                         }
 
                                     }

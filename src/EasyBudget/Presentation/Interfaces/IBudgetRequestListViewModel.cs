@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using EasyBudget.Presentation.Enums;
+using EasyBudget.Presentation.Utils;
 using EasyBudget.Presentation.ViewModels;
 
 namespace EasyBudget.Presentation.Interfaces
@@ -10,7 +12,7 @@ namespace EasyBudget.Presentation.Interfaces
 
         IBudgetRequestViewModel BudgetRequestViewModel { get; }
         IFilterViewModel FilterViewModel { get; }
-
+        SortingList Sorting { get; set; }
         int PageNumber { get; set; }
         int PageSize { get; set; }
         int Total { get; }
@@ -18,6 +20,7 @@ namespace EasyBudget.Presentation.Interfaces
         List<BudgetRequestRowViewModel> BudgetRequests { get; }
         List<BudgetRequestRowViewModel> PageBudgetRequests { get; }
 
+        
         void LoadData();
         void ApproveRequests();
         void ApplySelection();
@@ -25,5 +28,6 @@ namespace EasyBudget.Presentation.Interfaces
         void OpenBudgetRequest(Guid id);
         void NewBudgetRequest();
         void ReturnToList();
+        void ChangeSorting(SortingEntity entity, bool direction);
     }
 }
