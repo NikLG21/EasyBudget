@@ -19,7 +19,7 @@ namespace DataAccessCore.Access
         }
         public void Add(User user)
         {
-            using (BudgetRequestDbContextCore context = _factory.Create())
+            using(BudgetRequestDbContextCore context = _factory.Create())
             {
                 try
                 {
@@ -64,9 +64,11 @@ namespace DataAccessCore.Access
             {
                 try
                 {
-                    User user = context.Users.AsNoTracking()
+                    User user = context.Users
                         .Include(u => u.Unit)
                         .Include(u => u.Roles)
+                        .Include(u => u.Roles)
+                        .AsNoTracking()
                         .FirstOrDefault(u => u.Id == id);
                     if (user == null)
                     {

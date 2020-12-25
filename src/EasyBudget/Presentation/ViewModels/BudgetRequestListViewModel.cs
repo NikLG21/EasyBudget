@@ -21,6 +21,7 @@ namespace EasyBudget.Presentation.ViewModels
         private readonly IBudgetRequestListServiceFactory _budgetRequestListServiceFactory;
         private readonly IAgreementBaseService _agreementBaseService;
         private readonly IBudgetRequestEntityFactory _requestEntityFactory;
+        private readonly IAgreementServiceFactory _agreementServiceFactory;
         
 
         private int _pageNumber;
@@ -44,11 +45,13 @@ namespace EasyBudget.Presentation.ViewModels
         public BudgetRequestListViewModel(
             IBudgetRequestListServiceFactory budgetRequestListServiceFactory,
             IAgreementBaseService agreementBaseService,
-            IBudgetRequestEntityFactory requestEntityFactory)
+            IBudgetRequestEntityFactory requestEntityFactory,
+            IAgreementServiceFactory agreementServiceFactory)
         {
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
             _agreementBaseService = agreementBaseService;
             _requestEntityFactory = requestEntityFactory;
+            _agreementServiceFactory = agreementServiceFactory;
 
             BudgetRequests = new List<BudgetRequestRowViewModel>();
             _displayBudgetRequests = new List<BudgetRequestRowViewModel>();
@@ -242,6 +245,35 @@ namespace EasyBudget.Presentation.ViewModels
             Sorting.Direction = direction;
         }
 
+        public void ApproveCertainRequest(BudgetRequestRowViewModel request)
+        {
+            BudgetRequestUpdateOutput output;
+            switch (role.Name)
+            {
+
+                case RoleNames.Approver:
+                    output = _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo.Id,request.BudgetRequest.Id);
+                    UpdateRowsAfterApprove(output);
+                    break;
+                case RoleNames.Director:
+                    output = _agreementServiceFactory.GetDirector().ApproveDirector(userInfo.Id, request.BudgetRequest.Id);
+                    UpdateRowsAfterApprove(output);
+                    break;
+                case RoleNames.FinDirector:
+                    output = _agreementServiceFactory.GetFinDirector().ExecutionStartedFinDirector(userInfo.Id, request.BudgetRequest.Id, null);
+                    UpdateRowsAfterApprove(output);
+                    break;
+                case RoleNames.Executor:
+                    if (request.BudgetRequest.RealPrice != null)
+                    {
+                        output = _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo.Id, request.BudgetRequest.Id, request.BudgetRequest.RealPrice);
+                        UpdateRowsAfterApprove(output);
+                    }
+
+                    break;
+            }
+        }
+
         private void FilterCustomization()
         {
             FilterViewModel.Requesters.Clear();
@@ -268,6 +300,40 @@ namespace EasyBudget.Presentation.ViewModels
                     .Select(br => new PairEnum<BudgetState>(br.BudgetRequest.State, br.BudgetRequest.State.GetLocalizationState()))
                     .ToList()
                     .Distinct());
+        }
+
+        private void UpdateRowsAfterApprove(BudgetRequestUpdateOutput output)
+        {
+            BudgetRequestMainListDto requestDto = new BudgetRequestMainListDto()
+            {
+                Id = output.Request.Id,
+                Name = output.Request.Name,
+                DepartmentId = output.Request.Department.Id,
+                DepartmentName = output.Request.Department.Name,
+                UnitId = output.Request.Unit.Id,
+                UnitName = output.Request.Unit.Name,
+                State = output.Request.State,
+                DateRequested = output.Request.DateRequested,
+                RequesterId = output.Request.Requester.Id,
+                RequesterName = output.Request.Requester.Name,
+                RealPrice = output.Request.RealPrice
+            };
+            for (int i = 0; i < BudgetRequests.Count; i++)
+            {
+                if (output.Request.Id.Equals(BudgetRequests[i].BudgetRequest.Id))
+                {
+                    BudgetRequests[i] = new BudgetRequestRowViewModel(requestDto);
+                    break;
+                }
+            }
+            for (int i = 0; i < _displayBudgetRequests.Count; i++)
+            {
+                if (output.Request.Id.Equals(_displayBudgetRequests[i].BudgetRequest.Id))
+                {
+                    _displayBudgetRequests[i] = new BudgetRequestRowViewModel(requestDto);
+                    break;
+                }
+            }
         }
     }
 }

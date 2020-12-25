@@ -109,7 +109,7 @@
                                     @{
                                         if (budgetRequest.IsApproveable)
                                         {
-                                            <button>&#9989;</button>
+                                            <button @onclick="() => { ViewModel.ApproveCertainRequest(budgetRequest);}">&#9989;</button>
                                         }
 
                                     }

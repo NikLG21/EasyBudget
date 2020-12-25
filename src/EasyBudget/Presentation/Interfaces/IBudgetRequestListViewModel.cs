@@ -29,5 +29,6 @@ namespace EasyBudget.Presentation.Interfaces
         void NewBudgetRequest();
         void ReturnToList();
         void ChangeSorting(SortingEntity entity, bool direction);
+        void ApproveCertainRequest(BudgetRequestRowViewModel request);
     }
 }

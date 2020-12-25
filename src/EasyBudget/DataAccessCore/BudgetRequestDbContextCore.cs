@@ -4,7 +4,7 @@ using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using Action = EasyBudget.Common.Model.Security.Action;
 
 namespace DataAccessCore
@@ -15,9 +15,9 @@ namespace DataAccessCore
         public BudgetRequestDbContextCore(string connectionString)
         {
             _connectionString = connectionString;
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

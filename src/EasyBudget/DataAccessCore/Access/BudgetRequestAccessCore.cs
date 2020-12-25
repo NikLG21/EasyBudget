@@ -113,17 +113,19 @@ namespace DataAccessCore.Access
                 try
                 {
                     BudgetRequest request = context.BudgetRequests
-                        .AsNoTracking()
                         .Include(br => br.Approver)
                         .Include(br => br.Requester)
                         .Include(br => br.Executor)
                         .Include(br => br.Unit)
                         .Include(br => br.Department)
+                        .AsNoTracking()
                         .FirstOrDefault(e => e.Id.Equals(id));
                     if (request == null)
                     {
                         throw new EntityNotFoundException("Запит");
                     }
+
+                    context.Entry(request).State = EntityState.Detached;
                     return request;
                 }
                 catch (Exception e)

@@ -42,6 +42,7 @@ namespace EasyBudget.Ui
             //dataAccess
             
             container.RegisterType<IBudgetRequestDbContextCoreFactory, BudgetRequestDbContextCoreFactory>();
+            container.RegisterType<BudgetRequestDbContextCore>();
             //access
             container.RegisterType<IUserAccess, UserAccessCore>();
             container.RegisterType<IBudgetDescriptionAccess, BudgetDescriptionAccessCore>();
