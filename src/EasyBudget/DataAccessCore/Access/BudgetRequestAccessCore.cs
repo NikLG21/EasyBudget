@@ -125,7 +125,7 @@ namespace DataAccessCore.Access
                         throw new EntityNotFoundException("Запит");
                     }
 
-                    context.Entry(request).State = EntityState.Detached;
+                    //context.Entry(request).State = EntityState.Detached;
                     return request;
                 }
                 catch (Exception e)
