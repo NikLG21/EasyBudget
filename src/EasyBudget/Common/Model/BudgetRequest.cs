@@ -18,9 +18,15 @@ namespace EasyBudget.Common.Model
         public User Approver { get; set; }
         public User Executor { get; set; }
 
+        public Guid RequesterId { get; set; }
+        public Guid? ApproverId { get; set; }
+        public Guid? ExecutorId { get; set; }
+
         public Department Department { get; set; }
+        public Guid DepartmentId { get; set; }
 
         public Unit Unit { get; set; }
+        public Guid UnitId { get; set; }
 
         public DateTime DateRequested { get; set; }
         public DateTime? DateRequestedDeadline { get; set; }

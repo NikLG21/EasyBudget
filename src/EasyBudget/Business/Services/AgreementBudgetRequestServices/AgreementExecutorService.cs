@@ -26,6 +26,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.ExecutorEstimated;
                     request.RealPrice = realPrice;
+                    request.ExecutorId = userId;
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request,"Запит був оновлений та затверджений");
                 }

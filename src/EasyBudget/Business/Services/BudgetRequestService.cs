@@ -40,8 +40,11 @@ namespace EasyBudget.Business.Services
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
+                request.RequesterId = user.Id;
                 request.Unit = user.Unit;
+                request.UnitId = user.Unit.Id;
                 request.Department = department;
+                request.DepartmentId = department.Id;
                 _budgetRequestAccess.Add(request);
                 return new BudgetRequestUpdateOutput(request,"Запит успішно додано");
             }

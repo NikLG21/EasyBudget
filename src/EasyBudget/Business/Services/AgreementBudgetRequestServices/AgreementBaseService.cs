@@ -15,12 +15,13 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
+        
         public AgreementBaseService(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries)
         {
             _budgetRequestAccess = budgetRequestAccess;
             _budgetRequestListQueries = budgetRequestListQueries;
         }
-        public BudgetRequestListUpdateOutput ApproveListByRole(List<Guid> requestsIds, Role role)
+        public BudgetRequestListUpdateOutput ApproveListByRole(Guid userId, List<Guid> requestsIds, Role role)
         {
             List<BudgetRequestMainListDto> budgetRequests = _budgetRequestListQueries.GetListByIds(requestsIds);
             BudgetRequestListUpdateOutput output = new BudgetRequestListUpdateOutput();

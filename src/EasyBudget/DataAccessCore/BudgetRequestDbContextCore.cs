@@ -70,16 +70,16 @@ namespace DataAccessCore
 
             modelBuilder.Entity<BudgetRequest>().Property(p => p.Name).IsRequired(true).HasMaxLength(200);
 
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Requester).WithMany().IsRequired(true)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Requester).WithMany().HasForeignKey(b => b.RequesterId).IsRequired(true)
                 .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Approver).WithMany().IsRequired(false)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Approver).WithMany().HasForeignKey(b => b.ApproverId).IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Executor).WithMany().IsRequired(false)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Executor).WithMany().HasForeignKey(b => b.ExecutorId).IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Department).WithMany().IsRequired(true)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Department).WithMany().HasForeignKey(b=>b.DepartmentId).IsRequired(true)
                 .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Unit).WithMany().IsRequired(true)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Unit).WithMany().HasForeignKey(b=>b.UnitId).IsRequired(true)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<BudgetRequest>().HasMany(b => b.BudgetHistories).WithOne()

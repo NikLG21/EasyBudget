@@ -29,6 +29,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 if (request.State == BudgetState.Requested)
                 {
                     request.State = BudgetState.ApprovedFirstLine;
+                    request.ApproverId = userId;
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request, "Запит успішно затверджено");
                 }
@@ -59,6 +60,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 if (request.State == BudgetState.Requested)
                 {
                     request.State = BudgetState.RejectedFirstLine;
+                    request.ApproverId = userId;
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request, "Запит успішно відхилено");
                 }

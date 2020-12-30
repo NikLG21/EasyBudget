@@ -23,22 +23,12 @@ namespace DataAccessCore.Access
             {
                 try
                 {
-                    //string s1 = DataAccessUtils.Dump(context);
-
-                    context.Departments.AsNoTracking().FirstOrDefault(e => e.Id == request.Department.Id);
-                    context.Units.AsNoTracking().FirstOrDefault(e => e.Id == request.Unit.Id);
-                    context.Users.AsNoTracking().FirstOrDefault(e => e.Id == request.Requester.Id);
-
-                    //string s2 = DataAccessUtils.Dump(context);
-
                     context.BudgetRequests.Add(request);
 
                     context.Entry(request.Requester).State = EntityState.Unchanged;
                     context.Entry(request.Department).State = EntityState.Unchanged;
                     context.Entry(request.Unit).State = EntityState.Unchanged;
-
-                    //string s3 = DataAccessUtils.Dump(context);
-
+                    
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -65,14 +55,25 @@ namespace DataAccessCore.Access
             }
         }
 
-        public void UpdateList(List<Guid> ids, BudgetState newState)
+        public void UpdateList(List<Guid> ids, BudgetState newState, Guid userId)
         {
             using (BudgetRequestDbContextCore context = _factory.Create())
             {
                 try
                 {
                     List<BudgetRequest> budgetRequests = context.BudgetRequests.Where(br => ids.Contains(br.Id)).ToList();
-                    budgetRequests.ForEach(br => br.State = newState);
+                    if (newState == BudgetState.ApprovedFirstLine)
+                    {
+                        budgetRequests.ForEach(br =>
+                        {
+                            br.State = newState;
+                            br.ApproverId = userId;
+                        });
+                    }
+                    else
+                    {
+                        budgetRequests.ForEach(br => br.State = newState);
+                    }
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -125,7 +126,29 @@ namespace DataAccessCore.Access
                         throw new EntityNotFoundException("Запит");
                     }
 
-                    //context.Entry(request).State = EntityState.Detached;
+                    return request;
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+            }
+        }
+
+        public BudgetRequest GetSimple(Guid id)
+        {
+            using (BudgetRequestDbContextCore context = _factory.Create())
+            {
+                try
+                {
+                    BudgetRequest request = context.BudgetRequests
+                        .AsNoTracking()
+                        .FirstOrDefault(e => e.Id.Equals(id));
+                    if (request == null)
+                    {
+                        throw new EntityNotFoundException("Запит");
+                    }
+
                     return request;
                 }
                 catch (Exception e)

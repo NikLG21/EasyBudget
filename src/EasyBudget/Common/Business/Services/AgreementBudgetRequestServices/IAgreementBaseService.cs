@@ -7,6 +7,6 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
 {
     public interface IAgreementBaseService
     {
-        BudgetRequestListUpdateOutput ApproveListByRole(List<Guid> requestsIds,Role role);
+        BudgetRequestListUpdateOutput ApproveListByRole(Guid userId,List<Guid> requestsIds,Role role);
     }
 }
