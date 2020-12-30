@@ -43,7 +43,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                             output.Messages.Add("\"" + request.Name + "\": неможливо затвердити. Запит був видалений або змінений");
                         }
                     }
-                    _budgetRequestAccess.UpdateList(ids, BudgetState.ApprovedFirstLine);
+                    _budgetRequestAccess.UpdateList(ids, BudgetState.ApprovedFirstLine,userId);
                     break;
                 case RoleNames.Director:
                     foreach (BudgetRequestMainListDto request in budgetRequests)
@@ -60,7 +60,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                             output.Messages.Add("\"" + request.Name + "\": неможливо затвердити. Запит був видалений або змінений");
                         }
                     }
-                    _budgetRequestAccess.UpdateList(ids, BudgetState.ApprovedDirector);
+                    _budgetRequestAccess.UpdateList(ids, BudgetState.ApprovedDirector,userId);
                     break;
                 case RoleNames.FinDirector:
                     foreach (BudgetRequestMainListDto request in budgetRequests)
@@ -77,7 +77,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                             output.Messages.Add("\"" + request.Name + "\": неможливо затвердити. Запит був видалений або змінений");
                         }
                     }
-                    _budgetRequestAccess.UpdateList(ids, BudgetState.Executing);
+                    _budgetRequestAccess.UpdateList(ids, BudgetState.Executing,userId);
                     break;
                 default:
                     break;

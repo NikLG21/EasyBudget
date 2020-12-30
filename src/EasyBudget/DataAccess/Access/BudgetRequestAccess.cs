@@ -76,7 +76,7 @@ namespace DataAccess.Access
             }
         }
 
-        public void UpdateList(List<Guid> ids, BudgetState newState)
+        public void UpdateList(List<Guid> ids, BudgetState newState, Guid userId)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {
@@ -129,6 +129,27 @@ namespace DataAccess.Access
                         .Include(br => br.Executor)
                         .Include(br => br.Unit)
                         .Include(br => br.Department)
+                        .FirstOrDefault(e => e.Id.Equals(id));
+                    if (request == null)
+                    {
+                        throw new EntityNotFoundException("Запит");
+                    }
+                    return request;
+                }
+                catch (Exception e)
+                {
+                    throw new CriticalException(e);
+                }
+            }
+        }
+        public BudgetRequest GetSimple(Guid id)
+        {
+            using (BudgetRequestDbContext context = _factory.Create())
+            {
+                try
+                {
+                    BudgetRequest request = context.BudgetRequests
+                        .AsNoTracking()
                         .FirstOrDefault(e => e.Id.Equals(id));
                     if (request == null)
                     {

@@ -160,7 +160,7 @@ namespace EasyBudget.Presentation.ViewModels
                 return;
             }
 
-            BudgetRequestListUpdateOutput output = _agreementBaseService.ApproveListByRole(ids, role);
+            BudgetRequestListUpdateOutput output = _agreementBaseService.ApproveListByRole(userInfo.Id,ids, role);
 
             foreach (BudgetRequestMainListDto request in output.SuccessUpdatedBudgetRequests)
             {
