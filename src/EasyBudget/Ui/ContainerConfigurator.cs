@@ -39,6 +39,7 @@ namespace EasyBudget.Ui
             container.RegisterType<IBudgetRequestListServiceFactory, BudgetRequestListServiceFactory>();
             container.RegisterType<IAgreementServiceFactory, AgreementServiceFactory>();
             container.RegisterType<IDepartmentService, DepartmentService>();
+            container.RegisterType<IInfoPanelViewModel, InfoPanelViewModel>();
             //dataAccess
             
             container.RegisterType<IBudgetRequestDbContextCoreFactory, BudgetRequestDbContextCoreFactory>();

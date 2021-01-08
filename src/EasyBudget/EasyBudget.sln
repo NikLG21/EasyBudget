@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ui", "Ui\Ui.csproj", "{C834
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServerApp", "BlazorServerApp\BlazorServerApp.csproj", "{9507AD7B-5D79-4025-9A9B-AC9D4920FC10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessCore", "DataAccessCore\DataAccessCore.csproj", "{3399C0A6-9D1D-4848-802A-001D7E0DC74A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessCore", "DataAccessCore\DataAccessCore.csproj", "{3399C0A6-9D1D-4848-802A-001D7E0DC74A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

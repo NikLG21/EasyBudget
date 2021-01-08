@@ -134,3 +134,29 @@ th:nth-child(6) {
 .entity-view-existed-main-info {
 
 }
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-top {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    border: 2px black;
+}
+
+.info-names {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.info-role {
+    padding: 5px;
+}
