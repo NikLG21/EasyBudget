@@ -121,7 +121,7 @@
             </div>
             <div class="list-view-filters">
                 <div class="list-view-filter">
-                    <span>Ініціатор</span>
+                    <span>Ініціатор:&nbsp;</span>
                     <select @bind="ViewModel.FilterViewModel.Requester">
                         <option value="@Guid.Empty"></option>
                         @{
@@ -134,7 +134,7 @@
                     </select>
                 </div>
                 <div class="list-view-filter">
-                    <span>Клініка</span>
+                    <span>Клініка:&nbsp;</span>
                     <select @bind="ViewModel.FilterViewModel.Unit">
                         <option value="@Guid.Empty"></option>
                         @{
@@ -147,7 +147,7 @@
                     </select>
                 </div>
                 <div class="list-view-filter">
-                    <span>Відділ</span>
+                    <span>Відділ:&nbsp;</span>
                     <select @bind="ViewModel.FilterViewModel.Department">
                         <option value="@Guid.Empty"></option>
                         @{
@@ -159,7 +159,7 @@
                     </select>
                 </div>
                 <div class="list-view-filter">
-                    <span>State</span>
+                    <span>Стан:&nbsp;</span>
                     <select @bind="ViewModel.FilterViewModel.State">
                         <option value="@BudgetState.Undefined">@BudgetState.Undefined.GetLocalizationState()</option>
                         @{
@@ -172,9 +172,10 @@
                     </select>
                 </div>
                 <div class="list-view-filter">
-                    <label>З</label>
+                    <span>З&nbsp;</span>
                     <input type="date" @bind-value="ViewModel.FilterViewModel.From" />
-                    <label>До</label>
+                    <br/>
+                    <span>До&nbsp;</span>
                     <input type="date" @bind-value="ViewModel.FilterViewModel.To" />
                 </div>
                 <div>

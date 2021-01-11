@@ -10,16 +10,19 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 .list-view-filter {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
+    width: 100%;
+    padding: 10px;
 }
 
 .list-view-table {
     padding: 10px;
-    width: 80%;
+    width: 100%;
 }
 
 .list-view-bottom {
@@ -109,6 +112,8 @@ th:nth-child(6) {
     padding: 10px;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    font-size: large;
 }
 
 .entity-view-existed-bottom {
@@ -116,33 +121,41 @@ th:nth-child(6) {
 }
 
 .entity-view-existed-main-name {
-    text-align:center;
+    text-align: center;
+    padding: 10px;
 }
 
 .entity-view-existed-main-users {
-
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .entity-view-existed-main-dates {
-
+    text-align: center;
+    padding: 5px;
 }
 
 .entity-view-existed-main-prices {
-
+    text-align: center;
+    padding: 5px;
 }
 
 .entity-view-existed-main-info {
-
+    text-align: center;
+    padding: 5px;
 }
 
 .main-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .main-top {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .info-container {

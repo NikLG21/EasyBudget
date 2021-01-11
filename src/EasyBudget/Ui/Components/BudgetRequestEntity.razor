@@ -80,38 +80,40 @@
                         <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.State.GetLocalizationState()</label>
                     </div>
                 </div>
-                <div class="entity-view-existed-main-prices">
-                    <div>
-                        <label>Орієнтовна ціна:</label>
-                        @if (ViewModel.BudgetRequestViewModel.EstimatedPriceField == FieldsStates.NotEditable)
-                        {
-                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice</label>
-                        }
-                        else
-                        {
-                            <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice" />
-                        }
+                <div style="display: flex; flex-direction: row;">
+                    <div class="entity-view-existed-main-info">
+                        <div>
+                            <label>Відділ:</label>
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Department.Name</label>
+                        </div>
+                        <div>
+                            <label>Юніт:</label>
+                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Unit.Name</label>
+                        </div>
                     </div>
-                    <div>
-                        <label>Точна ціна: </label>
-                        @if (ViewModel.BudgetRequestViewModel.RealPriceField == FieldsStates.NotEditable)
-                        {
-                            <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice</label>
-                        }
-                        else
-                        {
-                            <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice" />
-                        }
-                    </div>
-                </div>
-                <div class="entity-view-existed-main-info">
-                    <div>
-                        <label>Відділ:</label>
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Department.Name</label>
-                    </div>
-                    <div>
-                        <label>Юніт:</label>
-                        <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Unit.Name</label>
+                    <div class="entity-view-existed-main-prices">
+                        <div>
+                            <label>Орієнтовна ціна:</label>
+                            @if (ViewModel.BudgetRequestViewModel.EstimatedPriceField == FieldsStates.NotEditable)
+                            {
+                                <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice</label>
+                            }
+                            else
+                            {
+                                <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.EstimatedPrice" />
+                            }
+                        </div>
+                        <div>
+                            <label>Точна ціна: </label>
+                            @if (ViewModel.BudgetRequestViewModel.RealPriceField == FieldsStates.NotEditable)
+                            {
+                                <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice</label>
+                            }
+                            else
+                            {
+                                <input @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.RealPrice" />
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="entity-view-existed-main-dates">
@@ -127,7 +129,7 @@
                         }
                         else
                         {
-                            <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline" />
+                            <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline"/>
                         }
                     </div>
                     <div>
@@ -146,7 +148,7 @@
                         }
                         else
                         {
-                            <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDeadlineExecution" />
+                            <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateDeadlineExecution"/>
                         }
                     </div>
                     <div>
@@ -154,6 +156,8 @@
                         <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateEndExecution</label>
                     </div>
                 </div>
+                
+                
             </div>
             
             <div class="entity-view-existed-bottom">
