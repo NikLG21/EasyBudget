@@ -6,10 +6,13 @@ INSERT [dbo].[Action] ([Id], [Name]) VALUES (N'1ede313d-a531-4e79-ab34-06270b7bd
 INSERT [dbo].[Action] ([Id], [Name]) VALUES (N'b03d9311-6938-4cf4-98c5-801e18d37d58', N'RequestorDeleteBudgetRequest')
 INSERT [dbo].[Action] ([Id], [Name]) VALUES (N'0af011ae-6681-47e8-a408-8bfef004208a', N'RequestorViewBudgetRequest')
 INSERT [dbo].[Action] ([Id], [Name]) VALUES (N'8863e973-d2d6-4c02-ad92-a4dc37706c6f', N'RequestorAddBudgetRequest')
+
 INSERT [dbo].[Department] ([Id], [Name]) VALUES (N'03de38f2-5445-4c9d-a039-2b47a1668a3f', N'IT департамент')
 INSERT [dbo].[Department] ([Id], [Name]) VALUES (N'22946ba4-b06c-4d9e-a0d3-2e03b62afb5c', N'Хозчасть')
+
 INSERT [dbo].[Unit] ([Id], [Name]) VALUES (N'35f0579d-a8d6-4c6a-a241-2f4726b6a9d1', N'2 Клініка')
 INSERT [dbo].[Unit] ([Id], [Name]) VALUES (N'30b0387a-9c39-45e4-88f6-9e9ce1b04e79', N'1 Клініка')
+
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [DepartmentId]) VALUES (N'935d8abb-2e78-40ba-9b86-05d8a342d0fc','User', N'Користувач', NULL)
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [DepartmentId]) VALUES (N'63193d69-d80d-4d43-bd43-1690e1731626','FinDirector', N'Фінансовий директор', NULL)
 INSERT [dbo].[Role] ([Id], [Name],[DisplayName], [DepartmentId]) VALUES (N'aab78899-6781-4a42-b7a0-18c18ca652d4','Director', N'Директор', NULL)

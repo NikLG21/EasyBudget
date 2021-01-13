@@ -30,16 +30,16 @@ namespace EasyBudget.Presentation.ViewModels
 
         private UserMainInfoDto userInfo = new UserMainInfoDto()
         {
-            Id = Guid.Parse("3148ce2c-540e-4cc4-a372-42e0c29a478b"),
-            CurrentRoleId = Guid.Parse("aab78899-6781-4a42-b7a0-18c18ca652d4"),
-            CurrentRoleName = "Director",
+            Id = Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"),
+            CurrentRoleId = Guid.Parse("63193d69-d80d-4d43-bd43-1690e1731626"),
+            CurrentRoleName = "FinDirector",
+
         };
-        
+
         private Role role = new Role()
         {
-            Department = null,
-            Id = Guid.Parse("aab78899-6781-4a42-b7a0-18c18ca652d4"),
-            Name = "Director",
+            Id = Guid.Parse("63193d69-d80d-4d43-bd43-1690e1731626"),
+            Name = "FinDirector",
         };
 
         public BudgetRequestListViewModel(
