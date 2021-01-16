@@ -15,11 +15,15 @@ namespace EasyBudget.Presentation.ViewModels
         public bool IsApproveable { get; set; }
         public bool IsSelected { get; set; }
 
-        private Role currentRole = new Role()
+        private Role role = new Role()
         {
-            Department = null,
-            Id = Guid.Parse("aab78899-6781-4a42-b7a0-18c18ca652d4"),
-            Name = "Director"
+            Department = new Department()
+            {
+                Id = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
+                Name = "Хозчасть"
+            },
+            Id = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
+            Name = "Executor",
         };
 
         public BudgetRequestRowViewModel(BudgetRequestMainListDto budgetRequest)
@@ -30,7 +34,7 @@ namespace EasyBudget.Presentation.ViewModels
 
         private void CheckApprove()
         {
-            switch (currentRole.Name)
+            switch (role.Name)
             {
                 case RoleNames.Approver:
                     if (BudgetRequest.State == BudgetState.Requested)

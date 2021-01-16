@@ -17,22 +17,31 @@ namespace EasyBudget.Presentation.ViewModels
 {
     public class BudgetRequestViewModel : IBudgetRequestViewModel
     {
+        public event System.Action ViewModelChanged;
+
         private readonly IBudgetRequestService _budgetRequestService;
         private readonly IAgreementServiceFactory _agreementServiceFactory;
         private readonly IDepartmentService _departmentService;
 
         private UserMainInfoDto userInfo = new UserMainInfoDto()
         {
-            Id = Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"),
-            CurrentRoleId = Guid.Parse("63193d69-d80d-4d43-bd43-1690e1731626"),
-            CurrentRoleName = "FinDirector",
-
+            Id = Guid.Parse("7bb4db6d-2072-4258-809b-c7a5bbe2d392"),
+            Name = "Евгений Красный",
+            CurrentRoleId = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
+            CurrentRoleName = "Executor",
+            DepartmentId = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
+            DepartmentName = "Хозчасть"
         };
 
         private Role role = new Role()
         {
-            Id = Guid.Parse("63193d69-d80d-4d43-bd43-1690e1731626"),
-            Name = "FinDirector",
+            Department = new Department()
+            {
+                Id = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
+                Name = "Хозчасть"
+            },
+            Id = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
+            Name = "Executor",
         };
 
         public BudgetRequest BudgetRequest { get; set; }
@@ -91,7 +100,7 @@ namespace EasyBudget.Presentation.ViewModels
             switch (role.Name)
             {
                 case RoleNames.Approver:
-                    output = _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo.Id,BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo,BudgetRequest.Id);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
@@ -108,12 +117,14 @@ namespace EasyBudget.Presentation.ViewModels
                 case RoleNames.Executor:
                     if (ChangedBudgetRequest.RealPrice != null)
                     {
-                        output = _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo.Id, BudgetRequest.Id, ChangedBudgetRequest.RealPrice);
+                        output = _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo, BudgetRequest.Id, ChangedBudgetRequest.RealPrice);
                         BudgetRequest = output.Request;
                         ChangedBudgetRequest = output.Request;
                     } 
                     break;
             }
+            ExistedRequestMode();
+            ViewModelChanged?.Invoke();
         }
 
         public void CreateNewRequest()

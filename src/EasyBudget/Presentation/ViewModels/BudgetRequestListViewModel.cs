@@ -30,16 +30,23 @@ namespace EasyBudget.Presentation.ViewModels
 
         private UserMainInfoDto userInfo = new UserMainInfoDto()
         {
-            Id = Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"),
-            CurrentRoleId = Guid.Parse("63193d69-d80d-4d43-bd43-1690e1731626"),
-            CurrentRoleName = "FinDirector",
-
+            Id = Guid.Parse("7bb4db6d-2072-4258-809b-c7a5bbe2d392"),
+            Name = "Евгений Красный",
+            CurrentRoleId = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
+            CurrentRoleName = "Executor",
+            DepartmentId = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
+            DepartmentName = "Хозчасть"
         };
 
         private Role role = new Role()
         {
-            Id = Guid.Parse("63193d69-d80d-4d43-bd43-1690e1731626"),
-            Name = "FinDirector",
+            Department = new Department()
+            {
+                Id = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
+                Name = "Хозчасть"
+            },
+            Id = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
+            Name = "Executor",
         };
 
         public BudgetRequestListViewModel(
@@ -64,6 +71,7 @@ namespace EasyBudget.Presentation.ViewModels
         }
 
         public event System.Action ViewModelChanged;
+        public event System.Action ComponentChanged;
 
         public IFilterViewModel FilterViewModel { get; }
         public SortingList Sorting { get; set; }
@@ -224,18 +232,40 @@ namespace EasyBudget.Presentation.ViewModels
         public void OpenBudgetRequest(Guid id)
         {
             BudgetRequestViewModel = _requestEntityFactory.GetExistedRequestViewModel(id);
-            ViewModelChanged?.Invoke();
+            ComponentChanged?.Invoke();
         }
 
         public void NewBudgetRequest()
         {
             BudgetRequestViewModel = _requestEntityFactory.GetNewRequestViewModel();
-            ViewModelChanged?.Invoke();
+            ComponentChanged?.Invoke();
         }
 
         public void ReturnToList()
         {
+            for (int i = 0; i < BudgetRequests.Count; i++)
+            {
+                if (BudgetRequests[i].BudgetRequest.Id.Equals(BudgetRequestViewModel.BudgetRequest.Id))
+                {
+                    BudgetRequests[i] = new BudgetRequestRowViewModel(new BudgetRequestMainListDto()
+                    {
+                        Id = BudgetRequestViewModel.BudgetRequest.Id,
+                        DateRequested = BudgetRequestViewModel.BudgetRequest.DateRequested,
+                        DepartmentId = BudgetRequestViewModel.BudgetRequest.DepartmentId,
+                        DepartmentName = BudgetRequestViewModel.BudgetRequest.Department.Name,
+                        Name = BudgetRequestViewModel.BudgetRequest.Name,
+                        RealPrice = BudgetRequestViewModel.BudgetRequest.RealPrice,
+                        RequesterId = BudgetRequestViewModel.BudgetRequest.RequesterId,
+                        RequesterName = BudgetRequestViewModel.BudgetRequest.Requester.Name,
+                        State = BudgetRequestViewModel.BudgetRequest.State,
+                        UnitId = BudgetRequestViewModel.BudgetRequest.UnitId,
+                        UnitName = BudgetRequestViewModel.BudgetRequest.Unit.Name
+                    });
+                    break;
+                }
+            }
             BudgetRequestViewModel = null;
+            ComponentChanged!.Invoke();
             ViewModelChanged?.Invoke();
         }
 
@@ -252,7 +282,7 @@ namespace EasyBudget.Presentation.ViewModels
             {
 
                 case RoleNames.Approver:
-                    output = _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo.Id,request.BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo,request.BudgetRequest.Id);
                     UpdateRowsAfterApprove(output);
                     break;
                 case RoleNames.Director:
@@ -266,7 +296,7 @@ namespace EasyBudget.Presentation.ViewModels
                 case RoleNames.Executor:
                     if (request.BudgetRequest.RealPrice != null)
                     {
-                        output = _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo.Id, request.BudgetRequest.Id, request.BudgetRequest.RealPrice);
+                        output = _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo, request.BudgetRequest.Id, request.BudgetRequest.RealPrice);
                         UpdateRowsAfterApprove(output);
                     }
 

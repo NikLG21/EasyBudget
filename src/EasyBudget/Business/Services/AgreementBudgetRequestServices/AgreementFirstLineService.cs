@@ -8,6 +8,7 @@ using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
+using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
 {
@@ -21,7 +22,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             _budgetRequestListQueries = budgetRequestListQueries;
         }
 
-        public BudgetRequestUpdateOutput ApproveFirstLine(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput ApproveFirstLine(UserMainInfoDto userMainInfo, Guid id)
         {
             try
             {
@@ -29,8 +30,13 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 if (request.State == BudgetState.Requested)
                 {
                     request.State = BudgetState.ApprovedFirstLine;
-                    request.ApproverId = userId;
+                    request.ApproverId = userMainInfo.Id;
                     _budgetRequestAccess.Update(request);
+                    request.Approver = new User()
+                    {
+                        Id = userMainInfo.Id,
+                        Name = userMainInfo.Name
+                    };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно затверджено");
                 }
                 else
@@ -52,7 +58,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
         }
 
-        public BudgetRequestUpdateOutput RejectFirstLine(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput RejectFirstLine(UserMainInfoDto userMainInfo, Guid id)
         {
             try
             {
@@ -60,8 +66,13 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 if (request.State == BudgetState.Requested)
                 {
                     request.State = BudgetState.RejectedFirstLine;
-                    request.ApproverId = userId;
+                    request.ApproverId = userMainInfo.Id;
                     _budgetRequestAccess.Update(request);
+                    request.Approver = new User()
+                    {
+                        Id = userMainInfo.Id,
+                        Name = userMainInfo.Name
+                    };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно відхилено");
                 }
                 else

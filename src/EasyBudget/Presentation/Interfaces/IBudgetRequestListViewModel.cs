@@ -9,7 +9,7 @@ namespace EasyBudget.Presentation.Interfaces
     public interface IBudgetRequestListViewModel
     {
         event Action ViewModelChanged;
-
+        event Action ComponentChanged;
         IBudgetRequestViewModel BudgetRequestViewModel { get; }
         IFilterViewModel FilterViewModel { get; }
         SortingList Sorting { get; set; }

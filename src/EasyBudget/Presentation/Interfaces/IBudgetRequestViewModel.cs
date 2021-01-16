@@ -9,6 +9,7 @@ namespace EasyBudget.Presentation.Interfaces
 {
     public interface IBudgetRequestViewModel
     {
+        event Action ViewModelChanged;
         BudgetRequest BudgetRequest { get; set; }
         BudgetRequest ChangedBudgetRequest { get; set; }
         

@@ -4,8 +4,10 @@ using System.Text;
 using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
+using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
 {
@@ -17,7 +19,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
         {
             _budgetRequestAccess = budgetRequestAccess;
         }
-        public BudgetRequestUpdateOutput RealPriceAdded(Guid userId, Guid id, decimal? realPrice)
+        public BudgetRequestUpdateOutput RealPriceAdded(UserMainInfoDto userMainInfo, Guid id, decimal? realPrice)
         {
             try
             {
@@ -26,8 +28,13 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.ExecutorEstimated;
                     request.RealPrice = realPrice;
-                    request.ExecutorId = userId;
+                    request.ExecutorId = userMainInfo.Id;
                     _budgetRequestAccess.Update(request);
+                    request.Executor = new User()
+                    {
+                        Id = userMainInfo.Id,
+                        Name = userMainInfo.Name
+                    };
                     return new BudgetRequestUpdateOutput(request,"Запит був оновлений та затверджений");
                 }
                 else
