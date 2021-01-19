@@ -115,6 +115,12 @@ th:nth-child(6) {
     width: 100%;
     font-size: large;
 }
+.entity-view-existed-main-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+}
 
 .entity-view-existed-bottom {
 

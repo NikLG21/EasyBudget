@@ -9,7 +9,7 @@ namespace EasyBudget.Presentation.Interfaces
 {
     public interface IBudgetRequestViewModel
     {
-        event Action ViewModelChanged;
+        event Action EntityViewModelChanged;
         BudgetRequest BudgetRequest { get; set; }
         BudgetRequest ChangedBudgetRequest { get; set; }
         
@@ -22,12 +22,16 @@ namespace EasyBudget.Presentation.Interfaces
         FieldsStates RealPriceField { get; set; }
         bool IsEditable { get; set; }
         bool ApproveAble { get; set; }
+        bool RejectAble { get; set; }
+        bool PostponeAble { get; set; }
         bool InEditMode { get; set; }
         bool NewRequestMode { get; set; }
         void ChangeEditMode();
         void ApproveRequest();
         void CreateNewRequest();
         void CancelChanges();
+        void RejectRequest();
+        void PostponeRequest();
 
     }
 }

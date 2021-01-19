@@ -28,6 +28,14 @@
                     {
                         <button disabled="disabled">Затвердити</button>
                     }
+                    if (ViewModel.BudgetRequestViewModel.RejectAble)
+                    {
+                        <button @onclick="ViewModel.BudgetRequestViewModel.RejectRequest">Відхилити</button>
+                    }
+                    if (ViewModel.BudgetRequestViewModel.PostponeAble)
+                    {
+                        <button @onclick="ViewModel.BudgetRequestViewModel.PostponeRequest">Призупинити</button>
+                    }
 
                 }
             </div>
@@ -80,7 +88,7 @@
                         <label>@ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.State.GetLocalizationState()</label>
                     </div>
                 </div>
-                <div style="display: flex; flex-direction: row; justify-content: center">
+                <div class="entity-view-existed-main-center">
                     <div class="entity-view-existed-main-info">
                         <div>
                             <label>Відділ:</label>
@@ -223,7 +231,7 @@ else
     {
         if (firstRender)
         {
-            ViewModel.BudgetRequestViewModel.ViewModelChanged += () => this.InvokeAsync(StateHasChanged);
+            ViewModel.BudgetRequestViewModel.EntityViewModelChanged += () => this.InvokeAsync(StateHasChanged);
         }
         
         await base.OnAfterRenderAsync(firstRender);

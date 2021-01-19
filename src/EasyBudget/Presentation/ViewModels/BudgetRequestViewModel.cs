@@ -17,7 +17,7 @@ namespace EasyBudget.Presentation.ViewModels
 {
     public class BudgetRequestViewModel : IBudgetRequestViewModel
     {
-        public event System.Action ViewModelChanged;
+        public event System.Action EntityViewModelChanged;
 
         private readonly IBudgetRequestService _budgetRequestService;
         private readonly IAgreementServiceFactory _agreementServiceFactory;
@@ -58,6 +58,8 @@ namespace EasyBudget.Presentation.ViewModels
         public bool IsEditable { get; set; }
         public bool InEditMode { get; set; }
         public bool ApproveAble { get; set; }
+        public bool RejectAble { get; set; }
+        public bool PostponeAble { get; set; }
         public bool NewRequestMode { get; set; }
 
         public BudgetRequestViewModel(Guid id,
@@ -124,7 +126,7 @@ namespace EasyBudget.Presentation.ViewModels
                     break;
             }
             ExistedRequestMode();
-            ViewModelChanged?.Invoke();
+            EntityViewModelChanged?.Invoke();
         }
 
         public void CreateNewRequest()
@@ -160,6 +162,46 @@ namespace EasyBudget.Presentation.ViewModels
         {
             ChangedBudgetRequest = BudgetRequest;
             FieldStatesEditMode();
+        }
+
+        public void RejectRequest()
+        {
+            BudgetRequestUpdateOutput output;
+            switch (role.Name)
+            {
+                case RoleNames.Approver:
+                    output = _agreementServiceFactory.GetFirstLine().RejectFirstLine(userInfo, BudgetRequest.Id);
+                    BudgetRequest = output.Request;
+                    ChangedBudgetRequest = output.Request;
+                    break;
+                case RoleNames.Director:
+                    output = _agreementServiceFactory.GetDirector().RejectDirector(userInfo.Id, BudgetRequest.Id);
+                    BudgetRequest = output.Request;
+                    ChangedBudgetRequest = output.Request;
+                    break;
+            }
+            ExistedRequestMode();
+            EntityViewModelChanged?.Invoke();
+        }
+
+        public void PostponeRequest()
+        {
+            BudgetRequestUpdateOutput output;
+            switch (role.Name)
+            {
+                case RoleNames.FinDirector:
+                    output = _agreementServiceFactory.GetFinDirector().PostponedFinDirector(userInfo.Id, BudgetRequest.Id);
+                    BudgetRequest = output.Request;
+                    ChangedBudgetRequest = output.Request;
+                    break;
+                case RoleNames.Director:
+                    output = _agreementServiceFactory.GetDirector().PostponedDirector(userInfo.Id, BudgetRequest.Id);
+                    BudgetRequest = output.Request;
+                    ChangedBudgetRequest = output.Request;
+                    break;
+            }
+            ExistedRequestMode();
+            EntityViewModelChanged?.Invoke();
         }
 
         private void CheckEditable()
@@ -235,6 +277,45 @@ namespace EasyBudget.Presentation.ViewModels
             }
         }
 
+        private void CheckRejectAble()
+        {
+            switch (role.Name)
+            {
+                case RoleNames.Approver:
+                    if (BudgetRequest.State == BudgetState.Requested)
+                    {
+                        RejectAble = true;
+                    }
+                    break;
+                case RoleNames.Director:
+                    if (BudgetRequest.State == BudgetState.ExecutorEstimated |
+                        BudgetRequest.State == BudgetState.PostponedDirector)
+                    {
+                        RejectAble = true;
+                    }
+                    break;
+            }
+        }
+
+        private void CheckPostponedAble()
+        {
+            switch (role.Name)
+            {
+                case RoleNames.Director:
+                    if (BudgetRequest.State == BudgetState.ExecutorEstimated)
+                    {
+                        PostponeAble = true;
+                    }
+                    break;
+                case RoleNames.FinDirector:
+                    if (BudgetRequest.State == BudgetState.ApprovedDirector)
+                    {
+                        PostponeAble = true;
+                    }
+                    break;
+            }
+        }
+
         private void FieldStatesEditMode()
         {
 
@@ -278,6 +359,8 @@ namespace EasyBudget.Presentation.ViewModels
             InEditMode = true;
             IsEditable = false;
             ApproveAble = false;
+            RejectAble = false;
+            PostponeAble = false;
             NameField = FieldsStates.UnChanged;
             DateRequestedDeadlineField = FieldsStates.UnChanged;
             DateDeadlineExecutionField = FieldsStates.NotEditable;
@@ -291,6 +374,8 @@ namespace EasyBudget.Presentation.ViewModels
             InEditMode = false;
             IsEditable = false;
             ApproveAble = false;
+            RejectAble = false;
+            PostponeAble = false;
             CheckEditable();
             CheckApproveAble();
             NameField = FieldsStates.NotEditable;

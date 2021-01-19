@@ -29,11 +29,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.PostponedFinDirector;
                     _budgetRequestAccess.Update(request);
-                    return new BudgetRequestUpdateOutput(request, "Запит було успішно відкладено");
+                    return new BudgetRequestUpdateOutput(request, "Запит було успішно призупинено");
                 }
                 else
                 {
-                    return new BudgetRequestUpdateOutput(request, "Неможливо відкласти запит");
+                    return new BudgetRequestUpdateOutput(request, "Неможливо призупинити запит");
                 }
             }
             catch (EntityNotFoundException)

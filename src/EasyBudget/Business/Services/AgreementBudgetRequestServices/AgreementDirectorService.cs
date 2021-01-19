@@ -89,11 +89,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                 {
                     request.State = BudgetState.PostponedDirector;
                     _budgetRequestAccess.Update(request);
-                    return new BudgetRequestUpdateOutput(request,"Запит було відкладено");
+                    return new BudgetRequestUpdateOutput(request,"Запит було призупинено");
                 }
                 else
                 {
-                    return new BudgetRequestUpdateOutput(request,"відкласти неможливо");
+                    return new BudgetRequestUpdateOutput(request,"Призупинити неможливо запит");
                 }
 
             }
