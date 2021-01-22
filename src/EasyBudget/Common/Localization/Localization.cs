@@ -9,7 +9,7 @@ namespace EasyBudget.Common.Localization
     {
         private  static Dictionary<BudgetState, string> _budgetStateLocalization = new Dictionary<BudgetState, string>()
         {
-            {BudgetState.Requested, "Запрошено"},
+            {BudgetState.Requested, "Ініційовано"},
             {BudgetState.ApprovedFirstLine,"Затверджено"},
             {BudgetState.ExecutorEstimated,"Встановлений виконавець"},
             {BudgetState.ApprovedDirector,"Затверджено директором"},

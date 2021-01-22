@@ -60,6 +60,7 @@ namespace EasyBudget.Presentation.ViewModels
         public bool ApproveAble { get; set; }
         public bool RejectAble { get; set; }
         public bool PostponeAble { get; set; }
+        public bool DeleteAble { get; set; }
         public bool NewRequestMode { get; set; }
 
         public BudgetRequestViewModel(Guid id,
@@ -133,7 +134,6 @@ namespace EasyBudget.Presentation.ViewModels
         {
             if (role.Name != RoleNames.Requester)
             {
-                
                 return;
             }
             if (ChangedBudgetRequest.Name != null|ChangedBudgetRequest.Department.Id!=Guid.Empty)
@@ -200,6 +200,19 @@ namespace EasyBudget.Presentation.ViewModels
                     ChangedBudgetRequest = output.Request;
                     break;
             }
+            ExistedRequestMode();
+            EntityViewModelChanged?.Invoke();
+        }
+
+        public void DeleteRequestByRequester()
+        {
+            if (role.Name != RoleNames.Requester && BudgetRequest.State!= BudgetState.Requested)
+            {
+                return;
+            }
+            BudgetRequestUpdateOutput output =  _budgetRequestService.DeleteBudgetRequest(userInfo,BudgetRequest);
+            BudgetRequest = output.Request;
+            ChangedBudgetRequest = output.Request;
             ExistedRequestMode();
             EntityViewModelChanged?.Invoke();
         }
@@ -316,6 +329,14 @@ namespace EasyBudget.Presentation.ViewModels
             }
         }
 
+        private void CheckDeleteAble()
+        {
+            if (role.Name == RoleNames.Requester && BudgetRequest.State == BudgetState.Requested)
+            {
+                DeleteAble = true;
+            }
+        }
+
         private void FieldStatesEditMode()
         {
 
@@ -341,7 +362,7 @@ namespace EasyBudget.Presentation.ViewModels
                     {
                         NameField = FieldsStates.UnChanged;
                         DateRequestedDeadlineField = FieldsStates.UnChanged;
-                        EstimatedPriceField = FieldsStates.NotEditable;
+                        EstimatedPriceField = FieldsStates.UnChanged;
                     }
                     break;
 
@@ -376,8 +397,17 @@ namespace EasyBudget.Presentation.ViewModels
             ApproveAble = false;
             RejectAble = false;
             PostponeAble = false;
+            DeleteAble = false;
+            if (BudgetRequest.State != BudgetState.Undefined)
+            {
+                CheckEditable();
+                CheckApproveAble();
+            }
             CheckEditable();
             CheckApproveAble();
+            CheckRejectAble();
+            CheckPostponedAble();
+            CheckDeleteAble();
             NameField = FieldsStates.NotEditable;
             DateRequestedDeadlineField = FieldsStates.NotEditable;
             DateDeadlineExecutionField = FieldsStates.NotEditable;

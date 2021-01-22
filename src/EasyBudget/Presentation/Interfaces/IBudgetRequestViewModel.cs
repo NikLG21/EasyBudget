@@ -24,6 +24,7 @@ namespace EasyBudget.Presentation.Interfaces
         bool ApproveAble { get; set; }
         bool RejectAble { get; set; }
         bool PostponeAble { get; set; }
+        bool DeleteAble { get; set; }
         bool InEditMode { get; set; }
         bool NewRequestMode { get; set; }
         void ChangeEditMode();
@@ -32,6 +33,7 @@ namespace EasyBudget.Presentation.Interfaces
         void CancelChanges();
         void RejectRequest();
         void PostponeRequest();
+        void DeleteRequestByRequester();
 
     }
 }

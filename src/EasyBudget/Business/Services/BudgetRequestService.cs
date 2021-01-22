@@ -2,6 +2,7 @@
 using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
@@ -88,13 +89,16 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public void UpdateByRequester(Guid userId, BudgetRequest request)
+        public BudgetRequestUpdateOutput UpdateByRequester(UserMainInfoDto userInfo, BudgetRequest request)
         {
             try
             {
+                BudgetRequestUpdateOutput output;
                 if (request.State == BudgetState.Requested)
                 {
                     _budgetRequestAccess.Update(request);
+                    output = new BudgetRequestUpdateOutput(request, "Запит був успішно оновлений");
+                    return output;
                 }
                 else
                 {
@@ -115,18 +119,22 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public void DeleteBudgetRequest(Guid userId,BudgetRequest request)
+        public BudgetRequestUpdateOutput DeleteBudgetRequest(UserMainInfoDto userInfo, BudgetRequest request)
         {
             try
             {
-                BudgetRequest request1 = Get(userId, request.Id);
-                if (request != request1)
+                BudgetRequestUpdateOutput output;
+                BudgetRequest request1 = _budgetRequestAccess.Get(request.Id);
+                if (!request.Equals(request1))
                 {
                     throw new EntityUpdatedException("Запит");
                 }
                 if (request.State == BudgetState.Requested)
                 {
                     _budgetRequestAccess.Delete(request.Id);
+                    request.State = BudgetState.Undefined;
+                    output = new BudgetRequestUpdateOutput(request,"Запит був успішно видалений");
+                    return output;
                 }
                 else
                 {

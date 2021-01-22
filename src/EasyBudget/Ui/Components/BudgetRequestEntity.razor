@@ -36,6 +36,10 @@
                     {
                         <button @onclick="ViewModel.BudgetRequestViewModel.PostponeRequest">Призупинити</button>
                     }
+                    if (ViewModel.BudgetRequestViewModel.DeleteAble)
+                    {
+                        <button @onclick="ViewModel.BudgetRequestViewModel.DeleteRequestByRequester">Видалити запит</button>
+                    }
 
                 }
             </div>
