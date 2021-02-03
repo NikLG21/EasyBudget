@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
-using EasyBudget.Common.DataAccess;
 using EasyBudget.Common.DataAccess.Commands;
 using EasyBudget.Common.DataAccess.Dtos;
 using EasyBudget.Common.DataAccess.Queries;
@@ -14,7 +12,6 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
 {
     public class AgreementBaseService : IAgreementBaseService
     {
-        
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
         private readonly IBudgetRequestCommands _budgetRequestCommands;
         

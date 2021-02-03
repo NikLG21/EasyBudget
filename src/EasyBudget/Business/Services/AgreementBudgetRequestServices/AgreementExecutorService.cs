@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess;
@@ -36,6 +34,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     };
                     return new BudgetRequestUpdateOutput(request,"Запит був оновлений та затверджений");
                 }
+                //TODO: Please remove else
                 else
                 {
                     return new BudgetRequestUpdateOutput(request, "Неможливо затвердити запит");

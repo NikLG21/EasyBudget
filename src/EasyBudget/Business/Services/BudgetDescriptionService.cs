@@ -38,6 +38,7 @@ namespace EasyBudget.Business.Services
                 {
                     throw new LackMandatoryInformation("Запит, до якого відноситься коментар");
                 }
+
                 description.User = _userAccess.Get(userId);
                 description.Date = DateTime.Now;
                 _budgetDescriptionAccess.Add(description);

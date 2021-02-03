@@ -134,6 +134,7 @@ namespace EasyBudget.Business.Services.UserServices
                     {
                         return true;
                     }
+                    //TODO: Please remove else
                     else
                     {
                         return false;
@@ -144,6 +145,7 @@ namespace EasyBudget.Business.Services.UserServices
             {
                 return true;
             }
+            //TODO: Please remove else
             else
             {
                 return false;

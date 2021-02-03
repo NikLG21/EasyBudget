@@ -35,6 +35,7 @@ namespace EasyBudget.Business.Services
                 {
                     throw new LackMandatoryInformation("Відділ");
                 }
+
                 User user = _userAccess.Get(userId);
                 Department department = _departmentAccess.Get(request.DepartmentId);
                 request.State = BudgetState.Requested;
@@ -61,6 +62,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
+
         public void AddRequestByAdmin(Guid userId, Guid requestorUserId, BudgetRequest request)
         {
             try
@@ -98,6 +100,7 @@ namespace EasyBudget.Business.Services
                     BudgetRequestUpdateOutput output = new BudgetRequestUpdateOutput(request, "Запит був успішно оновлений");
                     return output;
                 }
+                //TODO: Please remove else
                 else
                 {
                     throw new NonDeletedUpdatedRequestException();
@@ -117,6 +120,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
+
         public BudgetRequestUpdateOutput DeleteRequest(UserMainInfoDto userInfo, BudgetRequest request)
         {
             try
@@ -134,6 +138,7 @@ namespace EasyBudget.Business.Services
                     output = new BudgetRequestUpdateOutput(request,"Запит був успішно видалений");
                     return output;
                 }
+                //TODO: Please remove else
                 else
                 {
                     throw new NonDeletedUpdatedRequestException();

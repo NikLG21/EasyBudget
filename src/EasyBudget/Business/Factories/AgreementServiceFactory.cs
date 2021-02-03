@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EasyBudget.Business.Services.AgreementBudgetRequestServices;
+﻿using EasyBudget.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.Business.Factories;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess;
@@ -23,6 +20,7 @@ namespace EasyBudget.Business.Factories
             _budgetRequestCommands = budgetRequestCommands;
         }
 
+        //TODO: Base is very confusing
         public IAgreementBaseService GetBase()
         {
             return new AgreementBaseService(_budgetRequestListQueries, _budgetRequestCommands);

@@ -31,6 +31,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request,"Запит було успішно затверджено");
                 }
+                //TODO: Please remove else
                 else
                 {
                     return new BudgetRequestUpdateOutput(request,"Не вдалося затвердити запит");
@@ -61,6 +62,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request, "Запит було успішно відхилено");
                 }
+                //TODO: Please remove else
                 else
                 {
                     return new BudgetRequestUpdateOutput(request,"Відхилити неможливо");

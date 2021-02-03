@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using EasyBudget.Common.Business.Outputs;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess;
@@ -38,6 +36,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно затверджено");
                 }
+                //TODO: Please remove else
                 else
                 {
                     return new BudgetRequestUpdateOutput(request, "Неможливо затвердити");
@@ -73,6 +72,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно відхилено");
                 }
+                //TODO: Please remove else
                 else
                 {
                     return new BudgetRequestUpdateOutput(request, "Неможливо відхилити");
@@ -90,7 +90,6 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             {
                 throw new CriticalException(e);
             }
-
         }
     }
 }
