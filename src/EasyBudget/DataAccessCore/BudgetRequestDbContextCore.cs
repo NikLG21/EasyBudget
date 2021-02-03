@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using EasyBudget.Common.Model;
+﻿using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using Microsoft.EntityFrameworkCore;
 using Action = EasyBudget.Common.Model.Security.Action;
@@ -9,14 +7,13 @@ namespace DataAccessCore
 {
     public class BudgetRequestDbContextCore : DbContext
     {
-        private string _connectionString;
+        private readonly string _connectionString;
+
         public BudgetRequestDbContextCore(string connectionString)
         {
             _connectionString = connectionString;
-            Database.EnsureCreated();
+            base.Database.EnsureCreated();
         }
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,10 +40,10 @@ namespace DataAccessCore
             modelBuilder.Entity<User>().ToTable(nameof(User));
             modelBuilder.Entity<User>().HasKey(u => u.Id);
 
-            modelBuilder.Entity<User>().Property(u => u.Login).IsRequired(true).HasMaxLength(20);
-            modelBuilder.Entity<User>().HasIndex(u => u.Login).IsUnique(true);
-            modelBuilder.Entity<User>().Property(u => u.Name).IsRequired(true).HasMaxLength(40);
-            modelBuilder.Entity<User>().Property(u => u.Password).IsRequired(true).HasMaxLength(100);
+            modelBuilder.Entity<User>().Property(u => u.Login).IsRequired().HasMaxLength(20);
+            modelBuilder.Entity<User>().HasIndex(u => u.Login).IsUnique();
+            modelBuilder.Entity<User>().Property(u => u.Name).IsRequired().HasMaxLength(40);
+            modelBuilder.Entity<User>().Property(u => u.Password).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<User>().HasOne(u => u.Unit).WithMany().HasForeignKey(u => u.UnitId).IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
         }
@@ -56,18 +53,18 @@ namespace DataAccessCore
             modelBuilder.Entity<BudgetRequest>().ToTable(nameof(BudgetRequest));
             modelBuilder.Entity<BudgetRequest>().HasKey(br => br.Id);
 
-            modelBuilder.Entity<BudgetRequest>().Property(p => p.Name).IsRequired(true).HasMaxLength(200);
+            modelBuilder.Entity<BudgetRequest>().Property(p => p.Name).IsRequired().HasMaxLength(200);
 
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Requester).WithMany().HasForeignKey(b => b.RequesterId).IsRequired(true)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Requester).WithMany().HasForeignKey(b => b.RequesterId).IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Approver).WithMany().HasForeignKey(b => b.ApproverId).IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Executor).WithMany().HasForeignKey(b => b.ExecutorId).IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Department).WithMany().HasForeignKey(b=>b.DepartmentId).IsRequired(true)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Department).WithMany().HasForeignKey(b=>b.DepartmentId).IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Unit).WithMany().HasForeignKey(b=>b.UnitId).IsRequired(true)
+            modelBuilder.Entity<BudgetRequest>().HasOne(u => u.Unit).WithMany().HasForeignKey(b=>b.UnitId).IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<BudgetRequest>().HasMany(b => b.BudgetHistories).WithOne()
@@ -81,11 +78,11 @@ namespace DataAccessCore
             modelBuilder.Entity<BudgetDescription>().ToTable(nameof(BudgetDescription));
             modelBuilder.Entity<BudgetDescription>().HasKey(bd => bd.Id);
 
-            modelBuilder.Entity<BudgetDescription>().Property(bd => bd.Description).IsRequired(true).HasMaxLength(2000);
+            modelBuilder.Entity<BudgetDescription>().Property(bd => bd.Description).IsRequired().HasMaxLength(2000);
             modelBuilder.Entity<BudgetDescription>().HasOne(bd => bd.User).WithMany().HasForeignKey(bd => bd.UserId)
-                .IsRequired(true).OnDelete(DeleteBehavior.NoAction);
+                .IsRequired().OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<BudgetDescription>().HasOne(bd => bd.BudgetRequest).WithMany()
-                .HasForeignKey(bd => bd.BudgetRequestId).IsRequired(true).OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(bd => bd.BudgetRequestId).IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
 
         private static void OnModelCreating_RoleConfig(ModelBuilder modelBuilder)
@@ -93,7 +90,7 @@ namespace DataAccessCore
             modelBuilder.Entity<Role>().ToTable(nameof(Role));
             modelBuilder.Entity<Role>().HasKey(r => r.Id);
 
-            modelBuilder.Entity<Role>().Property(p => p.Name).IsRequired(true).HasMaxLength(20);
+            modelBuilder.Entity<Role>().Property(p => p.Name).IsRequired().HasMaxLength(20);
             modelBuilder.Entity<Role>().HasIndex(p => p.Name).IsUnique();
             modelBuilder.Entity<Role>().HasOne(u => u.Department).WithMany().HasForeignKey(u => u.DepartmentId)
                 .IsRequired(false).OnDelete(DeleteBehavior.NoAction);
@@ -104,7 +101,7 @@ namespace DataAccessCore
             modelBuilder.Entity<Action>().ToTable(nameof(Action));
             modelBuilder.Entity<Action>().HasKey(p => p.Id);
 
-            modelBuilder.Entity<Action>().Property(p => p.Name).IsRequired(true).HasMaxLength(50);
+            modelBuilder.Entity<Action>().Property(p => p.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Action>().HasIndex(p => p.Name).IsUnique();
         }
 
@@ -113,7 +110,7 @@ namespace DataAccessCore
             modelBuilder.Entity<Department>().ToTable(nameof(Department));
             modelBuilder.Entity<Department>().HasKey(p => p.Id);
 
-            modelBuilder.Entity<Department>().Property(p => p.Name).IsRequired(true).HasMaxLength(30);
+            modelBuilder.Entity<Department>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             modelBuilder.Entity<Department>().HasIndex(p => p.Name).IsUnique();
         }
 
@@ -125,7 +122,7 @@ namespace DataAccessCore
             modelBuilder.Entity<BudgetHistory>().HasOne(bh => bh.User).WithMany().HasForeignKey(bh => bh.UserId)
                 .IsRequired(true).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<BudgetHistory>().HasOne(bh => bh.BudgetRequest).WithMany()
-                .HasForeignKey(bh => bh.BudgetRequestId).IsRequired(true).OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(bh => bh.BudgetRequestId).IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
 
         private static void OnModelCreating_UnitConfig(ModelBuilder modelBuilder)
@@ -133,7 +130,7 @@ namespace DataAccessCore
             modelBuilder.Entity<Unit>().ToTable(nameof(Unit));
             modelBuilder.Entity<Unit>().HasKey(p => p.Id);
 
-            modelBuilder.Entity<Unit>().Property(p => p.Name).IsRequired(true).HasMaxLength(30);
+            modelBuilder.Entity<Unit>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             modelBuilder.Entity<Unit>().HasIndex(p => p.Name).IsUnique();
         }
 
