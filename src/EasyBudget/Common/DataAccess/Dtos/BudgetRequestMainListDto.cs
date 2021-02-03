@@ -5,6 +5,14 @@ namespace EasyBudget.Common.DataAccess.Dtos
 {
     public class BudgetRequestMainListDto : Entity
     {
+        public BudgetRequestMainListDto()
+        {
+        }
+
+        public BudgetRequestMainListDto(Guid id) : base(id)
+        {
+        }
+
         public string Name { get; set; }
 
         public string RequesterName { get; set; }

@@ -7,6 +7,10 @@ namespace EasyBudget.Common.DataAccess.Dtos
 {
     public class UserMainInfoDto : Entity
     {
+        public UserMainInfoDto(Guid id): base(id)
+        {
+            Roles = new List<Role>();
+        }
         public UserMainInfoDto()
         {
             Roles = new List<Role>();

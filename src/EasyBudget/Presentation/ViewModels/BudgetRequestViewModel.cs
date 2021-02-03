@@ -23,9 +23,8 @@ namespace EasyBudget.Presentation.ViewModels
         private readonly IAgreementServiceFactory _agreementServiceFactory;
         private readonly IDepartmentService _departmentService;
 
-        private UserMainInfoDto userInfo = new UserMainInfoDto()
+        private UserMainInfoDto userInfo = new UserMainInfoDto(Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"))
         {
-            Id = Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"),
             Name = "Кирил Цибулькин",
             CurrentRoleId = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
             CurrentRoleName = "Approver",
@@ -33,9 +32,8 @@ namespace EasyBudget.Presentation.ViewModels
             UnitName = "2 Клініка"
         };
 
-        private Role role = new Role()
+        private Role role = new Role(Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"))
         {
-            Id = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
             Name = "Approver",
         };
 
@@ -78,8 +76,6 @@ namespace EasyBudget.Presentation.ViewModels
             _agreementServiceFactory = agreementServiceFactory;
             _departmentService = departmentService;
             BudgetRequest = new BudgetRequest();
-            BudgetRequest.Department = new Department();
-            BudgetRequest.Department.Id= Guid.Empty;
             ChangedBudgetRequest = BudgetRequest;
             NewRequestModeStart();
         }
@@ -131,9 +127,9 @@ namespace EasyBudget.Presentation.ViewModels
         {
             if (role.Name != RoleNames.Requester)
             {
-                return;
+                //return;
             }
-            if (ChangedBudgetRequest.Name != null|ChangedBudgetRequest.Department.Id!=Guid.Empty)
+            if (ChangedBudgetRequest.Name != null|ChangedBudgetRequest.DepartmentId!=Guid.Empty)
             {
                 BudgetRequestUpdateOutput output = _budgetRequestService.AddRequest(userInfo.Id, ChangedBudgetRequest);
                 BudgetRequest = output.Request;

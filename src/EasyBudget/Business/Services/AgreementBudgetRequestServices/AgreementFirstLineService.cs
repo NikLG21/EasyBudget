@@ -32,9 +32,8 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     request.State = BudgetState.ApprovedFirstLine;
                     request.ApproverId = userMainInfo.Id;
                     _budgetRequestAccess.Update(request);
-                    request.Approver = new User()
+                    request.Approver = new User(userMainInfo.Id)
                     {
-                        Id = userMainInfo.Id,
                         Name = userMainInfo.Name
                     };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно затверджено");
@@ -68,9 +67,8 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     request.State = BudgetState.RejectedFirstLine;
                     request.ApproverId = userMainInfo.Id;
                     _budgetRequestAccess.Update(request);
-                    request.Approver = new User()
+                    request.Approver = new User(userMainInfo.Id)
                     {
-                        Id = userMainInfo.Id,
                         Name = userMainInfo.Name
                     };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно відхилено");

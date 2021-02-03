@@ -27,9 +27,8 @@ namespace DataAccess.Queries
                         .BudgetRequests
                         .AsNoTracking()
                         .Where(br => br.DateRequested >= from )
-                        .Select(br => new BudgetRequestMainListDto
+                        .Select(br => new BudgetRequestMainListDto(br.Id)
                         {
-                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,
@@ -60,9 +59,8 @@ namespace DataAccess.Queries
                         .AsNoTracking()
                         .Where(br => br.Requester.Id == userId)
                         .Where(br => br.DateRequested >= from)
-                        .Select(br => new BudgetRequestMainListDto
+                        .Select(br => new BudgetRequestMainListDto(br.Id)
                         {
-                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,
@@ -93,9 +91,8 @@ namespace DataAccess.Queries
                         .AsNoTracking()
                         .Where(br => br.Unit.Id == unitId)
                         .Where(br => br.DateRequested >= from)
-                        .Select(br => new BudgetRequestMainListDto
+                        .Select(br => new BudgetRequestMainListDto(br.Id)
                         {
-                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,
@@ -127,9 +124,8 @@ namespace DataAccess.Queries
                         .AsNoTracking()
                         .Where(br => br.Department.Id == departmentId)
                         .Where(br => br.DateRequested >= from)
-                        .Select(br => new BudgetRequestMainListDto
+                        .Select(br => new BudgetRequestMainListDto(br.Id)
                         {
-                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,
@@ -158,9 +154,8 @@ namespace DataAccess.Queries
                     List<BudgetRequestMainListDto> list = context.BudgetRequests
                         .AsNoTracking()
                         .Where(bd => ids.Contains(bd.Id))
-                        .Select(br => new BudgetRequestMainListDto()
+                        .Select(br => new BudgetRequestMainListDto(br.Id)
                         {
-                            Id = br.Id,
                             Name = br.Name,
                             RequesterName = br.Requester.Name,
                             DepartmentName = br.Department.Name,

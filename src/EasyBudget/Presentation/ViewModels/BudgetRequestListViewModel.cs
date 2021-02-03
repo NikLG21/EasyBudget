@@ -28,9 +28,8 @@ namespace EasyBudget.Presentation.ViewModels
         private int _pageSize;
         private List<BudgetRequestRowViewModel> _displayBudgetRequests;
 
-        private UserMainInfoDto userInfo = new UserMainInfoDto()
+        private UserMainInfoDto userInfo = new UserMainInfoDto(Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"))
         {
-            Id = Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"),
             Name = "Кирил Цибулькин",
             CurrentRoleId = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
             CurrentRoleName = "Approver",
@@ -38,9 +37,8 @@ namespace EasyBudget.Presentation.ViewModels
             UnitName = "2 Клініка"
         };
 
-        private Role role = new Role()
+        private Role role = new Role(Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"))
         {
-            Id = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
             Name = "Approver",
         };
 
@@ -242,9 +240,8 @@ namespace EasyBudget.Presentation.ViewModels
             {
                 if (BudgetRequests[i].BudgetRequest.Id.Equals(BudgetRequestViewModel.BudgetRequest.Id))
                 {
-                    BudgetRequests[i] = new BudgetRequestRowViewModel(new BudgetRequestMainListDto()
+                    BudgetRequests[i] = new BudgetRequestRowViewModel(new BudgetRequestMainListDto(BudgetRequestViewModel.BudgetRequest.Id)
                     {
-                        Id = BudgetRequestViewModel.BudgetRequest.Id,
                         DateRequested = BudgetRequestViewModel.BudgetRequest.DateRequested,
                         DepartmentId = BudgetRequestViewModel.BudgetRequest.DepartmentId,
                         DepartmentName = BudgetRequestViewModel.BudgetRequest.Department.Name,
@@ -334,9 +331,8 @@ namespace EasyBudget.Presentation.ViewModels
 
         private void UpdateRowsAfterApprove(BudgetRequestUpdateOutput output)
         {
-            BudgetRequestMainListDto requestDto = new BudgetRequestMainListDto()
+            BudgetRequestMainListDto requestDto = new BudgetRequestMainListDto(output.Request.Id)
             {
-                Id = output.Request.Id,
                 Name = output.Request.Name,
                 DepartmentId = output.Request.Department.Id,
                 DepartmentName = output.Request.Department.Name,

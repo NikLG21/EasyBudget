@@ -15,9 +15,8 @@ namespace EasyBudget.Presentation.ViewModels
         public bool IsApproveable { get; set; }
         public bool IsSelected { get; set; }
         
-        private Role role = new Role()
+        private Role role = new Role(Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"))
         {
-            Id = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
             Name = "Approver",
         };
 

@@ -206,7 +206,7 @@
                 </div>
                 <div>
                     <input type="date" @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DateRequestedDeadline"/>
-                    <select @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.Department.Id">
+                    <select @bind="ViewModel.BudgetRequestViewModel.ChangedBudgetRequest.DepartmentId">
                         <option value="@Guid.Empty">Виберіть відділ</option>
                         @{
                             foreach (PairGuid pair in ViewModel.BudgetRequestViewModel.Departments)

@@ -31,13 +31,12 @@ namespace EasyBudget.Business.Services
                     throw new LackMandatoryInformation("Назва запиту");
                 }
 
-                if (request.Department.Id.Equals(Guid.Empty))
+                if (request.DepartmentId.Equals(Guid.Empty))
                 {
                     throw new LackMandatoryInformation("Відділ");
                 }
                 User user = _userAccess.Get(userId);
-                Department department = _departmentAccess.Get(request.Department.Id);
-                request.Id=Guid.NewGuid();
+                Department department = _departmentAccess.Get(request.DepartmentId);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;
@@ -67,8 +66,7 @@ namespace EasyBudget.Business.Services
             try
             {
                 User user = _userAccess.Get(requestorUserId);
-                Department department = _departmentAccess.Get(request.Department.Id);
-                request.Id = new Guid();
+                Department department = _departmentAccess.Get(request.DepartmentId);
                 request.State = BudgetState.Requested;
                 request.DateRequested = DateTime.Today;
                 request.Requester = user;

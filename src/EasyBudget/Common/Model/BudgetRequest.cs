@@ -6,6 +6,12 @@ namespace EasyBudget.Common.Model
 {
     public class BudgetRequest : Entity
     {
+        public BudgetRequest(Guid id) : base(id)
+        {
+            BudgetDescriptions = new List<BudgetDescription>();
+            BudgetHistories = new List<BudgetHistory>();
+        }
+
         public BudgetRequest()
         {
             BudgetDescriptions = new List<BudgetDescription>();

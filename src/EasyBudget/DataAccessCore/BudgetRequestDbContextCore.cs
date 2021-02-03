@@ -22,7 +22,6 @@ namespace DataAccessCore
         {
             base.OnModelCreating(modelBuilder);
             
-            OnModelCreating_Entity(modelBuilder);
             OnModelCreating_UserConfig(modelBuilder);
             OnModelCreating_BudgetRequestConfig(modelBuilder);
             OnModelCreating_BudgetDescriptionConfig(modelBuilder);
@@ -39,20 +38,10 @@ namespace DataAccessCore
             optionsBuilder.UseSqlServer(_connectionString);
         }
         
-        private static void OnModelCreating_Entity(ModelBuilder modelBuilder)
-        {
-
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(t => t.GetProperties())
-                .Where(p => p.ClrType == typeof(Guid)))
-            {
-                property.IsPrimaryKey();
-            }
-        }
-
         private static void OnModelCreating_UserConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable(nameof(User));
+            modelBuilder.Entity<User>().HasKey(u => u.Id);
 
             modelBuilder.Entity<User>().Property(u => u.Login).IsRequired(true).HasMaxLength(20);
             modelBuilder.Entity<User>().HasIndex(u => u.Login).IsUnique(true);
@@ -65,6 +54,7 @@ namespace DataAccessCore
         private static void OnModelCreating_BudgetRequestConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BudgetRequest>().ToTable(nameof(BudgetRequest));
+            modelBuilder.Entity<BudgetRequest>().HasKey(br => br.Id);
 
             modelBuilder.Entity<BudgetRequest>().Property(p => p.Name).IsRequired(true).HasMaxLength(200);
 
@@ -89,6 +79,7 @@ namespace DataAccessCore
         private static void OnModelCreating_BudgetDescriptionConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BudgetDescription>().ToTable(nameof(BudgetDescription));
+            modelBuilder.Entity<BudgetDescription>().HasKey(bd => bd.Id);
 
             modelBuilder.Entity<BudgetDescription>().Property(bd => bd.Description).IsRequired(true).HasMaxLength(2000);
             modelBuilder.Entity<BudgetDescription>().HasOne(bd => bd.User).WithMany().HasForeignKey(bd => bd.UserId)
@@ -100,6 +91,7 @@ namespace DataAccessCore
         private static void OnModelCreating_RoleConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().ToTable(nameof(Role));
+            modelBuilder.Entity<Role>().HasKey(r => r.Id);
 
             modelBuilder.Entity<Role>().Property(p => p.Name).IsRequired(true).HasMaxLength(20);
             modelBuilder.Entity<Role>().HasIndex(p => p.Name).IsUnique();
@@ -110,6 +102,7 @@ namespace DataAccessCore
         private static void OnModelCreating_ActionConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Action>().ToTable(nameof(Action));
+            modelBuilder.Entity<Action>().HasKey(p => p.Id);
 
             modelBuilder.Entity<Action>().Property(p => p.Name).IsRequired(true).HasMaxLength(50);
             modelBuilder.Entity<Action>().HasIndex(p => p.Name).IsUnique();
@@ -118,6 +111,7 @@ namespace DataAccessCore
         private static void OnModelCreating_DepartmentConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Department>().ToTable(nameof(Department));
+            modelBuilder.Entity<Department>().HasKey(p => p.Id);
 
             modelBuilder.Entity<Department>().Property(p => p.Name).IsRequired(true).HasMaxLength(30);
             modelBuilder.Entity<Department>().HasIndex(p => p.Name).IsUnique();
@@ -126,6 +120,7 @@ namespace DataAccessCore
         private static void OnModelCreating_BudgetHistoryConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BudgetHistory>().ToTable(nameof(BudgetHistory));
+            modelBuilder.Entity<BudgetHistory>().HasKey(bh => bh.Id);
 
             modelBuilder.Entity<BudgetHistory>().HasOne(bh => bh.User).WithMany().HasForeignKey(bh => bh.UserId)
                 .IsRequired(true).OnDelete(DeleteBehavior.NoAction);
@@ -136,6 +131,7 @@ namespace DataAccessCore
         private static void OnModelCreating_UnitConfig(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Unit>().ToTable(nameof(Unit));
+            modelBuilder.Entity<Unit>().HasKey(p => p.Id);
 
             modelBuilder.Entity<Unit>().Property(p => p.Name).IsRequired(true).HasMaxLength(30);
             modelBuilder.Entity<Unit>().HasIndex(p => p.Name).IsUnique();

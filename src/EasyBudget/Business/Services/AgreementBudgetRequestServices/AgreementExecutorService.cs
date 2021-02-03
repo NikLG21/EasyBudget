@@ -30,9 +30,8 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     request.RealPrice = realPrice;
                     request.ExecutorId = userMainInfo.Id;
                     _budgetRequestAccess.Update(request);
-                    request.Executor = new User()
+                    request.Executor = new User(userMainInfo.Id)
                     {
-                        Id = userMainInfo.Id,
                         Name = userMainInfo.Name
                     };
                     return new BudgetRequestUpdateOutput(request,"Запит був оновлений та затверджений");

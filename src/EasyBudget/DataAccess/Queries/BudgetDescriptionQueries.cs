@@ -26,9 +26,8 @@ namespace DataAccess.Queries
                         .BudgetDescriptions
                         .Where(bd => bd.BudgetRequest.Id == budgetRequestId)
                         .Select(bd =>
-                            new BudgetDescriptionMainListDto
+                            new BudgetDescriptionMainListDto(bd.Id)
                             {
-                                Id = bd.Id,
                                 UserName = bd.User.Name,
                                 Date = bd.Date,
                                 Description = bd.Description,

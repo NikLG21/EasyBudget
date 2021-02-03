@@ -12,11 +12,10 @@ namespace EasyBudget.Presentation.ViewModels
 
         public void LoadData()
         {
-            UserInfo = new UserMainInfoDto()
+            UserInfo = new UserMainInfoDto(Guid.Parse("3148ce2c-540e-4cc4-a372-42e0c29a478b"))
             {
                 Login = "dd",
                 Name = "Дені Діпсон",
-                Id = Guid.Parse("3148ce2c-540e-4cc4-a372-42e0c29a478b"),
                 CurrentRoleId = Guid.Parse("aab78899-6781-4a42-b7a0-18c18ca652d4"),
                 CurrentRoleName = "Director",
             };

@@ -4,8 +4,18 @@ namespace EasyBudget.Common.Model
 {
     public class Entity
     {
+        public Entity()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Entity(Guid id)
+        {
+            Id = id;
+        }
+
         //TODO: remove setter
-        public Guid Id { get; set; }
+        public Guid Id { get; }
 
         public override string ToString()
         {

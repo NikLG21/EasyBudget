@@ -68,9 +68,8 @@ namespace DataAccessCore.Queries
             {
                 try
                 {
-                    List<UserMainInfoDto> list = context.Users.AsNoTracking().Select(u => new UserMainInfoDto
+                    List<UserMainInfoDto> list = context.Users.AsNoTracking().Select(u => new UserMainInfoDto(u.Id)
                     {
-                        Id = u.Id,
                         Name = u.Name,
                         Login = u.Login,
                         Roles = u.Roles,
@@ -93,9 +92,8 @@ namespace DataAccessCore.Queries
                 try
                 {
                     return context.Users.AsNoTracking().Where(u => u.Id == userId).Select(u =>
-                        new UserMainInfoDto
+                        new UserMainInfoDto(u.Id)
                         {
-                            Id = u.Id,
                             Name = u.Name,
                             Login = u.Login,
                             Roles = u.Roles,

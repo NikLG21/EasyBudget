@@ -5,6 +5,10 @@ namespace EasyBudget.Common.Model.Security
 {
     public class User : Entity
     {
+        public User(Guid id):base(id)
+        {
+            Roles = new List<Role>();
+        }
         public User()
         {
             Roles = new List<Role>();
@@ -18,7 +22,7 @@ namespace EasyBudget.Common.Model.Security
         //TODO: Add UnitId. Done
         public Unit Unit { get; set; }
 
-        public Guid UnitId { get; set; }
+        public Guid? UnitId { get; set; }
 
         public List<Role> Roles { get;}
     }
