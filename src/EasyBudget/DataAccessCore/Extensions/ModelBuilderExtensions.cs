@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DataAccessCore.Extensions
 {
+    //TODO: Why need it ???
     public static class ModelBuilderExtensions
     {
         public static void RemovePluralizingTableNameConvention(this ModelBuilder modelBuilder)

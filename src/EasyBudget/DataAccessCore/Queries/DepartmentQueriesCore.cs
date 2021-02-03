@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Common.Exceptions;
 using EasyBudget.Common.Model;
