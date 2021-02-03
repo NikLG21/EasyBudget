@@ -6,7 +6,6 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
 {
     public interface IAgreementExecutorService
     {
-        //TODO: AddRealPrice. Done
         BudgetRequestUpdateOutput AddRealPrice(UserMainInfoDto userMainInfo, Guid id, decimal? realPrice);
     }
 }

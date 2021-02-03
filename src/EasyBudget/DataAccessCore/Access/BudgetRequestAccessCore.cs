@@ -107,7 +107,7 @@ namespace DataAccessCore.Access
             }
         }
 
-        public BudgetRequest GetSimpleRequest(Guid id)
+        public BudgetRequest GetSimple(Guid id)
         {
             using (BudgetRequestDbContextCore context = _factory.Create())
             {

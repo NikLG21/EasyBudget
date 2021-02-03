@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EasyBudget.Common.Model;
+﻿using EasyBudget.Common.Model;
 
 namespace EasyBudget.Common.Business.Outputs
 {

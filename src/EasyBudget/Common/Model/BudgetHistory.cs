@@ -13,13 +13,10 @@ namespace EasyBudget.Common.Model
         {
         }
 
-        //TODO: Add BudgetRequestId. Done
         public BudgetRequest BudgetRequest { get; set; }
-
-        //TODO: Add UserId. Done
-        public User User { get; set; }
-
         public Guid? BudgetRequestId { get; set; }
+
+        public User User { get; set; }
         public Guid? UserId { get; set; }
 
         public DateTime Date { get; set; }
