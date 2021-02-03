@@ -19,7 +19,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             _budgetRequestListQueries = budgetRequestListQueries;
         }
 
-        public BudgetRequestUpdateOutput ApproveDirector(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput ApproveByDirector(Guid userId, Guid id)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
 
         }
-        public BudgetRequestUpdateOutput RejectDirector(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput RejectByDirector(Guid userId, Guid id)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
         }
 
-        public BudgetRequestUpdateOutput PostponedDirector(Guid userId, Guid id)
+        public BudgetRequestUpdateOutput PostponedByDirector(Guid userId, Guid id)
         {
             try
             {

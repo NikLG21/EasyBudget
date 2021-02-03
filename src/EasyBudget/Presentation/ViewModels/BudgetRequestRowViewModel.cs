@@ -14,16 +14,11 @@ namespace EasyBudget.Presentation.ViewModels
         public BudgetRequestMainListDto BudgetRequest { get; }
         public bool IsApproveable { get; set; }
         public bool IsSelected { get; set; }
-
+        
         private Role role = new Role()
         {
-            Department = new Department()
-            {
-                Id = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
-                Name = "Хозчасть"
-            },
-            Id = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
-            Name = "Executor",
+            Id = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
+            Name = "Approver",
         };
 
         public BudgetRequestRowViewModel(BudgetRequestMainListDto budgetRequest)

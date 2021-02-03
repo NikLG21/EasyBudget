@@ -9,7 +9,6 @@ namespace EasyBudget.Common.DataAccess
         void Add(Department department);
         void Update(Department department);
         Department Get(Guid id);
-        //TODO: Move to query ???
-        List<Department> GetAll();
+        //TODO: Move to query. Done
     }
 }

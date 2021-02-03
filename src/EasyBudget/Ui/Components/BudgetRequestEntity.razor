@@ -12,7 +12,7 @@
             <div class="entity-view-existed-top">
 
                 @{
-                    if (ViewModel.BudgetRequestViewModel.IsEditable)
+                    if (ViewModel.BudgetRequestViewModel.Editable)
                     {
                         <button @onclick="ViewModel.BudgetRequestViewModel.ChangeEditMode">Редагувати</button>
                     }
@@ -26,7 +26,15 @@
                     }
                     else
                     {
-                        <button disabled="disabled">Затвердити</button>
+                        if (ViewModel.BudgetRequestViewModel.EditableByRequester)
+                        {
+                            <button @onclick="ViewModel.BudgetRequestViewModel.EditByRequester">Зберегти зміни</button>
+                        }
+                        else
+                        {
+                            <button disabled="disabled">Затвердити</button>
+                        }
+                        
                     }
                     if (ViewModel.BudgetRequestViewModel.RejectAble)
                     {

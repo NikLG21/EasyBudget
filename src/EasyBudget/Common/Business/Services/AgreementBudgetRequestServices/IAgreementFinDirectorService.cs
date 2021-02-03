@@ -6,9 +6,9 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
 {
     public interface IAgreementFinDirectorService
     {
-        //TODO: PostponedByFinDirector
-        BudgetRequestUpdateOutput PostponedFinDirector(Guid userId, Guid id);
-        BudgetRequestUpdateOutput ExecutionStartedFinDirector(Guid userId, Guid id, DateTime? deadline);
-        BudgetRequestUpdateOutput ExecutionFinishedFinDirector(Guid userId, Guid id);
+        //TODO: PostponedByFinDirector. Done
+        BudgetRequestUpdateOutput PostponedByFinDirector(Guid userId, Guid id);
+        BudgetRequestUpdateOutput ExecutionStartedByFinDirector(Guid userId, Guid id, DateTime? deadline);
+        BudgetRequestUpdateOutput ExecutionFinishedByFinDirector(Guid userId, Guid id);
     }
 }

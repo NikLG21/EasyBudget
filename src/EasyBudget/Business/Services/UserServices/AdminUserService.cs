@@ -60,7 +60,7 @@ namespace EasyBudget.Business.Services.UserServices
             }
         }
 
-        public void UpdateByAdmin(Guid userId, User user)
+        public void UpdateUserByAdmin(Guid userId, User user)
         {
             try
             {

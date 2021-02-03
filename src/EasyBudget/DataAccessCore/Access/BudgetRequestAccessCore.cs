@@ -55,34 +55,6 @@ namespace DataAccessCore.Access
             }
         }
 
-        public void UpdateList(List<Guid> ids, BudgetState newState, Guid userId)
-        {
-            using (BudgetRequestDbContextCore context = _factory.Create())
-            {
-                try
-                {
-                    List<BudgetRequest> budgetRequests = context.BudgetRequests.Where(br => ids.Contains(br.Id)).ToList();
-                    if (newState == BudgetState.ApprovedFirstLine)
-                    {
-                        budgetRequests.ForEach(br =>
-                        {
-                            br.State = newState;
-                            br.ApproverId = userId;
-                        });
-                    }
-                    else
-                    {
-                        budgetRequests.ForEach(br => br.State = newState);
-                    }
-                    context.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    throw new CriticalException(e);
-                }
-            }
-        }
-
         public void Delete(Guid id)
         {
             using (BudgetRequestDbContextCore context = _factory.Create())
@@ -135,7 +107,7 @@ namespace DataAccessCore.Access
             }
         }
 
-        public BudgetRequest GetSimple(Guid id)
+        public BudgetRequest GetSimpleRequest(Guid id)
         {
             using (BudgetRequestDbContextCore context = _factory.Create())
             {

@@ -10,8 +10,8 @@ namespace EasyBudget.Common.Business.Services.UserServices
     {
         Guid LogInUser(Guid userId, string login, string password);
         void ChangePasswordByUser(Guid userId, string oldPassword, string newPassword);
-        //TODO: Probably GetUserMainInfoDto
-        UserMainInfoDto GetMainInfoDto(Guid userId, Guid id);
+        //TODO: Probably GetUserMainInfoDto. Done
+        UserMainInfoDto GetUserMainInfoDto(Guid userId, Guid id);
         User GetUser(Guid userId, Guid id);
     }
 }

@@ -142,7 +142,7 @@ namespace DataAccess.Access
                 }
             }
         }
-        public BudgetRequest GetSimple(Guid id)
+        public BudgetRequest GetSimpleRequest(Guid id)
         {
             using (BudgetRequestDbContext context = _factory.Create())
             {

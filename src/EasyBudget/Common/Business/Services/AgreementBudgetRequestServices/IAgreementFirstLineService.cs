@@ -7,8 +7,8 @@ namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
 {
     public interface IAgreementFirstLineService
     {
-        //TODO: ApproveByFirstLine
-        BudgetRequestUpdateOutput ApproveFirstLine(UserMainInfoDto userMainInfo, Guid id);
-        BudgetRequestUpdateOutput RejectFirstLine(UserMainInfoDto userMainInfo, Guid id);
+        //TODO: ApproveByFirstLine. Done
+        BudgetRequestUpdateOutput ApproveByFirstLine(UserMainInfoDto userMainInfo, Guid id);
+        BudgetRequestUpdateOutput RejectByFirstLine(UserMainInfoDto userMainInfo, Guid id);
     }
 }

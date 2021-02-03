@@ -20,7 +20,8 @@ namespace EasyBudget.Presentation.Interfaces
         FieldsStates DateDeadlineExecutionField { get; set; }
         FieldsStates EstimatedPriceField { get; set; }
         FieldsStates RealPriceField { get; set; }
-        bool IsEditable { get; set; }
+        bool Editable { get; set; }
+        bool EditableByRequester { get; set; }
         bool ApproveAble { get; set; }
         bool RejectAble { get; set; }
         bool PostponeAble { get; set; }
@@ -34,6 +35,7 @@ namespace EasyBudget.Presentation.Interfaces
         void RejectRequest();
         void PostponeRequest();
         void DeleteRequestByRequester();
+        void EditByRequester();
 
     }
 }

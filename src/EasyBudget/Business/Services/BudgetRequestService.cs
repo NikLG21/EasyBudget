@@ -89,15 +89,15 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public BudgetRequestUpdateOutput UpdateByRequester(UserMainInfoDto userInfo, BudgetRequest request)
+        public BudgetRequestUpdateOutput UpdateRequestByRequester(UserMainInfoDto userInfo, BudgetRequest request)
         {
             try
             {
-                BudgetRequestUpdateOutput output;
-                if (request.State == BudgetState.Requested)
+                BudgetRequest request1 = _budgetRequestAccess.Get(request.Id);
+                if (request1.State == BudgetState.Requested)
                 {
                     _budgetRequestAccess.Update(request);
-                    output = new BudgetRequestUpdateOutput(request, "Запит був успішно оновлений");
+                    BudgetRequestUpdateOutput output = new BudgetRequestUpdateOutput(request, "Запит був успішно оновлений");
                     return output;
                 }
                 else
@@ -119,7 +119,7 @@ namespace EasyBudget.Business.Services
                 throw new CriticalException(e);
             }
         }
-        public BudgetRequestUpdateOutput DeleteBudgetRequest(UserMainInfoDto userInfo, BudgetRequest request)
+        public BudgetRequestUpdateOutput DeleteRequest(UserMainInfoDto userInfo, BudgetRequest request)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace EasyBudget.Business.Services
             }
         }
 
-        public BudgetRequest Get(Guid userId,Guid requestId)
+        public BudgetRequest GetRequest(Guid userId,Guid requestId)
         {
             try
             {

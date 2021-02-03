@@ -19,7 +19,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
         {
             _budgetRequestAccess = budgetRequestAccess;
         }
-        public BudgetRequestUpdateOutput RealPriceAdded(UserMainInfoDto userMainInfo, Guid id, decimal? realPrice)
+        public BudgetRequestUpdateOutput AddRealPrice(UserMainInfoDto userMainInfo, Guid id, decimal? realPrice)
         {
             try
             {

@@ -22,7 +22,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             _budgetRequestListQueries = budgetRequestListQueries;
         }
 
-        public BudgetRequestUpdateOutput ApproveFirstLine(UserMainInfoDto userMainInfo, Guid id)
+        public BudgetRequestUpdateOutput ApproveByFirstLine(UserMainInfoDto userMainInfo, Guid id)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
             }
         }
 
-        public BudgetRequestUpdateOutput RejectFirstLine(UserMainInfoDto userMainInfo, Guid id)
+        public BudgetRequestUpdateOutput RejectByFirstLine(UserMainInfoDto userMainInfo, Guid id)
         {
             try
             {

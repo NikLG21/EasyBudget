@@ -18,6 +18,7 @@ namespace DataAccessCore.Access
         {
             _factory = factory;
         }
+
         public void Add(Department department)
         {
             using (BudgetRequestDbContextCore context = _factory.Create())
@@ -79,20 +80,6 @@ namespace DataAccessCore.Access
             }
         }
 
-        public List<Department> GetAll()
-        {
-            using (BudgetRequestDbContextCore context = _factory.Create())
-            {
-                try
-                {
-                    return context.Departments.AsNoTracking().ToList();
-                }
-                catch (Exception e)
-                {
-                    throw new CriticalException(e);
-                }
-            }
-        }
         private static void ProcessDbUpdateException(DbUpdateException e)
         {
             SqlException sqlException = e.InnerException?.InnerException as SqlException;

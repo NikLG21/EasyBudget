@@ -25,23 +25,18 @@ namespace EasyBudget.Presentation.ViewModels
 
         private UserMainInfoDto userInfo = new UserMainInfoDto()
         {
-            Id = Guid.Parse("7bb4db6d-2072-4258-809b-c7a5bbe2d392"),
-            Name = "Евгений Красный",
-            CurrentRoleId = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
-            CurrentRoleName = "Executor",
-            DepartmentId = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
-            DepartmentName = "Хозчасть"
+            Id = Guid.Parse("6a875efe-05ef-4137-889a-137df8c67ab2"),
+            Name = "Кирил Цибулькин",
+            CurrentRoleId = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
+            CurrentRoleName = "Approver",
+            UnitId = Guid.Parse("35f0579d-a8d6-4c6a-a241-2f4726b6a9d1"),
+            UnitName = "2 Клініка"
         };
 
         private Role role = new Role()
         {
-            Department = new Department()
-            {
-                Id = Guid.Parse("22946ba4-b06c-4d9e-a0d3-2e03b62afb5c"),
-                Name = "Хозчасть"
-            },
-            Id = Guid.Parse("6594a73c-6bed-4a07-badd-6c32e730083e"),
-            Name = "Executor",
+            Id = Guid.Parse("3dfeb0d5-cbb7-4855-b882-760b3a912dcd"),
+            Name = "Approver",
         };
 
         public BudgetRequest BudgetRequest { get; set; }
@@ -55,8 +50,10 @@ namespace EasyBudget.Presentation.ViewModels
         public FieldsStates EstimatedPriceField { get; set; }
         public FieldsStates RealPriceField { get; set; }
 
-        public bool IsEditable { get; set; }
         public bool InEditMode { get; set; }
+
+        public bool Editable { get; set; }
+        public bool EditableByRequester { get; set; }
         public bool ApproveAble { get; set; }
         public bool RejectAble { get; set; }
         public bool PostponeAble { get; set; }
@@ -69,7 +66,7 @@ namespace EasyBudget.Presentation.ViewModels
         {
             _budgetRequestService = budgetRequestService;
             _agreementServiceFactory = agreementServiceFactory;
-            BudgetRequest = _budgetRequestService.Get(userInfo.Id, id);
+            BudgetRequest = _budgetRequestService.GetRequest(userInfo.Id, id);
             ChangedBudgetRequest = BudgetRequest;
             ExistedRequestMode();
         }
@@ -90,7 +87,7 @@ namespace EasyBudget.Presentation.ViewModels
 
         public void ChangeEditMode()
         {
-            if (IsEditable == true)
+            if (Editable == true)
             {
                 InEditMode = true;
                 FieldStatesEditMode();
@@ -103,24 +100,24 @@ namespace EasyBudget.Presentation.ViewModels
             switch (role.Name)
             {
                 case RoleNames.Approver:
-                    output = _agreementServiceFactory.GetFirstLine().ApproveFirstLine(userInfo,BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetFirstLine().ApproveByFirstLine(userInfo,BudgetRequest.Id);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.Director:
-                    output = _agreementServiceFactory.GetDirector().ApproveDirector(userInfo.Id,BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetDirector().ApproveByDirector(userInfo.Id,BudgetRequest.Id);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.FinDirector:
-                    output = _agreementServiceFactory.GetFinDirector().ExecutionStartedFinDirector(userInfo.Id,BudgetRequest.Id,ChangedBudgetRequest.DateDeadlineExecution);
+                    output = _agreementServiceFactory.GetFinDirector().ExecutionStartedByFinDirector(userInfo.Id,BudgetRequest.Id,ChangedBudgetRequest.DateDeadlineExecution);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.Executor:
                     if (ChangedBudgetRequest.RealPrice != null)
                     {
-                        output = _agreementServiceFactory.GetExecutor().RealPriceAdded(userInfo, BudgetRequest.Id, ChangedBudgetRequest.RealPrice);
+                        output = _agreementServiceFactory.GetExecutor().AddRealPrice(userInfo, BudgetRequest.Id, ChangedBudgetRequest.RealPrice);
                         BudgetRequest = output.Request;
                         ChangedBudgetRequest = output.Request;
                     } 
@@ -170,12 +167,12 @@ namespace EasyBudget.Presentation.ViewModels
             switch (role.Name)
             {
                 case RoleNames.Approver:
-                    output = _agreementServiceFactory.GetFirstLine().RejectFirstLine(userInfo, BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetFirstLine().RejectByFirstLine(userInfo, BudgetRequest.Id);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.Director:
-                    output = _agreementServiceFactory.GetDirector().RejectDirector(userInfo.Id, BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetDirector().RejectByDirector(userInfo.Id, BudgetRequest.Id);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
@@ -190,12 +187,12 @@ namespace EasyBudget.Presentation.ViewModels
             switch (role.Name)
             {
                 case RoleNames.FinDirector:
-                    output = _agreementServiceFactory.GetFinDirector().PostponedFinDirector(userInfo.Id, BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetFinDirector().PostponedByFinDirector(userInfo.Id, BudgetRequest.Id);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
                 case RoleNames.Director:
-                    output = _agreementServiceFactory.GetDirector().PostponedDirector(userInfo.Id, BudgetRequest.Id);
+                    output = _agreementServiceFactory.GetDirector().PostponedByDirector(userInfo.Id, BudgetRequest.Id);
                     BudgetRequest = output.Request;
                     ChangedBudgetRequest = output.Request;
                     break;
@@ -210,7 +207,20 @@ namespace EasyBudget.Presentation.ViewModels
             {
                 return;
             }
-            BudgetRequestUpdateOutput output =  _budgetRequestService.DeleteBudgetRequest(userInfo,BudgetRequest);
+            BudgetRequestUpdateOutput output =  _budgetRequestService.DeleteRequest(userInfo,BudgetRequest);
+            BudgetRequest = output.Request;
+            ChangedBudgetRequest = output.Request;
+            ExistedRequestMode();
+            EntityViewModelChanged?.Invoke();
+        }
+
+        public void EditByRequester()
+        {
+            if (role.Name != RoleNames.Requester)
+            {
+                return;
+            }
+            BudgetRequestUpdateOutput output = _budgetRequestService.UpdateRequestByRequester(userInfo, ChangedBudgetRequest);
             BudgetRequest = output.Request;
             ChangedBudgetRequest = output.Request;
             ExistedRequestMode();
@@ -224,35 +234,36 @@ namespace EasyBudget.Presentation.ViewModels
                 case RoleNames.Approver:
                     if (BudgetRequest.State == BudgetState.Requested)
                     {
-                        IsEditable = true;
+                        Editable = true;
                     }
                     break;
                 case RoleNames.Executor:
                     if (BudgetRequest.State == BudgetState.ApprovedFirstLine | BudgetRequest.State == BudgetState.Executing)
                     {
-                        IsEditable = true;
+                        Editable = true;
                     }
                     break;
                 case RoleNames.Director:
                     if (BudgetRequest.State == BudgetState.ExecutorEstimated | BudgetRequest.State == BudgetState.PostponedDirector)
                     {
-                        IsEditable = true;
+                        Editable = true;
                     }
                     break;
                 case RoleNames.FinDirector:
                     if (BudgetRequest.State == BudgetState.ApprovedDirector | BudgetRequest.State == BudgetState.PostponedFinDirector)
                     {
-                        IsEditable = true;
+                        Editable = true;
                     }
                     break;
                 case RoleNames.Requester:
                     if (BudgetRequest.State == BudgetState.Requested)
                     {
-                        IsEditable = true;
+                        Editable = true;
+                        EditableByRequester = true;
                     }
                     break;
                 default:
-                    IsEditable = false;
+                    Editable = false;
                     break;
             }
         }
@@ -337,6 +348,7 @@ namespace EasyBudget.Presentation.ViewModels
             }
         }
 
+
         private void FieldStatesEditMode()
         {
 
@@ -378,10 +390,12 @@ namespace EasyBudget.Presentation.ViewModels
                 .ToList());
             NewRequestMode = true;
             InEditMode = true;
-            IsEditable = false;
+            Editable = false;
             ApproveAble = false;
             RejectAble = false;
             PostponeAble = false;
+            DeleteAble = false;
+            EditableByRequester = false;
             NameField = FieldsStates.UnChanged;
             DateRequestedDeadlineField = FieldsStates.UnChanged;
             DateDeadlineExecutionField = FieldsStates.NotEditable;
@@ -393,27 +407,27 @@ namespace EasyBudget.Presentation.ViewModels
         {
             NewRequestMode = false;
             InEditMode = false;
-            IsEditable = false;
+            Editable = false;
             ApproveAble = false;
             RejectAble = false;
             PostponeAble = false;
             DeleteAble = false;
+            EditableByRequester = false;
             if (BudgetRequest.State != BudgetState.Undefined)
             {
                 CheckEditable();
                 CheckApproveAble();
+                CheckRejectAble();
+                CheckPostponedAble();
+                CheckDeleteAble();
             }
-            CheckEditable();
-            CheckApproveAble();
-            CheckRejectAble();
-            CheckPostponedAble();
-            CheckDeleteAble();
             NameField = FieldsStates.NotEditable;
             DateRequestedDeadlineField = FieldsStates.NotEditable;
             DateDeadlineExecutionField = FieldsStates.NotEditable;
             RealPriceField = FieldsStates.NotEditable;
             EstimatedPriceField = FieldsStates.NotEditable;
         }
+
         
     }
 }

@@ -75,7 +75,7 @@ namespace EasyBudget.Business.Services.UserServices
 
         }
 
-        public UserMainInfoDto GetMainInfoDto(Guid userId, Guid id)
+        public UserMainInfoDto GetUserMainInfoDto(Guid userId, Guid id)
         {
             try
             {

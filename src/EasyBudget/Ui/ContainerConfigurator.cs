@@ -3,6 +3,7 @@ using DataAccess.Access;
 using DataAccess.Queries;
 using DataAccessCore;
 using DataAccessCore.Access;
+using DataAccessCore.Commands;
 using DataAccessCore.Queries;
 using EasyBudget.Business.Factories;
 using EasyBudget.Business.Services;
@@ -14,6 +15,7 @@ using EasyBudget.Common.Business.Services;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.Business.Services.UserServices;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.DataAccess.Commands;
 using EasyBudget.Common.DataAccess.Queries;
 using EasyBudget.Presentation.Factory;
 using EasyBudget.Presentation.Interfaces;
@@ -27,6 +29,7 @@ namespace EasyBudget.Ui
         public static void ConfigureContainer(this IUnityContainer container)
         {
             //business
+
             container.RegisterType<IBudgetRequestService, BudgetRequestService>();
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IAdminUserService, AdminUserService>();
@@ -40,6 +43,7 @@ namespace EasyBudget.Ui
             container.RegisterType<IAgreementServiceFactory, AgreementServiceFactory>();
             container.RegisterType<IDepartmentService, DepartmentService>();
             container.RegisterType<IInfoPanelViewModel, InfoPanelViewModel>();
+
             //dataAccess
             
             container.RegisterType<IBudgetRequestDbContextCoreFactory, BudgetRequestDbContextCoreFactory>();
@@ -53,7 +57,13 @@ namespace EasyBudget.Ui
             container.RegisterType<IBudgetRequestListQueries, BudgetRequestListQueriesCore>();
             container.RegisterType<IUserQueries, UserQueriesCore>();
             container.RegisterType<IBudgetDescriptionQueries, BudgetDescriptionQueriesCore>();
+            container.RegisterType<IDepartmentQueries, DepartmentQueriesCore>();
+            //Commands
+            container.RegisterType<IBudgetRequestCommands, BudgetRequestCommandsCore>();
+
             //Presentation
+
+
             container.RegisterType<IBudgetRequestViewModel,BudgetRequestViewModel>();
             container.RegisterType<IBudgetRequestListViewModel, BudgetRequestListViewModel>();
             container.RegisterType<IBudgetRequestEntityFactory, BudgetRequestEntityFactory>();

@@ -9,11 +9,11 @@ namespace EasyBudget.Common.Business.Services
     {
         BudgetRequestUpdateOutput AddRequest(Guid userId, BudgetRequest request);
         void AddRequestByAdmin(Guid userId, Guid requestorUserId, BudgetRequest request);
-        //TODO: Non correspondent names. Probably better UpdateRequestByRequester
-        BudgetRequestUpdateOutput UpdateByRequester(UserMainInfoDto userInfo, BudgetRequest request);
-        //TODO: Non correspondent names. Probably better DeleteRequest
-        BudgetRequestUpdateOutput DeleteBudgetRequest(UserMainInfoDto userInfo,BudgetRequest request);
+        //TODO: Non correspondent names. Probably better UpdateRequestByRequester. Done
+        BudgetRequestUpdateOutput UpdateRequestByRequester(UserMainInfoDto userInfo, BudgetRequest request);
+        //TODO: Non correspondent names. Probably better DeleteRequest. Done
+        BudgetRequestUpdateOutput DeleteRequest(UserMainInfoDto userInfo,BudgetRequest request);
         //TODO: Non correspondent names. Probably better GetRequestBy...
-        BudgetRequest Get(Guid userId,Guid requestId);
+        BudgetRequest GetRequest(Guid userId,Guid requestId);
     }
 }

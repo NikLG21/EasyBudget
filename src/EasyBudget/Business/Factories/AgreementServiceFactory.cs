@@ -5,6 +5,7 @@ using EasyBudget.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.Business.Factories;
 using EasyBudget.Common.Business.Services.AgreementBudgetRequestServices;
 using EasyBudget.Common.DataAccess;
+using EasyBudget.Common.DataAccess.Commands;
 using EasyBudget.Common.DataAccess.Queries;
 
 namespace EasyBudget.Business.Factories
@@ -13,16 +14,18 @@ namespace EasyBudget.Business.Factories
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
+        private readonly IBudgetRequestCommands _budgetRequestCommands;
 
-        public AgreementServiceFactory(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries)
+        public AgreementServiceFactory(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries, IBudgetRequestCommands budgetRequestCommands)
         {
             _budgetRequestAccess = budgetRequestAccess;
             _budgetRequestListQueries = budgetRequestListQueries;
+            _budgetRequestCommands = budgetRequestCommands;
         }
 
         public IAgreementBaseService GetBase()
         {
-            return new AgreementBaseService(_budgetRequestAccess, _budgetRequestListQueries);
+            return new AgreementBaseService(_budgetRequestListQueries, _budgetRequestCommands);
         }
 
         public IAgreementDirectorService GetDirector()
