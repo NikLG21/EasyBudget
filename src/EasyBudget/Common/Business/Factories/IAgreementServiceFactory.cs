@@ -7,6 +7,7 @@ namespace EasyBudget.Common.Business.Factories
 {
     public interface IAgreementServiceFactory
     {
+        //TODO: Why need this
         IAgreementBaseService GetBase();
         IAgreementDirectorService GetDirector();
         IAgreementExecutorService GetExecutor();

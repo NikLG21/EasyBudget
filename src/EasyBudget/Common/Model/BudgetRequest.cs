@@ -15,11 +15,12 @@ namespace EasyBudget.Common.Model
         public string Name { get; set; }
 
         public User Requester { get; set; }
-        public User Approver { get; set; }
-        public User Executor { get; set; }
-
         public Guid RequesterId { get; set; }
+
+        public User Approver { get; set; }
         public Guid? ApproverId { get; set; }
+
+        public User Executor { get; set; }
         public Guid? ExecutorId { get; set; }
 
         public Department Department { get; set; }

@@ -8,9 +8,11 @@ namespace EasyBudget.Common.DataAccess
     {
         void Add(BudgetRequest request);
         void Update(BudgetRequest request);
+        //TODO: Move to command
         void UpdateList(List<Guid> ids, BudgetState newState, Guid userId);
         void Delete(Guid id);
         BudgetRequest Get(Guid id);
+        //TODO: What is it?
         BudgetRequest GetSimple(Guid id);
     }
 }

@@ -13,8 +13,10 @@ namespace EasyBudget.Common.Model.Security
         public string Login { get; set; }
         public string Password { get; set; }
         public bool IsDisabled { get; set; }
-        
+
+        //TODO: Add UnitId
         public Unit Unit { get; set; }
+
         public List<Role> Roles { get;}
     }
 }

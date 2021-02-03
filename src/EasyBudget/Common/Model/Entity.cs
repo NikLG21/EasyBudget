@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 namespace EasyBudget.Common.Model
 {
     public class Entity
     {
+        //TODO: remove setter
         public Guid Id { get; set; }
 
         public override string ToString()

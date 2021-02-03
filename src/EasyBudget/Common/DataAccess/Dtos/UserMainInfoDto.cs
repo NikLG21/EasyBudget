@@ -17,11 +17,12 @@ namespace EasyBudget.Common.DataAccess.Dtos
         public List<Role> Roles { get; set; }
 
         public Guid CurrentRoleId { get; set; }
-        public Guid DepartmentId { get; set; }
-        public Guid UnitId { get; set; }
-
         public string CurrentRoleName { get; set; }
+
+        public Guid DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+
+        public Guid UnitId { get; set; }
         public string UnitName { get; set; }
     }
 }

@@ -3,8 +3,6 @@ using System.Linq;
 using EasyBudget.Common.Model;
 using EasyBudget.Common.Model.Security;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.DependencyInjection;
 using Action = EasyBudget.Common.Model.Security.Action;
 
 namespace DataAccessCore

@@ -9,6 +9,7 @@ namespace EasyBudget.Common.Business.Services.UserServices
     public interface IAdminUserService
     {
         void AddUserByAdmin(Guid userId, User user);
+        //TODO: Probably better UpdateUserByAdmin
         void UpdateByAdmin(Guid userId, User user);
         List<UserMainInfoDto> GetUsersList(Guid userId);
     }
