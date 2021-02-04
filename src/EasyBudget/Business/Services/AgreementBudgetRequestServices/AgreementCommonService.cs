@@ -10,12 +10,12 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
 {
-    public class AgreementBaseService : IAgreementBaseService
+    public class AgreementCommonService : IAgreementCommonService
     {
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
         private readonly IBudgetRequestCommands _budgetRequestCommands;
         
-        public AgreementBaseService(IBudgetRequestListQueries budgetRequestListQueries, IBudgetRequestCommands budgetRequestCommands)
+        public AgreementCommonService(IBudgetRequestListQueries budgetRequestListQueries, IBudgetRequestCommands budgetRequestCommands)
         {
             _budgetRequestListQueries = budgetRequestListQueries;
             _budgetRequestCommands = budgetRequestCommands;

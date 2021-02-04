@@ -100,12 +100,8 @@ namespace EasyBudget.Business.Services
                     BudgetRequestUpdateOutput output = new BudgetRequestUpdateOutput(request, "Запит був успішно оновлений");
                     return output;
                 }
-                //TODO: Please remove else
-                else
-                {
-                    throw new NonDeletedUpdatedRequestException();
-                }
-                
+                //TODO: Please remove else. Done
+                throw new NonDeletedUpdatedRequestException();
             }
             catch (DuplicateEntryException)
             {
@@ -138,11 +134,8 @@ namespace EasyBudget.Business.Services
                     output = new BudgetRequestUpdateOutput(request,"Запит був успішно видалений");
                     return output;
                 }
-                //TODO: Please remove else
-                else
-                {
-                    throw new NonDeletedUpdatedRequestException();
-                }
+                //TODO: Please remove else. Done
+                throw new NonDeletedUpdatedRequestException();
             }
             catch (CriticalException)
             {

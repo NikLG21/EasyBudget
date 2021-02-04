@@ -38,7 +38,7 @@ namespace EasyBudget.Ui
             container.RegisterType<IAgreementFinDirectorService, AgreementFinDirectorService>();
             container.RegisterType<IAgreementFirstLineService, AgreementFirstLineService>();
             container.RegisterType<IAgreementExecutorService, AgreementExecutorService>();
-            container.RegisterType<IAgreementBaseService, AgreementBaseService>();
+            container.RegisterType<IAgreementCommonService, AgreementCommonService>();
             container.RegisterType<IBudgetRequestListServiceFactory, BudgetRequestListServiceFactory>();
             container.RegisterType<IAgreementServiceFactory, AgreementServiceFactory>();
             container.RegisterType<IDepartmentService, DepartmentService>();

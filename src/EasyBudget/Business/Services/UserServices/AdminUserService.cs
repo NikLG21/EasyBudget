@@ -134,23 +134,16 @@ namespace EasyBudget.Business.Services.UserServices
                     {
                         return true;
                     }
-                    //TODO: Please remove else
-                    else
-                    {
-                        return false;
-                    }
+                    //TODO: Please remove else. Done
+                    return false;
                 }
             }
             if (user.Unit == null)
             {
                 return true;
             }
-            //TODO: Please remove else
-            else
-            {
-                return false;
-            }
-
+            //TODO: Please remove else. Done
+            return false;
         }
     }
 }

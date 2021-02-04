@@ -20,10 +20,10 @@ namespace EasyBudget.Business.Factories
             _budgetRequestCommands = budgetRequestCommands;
         }
 
-        //TODO: Base is very confusing
-        public IAgreementBaseService GetBase()
+        //TODO: Base is very confusing. Done
+        public IAgreementCommonService GetCommon()
         {
-            return new AgreementBaseService(_budgetRequestListQueries, _budgetRequestCommands);
+            return new AgreementCommonService(_budgetRequestListQueries, _budgetRequestCommands);
         }
 
         public IAgreementDirectorService GetDirector()

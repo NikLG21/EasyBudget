@@ -34,11 +34,8 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     };
                     return new BudgetRequestUpdateOutput(request,"Запит був оновлений та затверджений");
                 }
-                //TODO: Please remove else
-                else
-                {
-                    return new BudgetRequestUpdateOutput(request, "Неможливо затвердити запит");
-                }
+                //TODO: Please remove else. Done
+                return new BudgetRequestUpdateOutput(request, "Неможливо затвердити запит");
             }
             catch (EntityNotFoundException)
             {

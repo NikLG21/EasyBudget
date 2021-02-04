@@ -11,12 +11,9 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
     public class AgreementFinDirectorService : IAgreementFinDirectorService
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
-        //TODO: Whe need this
-        private readonly IBudgetRequestListQueries _budgetRequestListQueries;
-        public AgreementFinDirectorService(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries)
+        public AgreementFinDirectorService(IBudgetRequestAccess budgetRequestAccess)
         {
             _budgetRequestAccess = budgetRequestAccess;
-            _budgetRequestListQueries = budgetRequestListQueries;
         }
 
         public BudgetRequestUpdateOutput PostponedByFinDirector(Guid userId, Guid id)
@@ -30,11 +27,8 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request, "Запит було успішно призупинено");
                 }
-                //TODO: Please remove else
-                else
-                {
-                    return new BudgetRequestUpdateOutput(request, "Неможливо призупинити запит");
-                }
+                //TODO: Please remove else. Done
+                return new BudgetRequestUpdateOutput(request, "Неможливо призупинити запит");
             }
             catch (EntityNotFoundException)
             {
@@ -64,11 +58,8 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     return new BudgetRequestUpdateOutput(request, "Запит успішно затверджено");
                 }
 
-                //TODO: Please remove else
-                else
-                {
-                    return new BudgetRequestUpdateOutput(request, "Неможливо затвердити");
-                }
+                //TODO: Please remove else. Done
+                return new BudgetRequestUpdateOutput(request, "Неможливо затвердити");
             }
             catch (EntityNotFoundException)
             {
@@ -97,11 +88,8 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     _budgetRequestAccess.Update(request);
                     return new BudgetRequestUpdateOutput(request, "Виконання запиту успішно завершено");
                 }
-                //TODO: Please remove else
-                else
-                {
-                    return new BudgetRequestUpdateOutput(request, "Неможливо завершити виконання запиту");
-                }
+                //TODO: Please remove else. Done
+                return new BudgetRequestUpdateOutput(request, "Неможливо завершити виконання запиту");
             }
             catch (EntityNotFoundException)
             {

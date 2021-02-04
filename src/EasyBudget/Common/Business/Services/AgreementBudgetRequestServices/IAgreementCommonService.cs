@@ -5,8 +5,8 @@ using EasyBudget.Common.Model.Security;
 
 namespace EasyBudget.Common.Business.Services.AgreementBudgetRequestServices
 {
-    //TODO: Base is very confusing. 
-    public interface IAgreementBaseService
+    //TODO: Base is very confusing. Done
+    public interface IAgreementCommonService
     {
         BudgetRequestListUpdateOutput ApproveListByRole(Guid userId, List<Guid> requestsIds,Role role);
     }

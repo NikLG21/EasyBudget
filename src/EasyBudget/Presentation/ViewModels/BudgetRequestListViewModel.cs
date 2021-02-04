@@ -19,7 +19,7 @@ namespace EasyBudget.Presentation.ViewModels
     public class BudgetRequestListViewModel: IBudgetRequestListViewModel
     {
         private readonly IBudgetRequestListServiceFactory _budgetRequestListServiceFactory;
-        private readonly IAgreementBaseService _agreementBaseService;
+        private readonly IAgreementCommonService _agreementCommonService;
         private readonly IBudgetRequestEntityFactory _requestEntityFactory;
         private readonly IAgreementServiceFactory _agreementServiceFactory;
         
@@ -44,12 +44,12 @@ namespace EasyBudget.Presentation.ViewModels
 
         public BudgetRequestListViewModel(
             IBudgetRequestListServiceFactory budgetRequestListServiceFactory,
-            IAgreementBaseService agreementBaseService,
+            IAgreementCommonService agreementCommonService,
             IBudgetRequestEntityFactory requestEntityFactory,
             IAgreementServiceFactory agreementServiceFactory)
         {
             _budgetRequestListServiceFactory = budgetRequestListServiceFactory;
-            _agreementBaseService = agreementBaseService;
+            _agreementCommonService = agreementCommonService;
             _requestEntityFactory = requestEntityFactory;
             _agreementServiceFactory = agreementServiceFactory;
 
@@ -161,7 +161,7 @@ namespace EasyBudget.Presentation.ViewModels
                 return;
             }
 
-            BudgetRequestListUpdateOutput output = _agreementBaseService.ApproveListByRole(userInfo.Id,ids, role);
+            BudgetRequestListUpdateOutput output = _agreementCommonService.ApproveListByRole(userInfo.Id,ids, role);
 
             foreach (BudgetRequestMainListDto request in output.SuccessUpdatedBudgetRequests)
             {
