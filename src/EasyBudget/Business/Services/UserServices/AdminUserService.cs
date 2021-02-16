@@ -130,19 +130,22 @@ namespace EasyBudget.Business.Services.UserServices
             {
                 if (role.Name == RoleNames.Requester | role.Name == RoleNames.Approver)
                 {
+                    //TODO: Please use  smart statement
                     if (user.Unit != null)
                     {
                         return true;
                     }
-                    //TODO: Please remove else. Done
+
                     return false;
                 }
             }
+
+            //TODO: Please use smart statement
             if (user.Unit == null)
             {
                 return true;
             }
-            //TODO: Please remove else. Done
+            
             return false;
         }
     }

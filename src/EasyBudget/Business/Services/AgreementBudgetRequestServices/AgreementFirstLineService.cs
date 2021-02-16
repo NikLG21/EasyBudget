@@ -13,6 +13,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
     public class AgreementFirstLineService : IAgreementFirstLineService
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
+        //TODO: It is not used
         private readonly IBudgetRequestListQueries _budgetRequestListQueries;
         public AgreementFirstLineService(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries)
         {
@@ -36,7 +37,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно затверджено");
                 }
-                //TODO: Please remove else. Done
+
                 return new BudgetRequestUpdateOutput(request, "Неможливо затвердити");
             }
             catch (EntityNotFoundException)
@@ -69,7 +70,7 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
                     };
                     return new BudgetRequestUpdateOutput(request, "Запит успішно відхилено");
                 }
-                //TODO: Please remove else. Done
+
                 return new BudgetRequestUpdateOutput(request, "Неможливо відхилити");
             }
             catch (EntityNotFoundException)
