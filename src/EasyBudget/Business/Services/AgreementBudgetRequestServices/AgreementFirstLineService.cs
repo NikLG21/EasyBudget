@@ -13,12 +13,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
     public class AgreementFirstLineService : IAgreementFirstLineService
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
-        //TODO: It is not used
-        private readonly IBudgetRequestListQueries _budgetRequestListQueries;
-        public AgreementFirstLineService(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries)
+        //TODO: It is not used. Done
+        
+        public AgreementFirstLineService(IBudgetRequestAccess budgetRequestAccess)
         {
             _budgetRequestAccess = budgetRequestAccess;
-            _budgetRequestListQueries = budgetRequestListQueries;
         }
 
         public BudgetRequestUpdateOutput ApproveByFirstLine(UserMainInfoDto userMainInfo, Guid id)

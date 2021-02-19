@@ -11,13 +11,11 @@ namespace EasyBudget.Business.Services.AgreementBudgetRequestServices
     public class AgreementDirectorService : IAgreementDirectorService
     {
         private readonly IBudgetRequestAccess _budgetRequestAccess;
-        //TODO: It is not used
-        private readonly IBudgetRequestListQueries _budgetRequestListQueries;
+        //TODO: It is not used. Done
 
-        public AgreementDirectorService(IBudgetRequestAccess budgetRequestAccess, IBudgetRequestListQueries budgetRequestListQueries)
+        public AgreementDirectorService(IBudgetRequestAccess budgetRequestAccess)
         {
             _budgetRequestAccess = budgetRequestAccess;
-            _budgetRequestListQueries = budgetRequestListQueries;
         }
 
         public BudgetRequestUpdateOutput ApproveByDirector(Guid userId, Guid id)

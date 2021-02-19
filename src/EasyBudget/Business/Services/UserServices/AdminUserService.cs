@@ -131,7 +131,7 @@ namespace EasyBudget.Business.Services.UserServices
                 if (role.Name == RoleNames.Requester | role.Name == RoleNames.Approver)
                 {
                     //TODO: Please use  smart statement
-                    if (user.Unit != null)
+                    if (user.Unit.Equals(null))
                     {
                         return true;
                     }
@@ -141,7 +141,7 @@ namespace EasyBudget.Business.Services.UserServices
             }
 
             //TODO: Please use smart statement
-            if (user.Unit == null)
+            if (user.Unit.Equals(null) )
             {
                 return true;
             }
