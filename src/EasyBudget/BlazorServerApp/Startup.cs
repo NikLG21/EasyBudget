@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DataAccess;
 using DataAccessCore;
 using EasyBudget.Ui;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,8 @@ namespace BlazorServerApp
             services.AddDbContext<BudgetRequestDbContextCore>(
                 o => o.UseSqlServer(Configuration.GetConnectionString("BudgetRequestDbContext")),
                 ServiceLifetime.Scoped);
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

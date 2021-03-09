@@ -27,7 +27,7 @@ namespace EasyBudget.Business.Factories
 
         public IAgreementDirectorService GetDirector()
         {
-            return new AgreementDirectorService(_budgetRequestAccess, _budgetRequestListQueries);
+            return new AgreementDirectorService(_budgetRequestAccess);
         }
 
         public IAgreementExecutorService GetExecutor()
@@ -42,7 +42,7 @@ namespace EasyBudget.Business.Factories
 
         public IAgreementFirstLineService GetFirstLine()
         {
-            return  new AgreementFirstLineService(_budgetRequestAccess, _budgetRequestListQueries);
+            return  new AgreementFirstLineService(_budgetRequestAccess);
         }
     }
 }
